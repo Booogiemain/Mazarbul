@@ -1,21 +1,20 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
-// Ícones para o menu e formulários
+// Ícones
 import {
   User,
   Shield,
   SlidersHorizontal,
   AtSign,
   Camera,
-  Mail, // Novo
-  KeyRound, // Novo
-  Bell, // Novo
-  Trash2, // Novo
+  Mail,
+  KeyRound,
+  Bell,
+  Trash2,
 } from "lucide-react";
 
 // --- COMPONENTE DE TOGGLE REUTILIZÁVEL ---
-// (Necessário para a Seção de Preferências)
 function ToggleSwitch({ enabled, setEnabled, "aria-label": ariaLabel }) {
   return (
     <button
@@ -35,6 +34,34 @@ function ToggleSwitch({ enabled, setEnabled, "aria-label": ariaLabel }) {
         }`}
       />
     </button>
+  );
+}
+
+/**
+ * SectionRow
+ * Linha padrão para os blocos 2 e 3 de cada aba.
+ * O espaçamento vertical é controlado aqui com py-5, mantendo igual ao cabeçalho.
+ * Esquerda: título/descrição. Direita: ação centralizada verticalmente.
+ */
+function SectionRow({ title, description, right, titleId }) {
+  return (
+    <div className="py-5" aria-labelledby={titleId}>
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+        <div className="sm:col-span-9">
+          <h3 id={titleId} className="text-lg font-semibold">
+            {title}
+          </h3>
+          {description ? (
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+              {description}
+            </p>
+          ) : null}
+        </div>
+        <div className="sm:col-span-3 justify-self-start sm:justify-self-end self-center">
+          {right}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -127,41 +154,33 @@ function SettingsMenuButton({ label, icon, isActive, onClick }) {
   );
 }
 
-// --- Seção 1: Perfil (Conteúdo Real) ---
+// --- Seção 1: Perfil ---
 function ProfileSection({ getT }) {
-  // Ref para o input de arquivo escondido
   const fileInputRef = useRef(null);
-
-  // Estados do formulário (com mock data)
   const [avatar, setAvatar] = useState(
     "https://placehold.co/128x128/E0E0E0/333333?text=A",
   );
   const [firstname, setFirstname] = useState("Alex");
   const [lastname, setLastname] = useState("Lima");
-  const [username] = useState("@alexl"); // Não editável
+  const [username] = useState("@alexl");
   const [bio, setBio] = useState(
     "Explorando mundos de fantasia e futuros distópicos. Foco em RPGs, cinema de autor e álbuns conceituais.",
   );
+  const [saveState, setSaveState] = useState("idle");
 
-  const [saveState, setSaveState] = useState("idle"); // idle, saving, saved
-
-  // --- CORREÇÃO: Lógica para o Upload de Avatar ---
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Cria uma URL local para preview imediato (100% frontend)
       const reader = new FileReader();
       reader.onloadend = () => {
         setAvatar(reader.result);
       };
       reader.readAsDataURL(file);
-      // O upload real para o backend/storage foi postergado
     }
   };
 
   const handleSaveProfile = (e) => {
     e.preventDefault();
-    // Simulação de chamada de API (backend postergado)
     setSaveState("saving");
     setTimeout(() => {
       setSaveState("saved");
@@ -198,13 +217,12 @@ function ProfileSection({ getT }) {
             <label className="block text-sm font-medium mb-1.5">
               {getT("settings.profile.avatar", "Foto de Perfil")}
             </label>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 mt-1.5">
               <img
                 src={avatar}
                 alt="Avatar"
                 className="w-16 h-16 rounded-full object-cover"
               />
-              {/* Input de arquivo escondido */}
               <input
                 type="file"
                 ref={fileInputRef}
@@ -213,7 +231,6 @@ function ProfileSection({ getT }) {
                 onChange={handleAvatarChange}
               />
               <div className="flex items-center gap-2">
-                {/* --- CORREÇÃO: Botão agora ativa o input --- */}
                 <button
                   type="button"
                   onClick={() => fileInputRef.current.click()}
@@ -228,7 +245,7 @@ function ProfileSection({ getT }) {
                     setAvatar(
                       "https://placehold.co/128x128/E0E0E0/333333?text=A",
                     )
-                  } // Reseta para o placeholder
+                  }
                   className="text-sm font-medium text-red-600 dark:text-red-500 px-3 py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30"
                 >
                   {getT("settings.profile.avatar.remove", "Remover")}
@@ -271,7 +288,7 @@ function ProfileSection({ getT }) {
             </div>
           </div>
 
-          {/* @username (Não editável) */}
+          {/* @username */}
           <div>
             <label
               htmlFor="username"
@@ -319,7 +336,7 @@ function ProfileSection({ getT }) {
           </div>
         </div>
 
-        {/* Footer com Botão Salvar */}
+        {/* Footer */}
         <div className="px-6 py-4 sm:px-8 border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 flex justify-end">
           <button
             type="submit"
@@ -342,19 +359,15 @@ function ProfileSection({ getT }) {
   );
 }
 
-// --- Seção 2: Conta (UI Completa) ---
+// --- Seção 2: Conta (padding e margens corrigidos) ---
 function AccountSection({ getT }) {
-  // Mock data
   const email = "alexl@exemplo.com";
-
-  // Estados dos formulários
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handlePasswordSave = (e) => {
     e.preventDefault();
-    // Lógica de backend postergada
     alert("Simulação: Senha alterada com sucesso!");
     setCurrentPassword("");
     setNewPassword("");
@@ -362,7 +375,6 @@ function AccountSection({ getT }) {
   };
 
   const handleDeleteAccount = () => {
-    // Lógica de backend postergada
     alert("Simulação: Conta excluída.");
   };
 
@@ -383,117 +395,117 @@ function AccountSection({ getT }) {
           </p>
         </div>
 
-        {/* Seção de Email */}
-        <div className="p-6 sm:p-8 space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1.5">
-              {getT("settings.account.email", "Email")}
-            </label>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <p className="text-sm text-neutral-500 dark:text-neutral-400">
+        {/* Conteúdo: sem padding-top extra; espaçamento vem das linhas (py-5) */}
+        <div className="px-6 sm:px-8 py-0">
+          {/* Email */}
+          <SectionRow
+            title={getT("settings.account.email", "Email")}
+            description={
+              <>
                 {getT(
                   "settings.account.email.subtitle",
                   "Seu email de login é",
                 )}{" "}
                 <strong>{email}</strong>
-              </p>
+              </>
+            }
+            titleId="account-email-title"
+            right={
               <button
                 type="button"
                 onClick={() =>
                   alert("Fluxo de mudança de email (backend postergado)")
                 }
-                className="flex-shrink-0 text-sm font-medium px-3.5 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800"
+                className="h-9 inline-flex items-center justify-center text-sm font-medium px-3.5 rounded-lg border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800"
               >
                 {getT("settings.account.email.change_button", "Mudar Email")}
               </button>
-            </div>
-          </div>
+            }
+          />
 
+          {/* divisor full-bleed sem margens extras */}
           <div className="border-b border-neutral-200 dark:border-neutral-800 -mx-6 sm:-mx-8"></div>
 
-          {/* Seção de Mudar Senha */}
-          <form onSubmit={handlePasswordSave} className="space-y-4">
-            <h3 className="text-base font-medium">
+          {/* Mudar Senha (terceiro bloco com py-5) */}
+          <div className="py-5">
+            <h3 className="text-lg font-semibold">
               {getT("settings.account.password.subtitle", "Mudar Senha")}
             </h3>
+            <form onSubmit={handlePasswordSave} className="space-y-4 mt-4">
+              <div>
+                <label
+                  htmlFor="currentPassword"
+                  className="block text-sm font-medium mb-1.5"
+                >
+                  {getT("settings.account.password.current", "Senha Atual")}
+                </label>
+                <input
+                  type="password"
+                  id="currentPassword"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className="w-full sm:max-w-md px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                />
+              </div>
 
-            {/* Senha Atual */}
-            <div>
-              <label
-                htmlFor="currentPassword"
-                className="block text-sm font-medium mb-1.5"
-              >
-                {getT("settings.account.password.current", "Senha Atual")}
-              </label>
-              <input
-                type="password"
-                id="currentPassword"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-                className="w-full sm:max-w-xs px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              />
-            </div>
+              <div>
+                <label
+                  htmlFor="newPassword"
+                  className="block text-sm font-medium mb-1.5"
+                >
+                  {getT("settings.account.password.new", "Nova Senha")}
+                </label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full sm:max-w-md px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                />
+              </div>
 
-            {/* Nova Senha */}
-            <div>
-              <label
-                htmlFor="newPassword"
-                className="block text-sm font-medium mb-1.5"
-              >
-                {getT("settings.account.password.new", "Nova Senha")}
-              </label>
-              <input
-                type="password"
-                id="newPassword"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full sm:max-w-xs px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              />
-            </div>
+              <div>
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium mb-1.5"
+                >
+                  {getT(
+                    "settings.account.password.confirm",
+                    "Confirmar Nova Senha",
+                  )}
+                </label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full sm:max-w-md px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                />
+              </div>
 
-            {/* Confirmar Nova Senha */}
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium mb-1.5"
-              >
-                {getT(
-                  "settings.account.password.confirm",
-                  "Confirmar Nova Senha",
-                )}
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full sm:max-w-xs px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              />
-            </div>
-
-            {/* Footer com Botão Salvar Senha */}
-            <div className="pt-2">
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
-              >
-                {getT(
-                  "settings.account.password.save_button",
-                  "Salvar Nova Senha",
-                )}
-              </button>
-            </div>
-          </form>
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900"
+                >
+                  {getT(
+                    "settings.account.password.save_button",
+                    "Salvar Nova Senha",
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
-      {/* Card da Zona de Perigo */}
+      {/* Zona de Perigo */}
       <div className="rounded-2xl border border-red-500/50 dark:border-red-500/30 bg-white dark:bg-neutral-900 overflow-hidden">
-        <div className="px-6 py-5 sm:px-8">
+        <div className="p-6 sm:p-8">
           <h3 className="text-lg font-semibold text-red-600 dark:text-red-500">
             {getT("settings.account.danger_zone", "Zona de Perigo")}
           </h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
             {getT(
               "settings.account.delete.text",
               "Esta ação é permanente e irreversível.",
@@ -513,18 +525,14 @@ function AccountSection({ getT }) {
   );
 }
 
-// --- Seção 3: Preferências (UI Completa) ---
+// --- Seção 3: Preferências (padding e margens corrigidos) ---
 function PreferencesSection({ getT }) {
-  // Estados dos toggles
   const [isPrivate, setIsPrivate] = useState(false);
   const [emailNotifications, setEmailNotifications] = useState(true);
-
-  // Estado do botão Salvar
   const [saveState, setSaveState] = useState("idle");
 
   const handleSavePrefs = (e) => {
     e.preventDefault();
-    // Simulação de chamada de API
     setSaveState("saving");
     setTimeout(() => {
       setSaveState("saved");
@@ -556,28 +564,16 @@ function PreferencesSection({ getT }) {
         </p>
       </div>
 
-      {/* Conteúdo */}
-      <div className="p-6 sm:p-8 space-y-6">
-        {/* Seção Privacidade */}
-        <div>
-          <h3 className="text-base font-medium">
-            {getT("settings.preferences.privacy", "Privacidade")}
-          </h3>
-          <div className="flex items-center justify-between mt-4">
-            <div>
-              <label htmlFor="privateProfile" className="font-medium">
-                {getT(
-                  "settings.preferences.privacy.private_profile",
-                  "Perfil Privado",
-                )}
-              </label>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                {getT(
-                  "settings.preferences.privacy.private_profile.desc",
-                  "Se ativado, seu perfil e atividades só serão visíveis para você.",
-                )}
-              </p>
-            </div>
+      {/* Conteúdo: sem padding-top; cada linha tem py-5 */}
+      <div className="px-6 sm:px-8 py-0">
+        <SectionRow
+          title={getT("settings.preferences.privacy", "Privacidade")}
+          description={getT(
+            "settings.preferences.privacy.private_profile.desc",
+            "Se ativado, seu perfil e atividades só serão visíveis para você.",
+          )}
+          titleId="preferences-privacy-title"
+          right={
             <ToggleSwitch
               enabled={isPrivate}
               setEnabled={setIsPrivate}
@@ -586,31 +582,19 @@ function PreferencesSection({ getT }) {
                 "Perfil Privado",
               )}
             />
-          </div>
-        </div>
+          }
+        />
 
         <div className="border-b border-neutral-200 dark:border-neutral-800 -mx-6 sm:-mx-8"></div>
 
-        {/* Seção Notificações */}
-        <div>
-          <h3 className="text-base font-medium">
-            {getT("settings.preferences.notifications", "Notificações")}
-          </h3>
-          <div className="flex items-center justify-between mt-4">
-            <div>
-              <label htmlFor="emailNotifications" className="font-medium">
-                {getT(
-                  "settings.preferences.notifications.email.title",
-                  "Notificações por Email",
-                )}
-              </label>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                {getT(
-                  "settings.preferences.notifications.email.desc",
-                  "Receber emails quando alguém seguir você ou comentar em suas reviews.",
-                )}
-              </p>
-            </div>
+        <SectionRow
+          title={getT("settings.preferences.notifications", "Notificações")}
+          description={getT(
+            "settings.preferences.notifications.email.desc",
+            "Receber emails quando alguém seguir você ou comentar em suas reviews.",
+          )}
+          titleId="preferences-notifications-title"
+          right={
             <ToggleSwitch
               enabled={emailNotifications}
               setEnabled={setEmailNotifications}
@@ -619,11 +603,11 @@ function PreferencesSection({ getT }) {
                 "Notificações por Email",
               )}
             />
-          </div>
-        </div>
+          }
+        />
       </div>
 
-      {/* Footer com Botão Salvar */}
+      {/* Footer */}
       <div className="px-6 py-4 sm:px-8 border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 flex justify-end">
         <button
           type="submit"
@@ -636,8 +620,8 @@ function PreferencesSection({ getT }) {
         >
           {getButtonText(
             "settings.preferences.save_button",
-            "settings.profile.save_button.saving", // Reutiliza a chave "Salvando..."
-            "settings.profile.save_button.saved", // Reutiliza a chave "Salvo!"
+            "settings.profile.save_button.saving",
+            "settings.profile.save_button.saved",
           )}
         </button>
       </div>
