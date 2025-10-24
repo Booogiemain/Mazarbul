@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Import 'Link' já estava aqui
 import { Sun, Moon, User, Settings, Search as SearchIcon } from "lucide-react";
 
 function HeaderBar({ theme, setTheme, lang, setLang, t }) {
@@ -15,9 +15,21 @@ function HeaderBar({ theme, setTheme, lang, setLang, t }) {
   }, [searchOpen]);
 
   function handleSearchSubmit(q) {
-    alert(`Buscar por: ${q}`);
+    alert(`Buscar por: ${q}`); // Placeholder
     setSearchOpen(false);
   }
+
+  // Função 'safeT' para garantir que 't' seja uma função
+  const safeT = (key, fallback) => {
+    if (typeof t === "function") {
+      const translated = t(key);
+      if (translated === key && fallback) {
+        return fallback;
+      }
+      return translated;
+    }
+    return fallback || key;
+  };
 
   return (
     <header className="fixed top-0 inset-x-0 z-40 h-20 bg-transparent">
@@ -27,7 +39,7 @@ function HeaderBar({ theme, setTheme, lang, setLang, t }) {
             {!searchOpen ? (
               <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 px-3 py-2">
                 <button
-                  aria-label={t("a11y.open_search")}
+                  aria-label={safeT("a11y.open_search", "Abrir busca")}
                   onClick={() => setSearchOpen(true)}
                   className="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800"
                 >
@@ -40,7 +52,7 @@ function HeaderBar({ theme, setTheme, lang, setLang, t }) {
                 </div>
                 <div className="flex items-center justify-end gap-2">
                   <button
-                    aria-label="Alternar tema"
+                    aria-label={safeT("a11y.toggle_theme", "Alternar tema")}
                     onClick={() =>
                       setTheme(theme === "dark" ? "light" : "dark")
                     }
@@ -54,7 +66,7 @@ function HeaderBar({ theme, setTheme, lang, setLang, t }) {
                   </button>
                   <div className="relative">
                     <button
-                      aria-label="Language"
+                      aria-label={safeT("a11y.toggle_language", "Mudar idioma")}
                       onClick={() => setLangOpen((v) => !v)}
                       className="h-9 px-3 inline-flex items-center justify-center rounded-xl border border-neutral-200 dark:border-neutral-700 text-sm leading-none font-medium"
                     >
@@ -79,17 +91,20 @@ function HeaderBar({ theme, setTheme, lang, setLang, t }) {
                       </div>
                     )}
                   </div>
-                  <button
-                    aria-label="Configurações"
+
+                  {/* --- MUDANÇA AQUI --- */}
+                  <Link
+                    to="/settings"
+                    aria-label={safeT("a11y.settings_page", "Configurações")}
                     className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800"
                   >
                     <Settings className="w-5 h-5" />
-                  </button>
+                  </Link>
+                  {/* --- FIM DA MUDANÇA --- */}
 
-                  {/* A MUDANÇA ESTÁ AQUI: O link agora aponta para /dashboard */}
                   <Link
                     to="/dashboard"
-                    aria-label="Meu perfil"
+                    aria-label={safeT("a11y.user_profile", "Meu perfil")}
                     className="h-9 w-9 inline-flex items-center justify-center rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800"
                   >
                     <User className="w-5 h-5" />
@@ -113,7 +128,7 @@ function HeaderBar({ theme, setTheme, lang, setLang, t }) {
                     if (e.key === "Escape") setSearchOpen(false);
                   }}
                   className="flex-1 bg-transparent outline-none placeholder:text-neutral-400 text-sm py-2"
-                  placeholder={t("search.placeholder")}
+                  placeholder={safeT("search.placeholder", "Busca rápida...")}
                 />
               </form>
             )}

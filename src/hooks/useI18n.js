@@ -3,7 +3,102 @@ import { useState, useEffect } from "react";
 // DICIONÁRIO COMPLETO, INCLUINDO AS NOVAS CHAVES
 const I18N = {
   PT: {
+    // --- CHAVES (Página de Configurações) ---
+    "settings.title": "Configurações",
+    "settings.nav.profile": "Perfil",
+    "settings.nav.account": "Conta",
+    "settings.nav.preferences": "Preferências",
+    "settings.profile.title": "Perfil Público",
+    "settings.profile.subtitle": "Como você aparece para outros no Mazarbul.",
+    "settings.profile.avatar": "Foto de Perfil",
+    "settings.profile.avatar.change": "Mudar foto",
+    "settings.profile.avatar.remove": "Remover",
+    "settings.profile.firstname": "Nome",
+    "settings.profile.lastname": "Sobrenome",
+    "settings.profile.username": "Nome de usuário (@)",
+    "settings.profile.username.locked":
+      "Nomes de usuário não podem ser alterados.",
+    "settings.profile.bio": "Sua Bio",
+    "settings.profile.bio.placeholder": "Escreva um pouco sobre você...",
+    "settings.profile.save_button": "Salvar alterações do Perfil",
+    "settings.profile.save_button.saving": "Salvando...",
+    "settings.profile.save_button.saved": "Salvo!",
+    "settings.account.title": "Conta",
+    "settings.account.subtitle":
+      "Gerencie suas informações de login e segurança.",
+    "settings.account.email": "Email",
+    "settings.account.email.subtitle": "Seu email de login é",
+    "settings.account.email.change_button": "Mudar Email",
+    "settings.account.password": "Senha",
+    "settings.account.password.subtitle": "Mudar Senha",
+    "settings.account.password.current": "Senha Atual",
+    "settings.account.password.new": "Nova Senha",
+    "settings.account.password.confirm": "Confirmar Nova Senha",
+    "settings.account.password.save_button": "Salvar Nova Senha",
+    "settings.account.danger_zone": "Zona de Perigo",
+    "settings.account.delete.button": "Excluir minha conta",
+    "settings.account.delete.text": "Esta ação é permanente e irreversível.",
+    "settings.preferences.title": "Preferências",
+    "settings.preferences.subtitle":
+      "Controle a privacidade do seu perfil e notificações.",
+    "settings.preferences.privacy": "Privacidade",
+    "settings.preferences.privacy.private_profile": "Perfil Privado",
+    "settings.preferences.privacy.private_profile.desc":
+      "Se ativado, seu perfil e atividades só serão visíveis para você.",
+    "settings.preferences.notifications": "Notificações",
+    "settings.preferences.notifications.email.title": "Notificações por Email",
+    "settings.preferences.notifications.email.desc":
+      "Receber emails quando alguém seguir você ou comentar em suas reviews.",
+    "settings.preferences.save_button": "Salvar Preferências",
+
+    // --- CHAVES DE AUTENTICAÇÃO ---
+    "login.title": "Login",
+    "login.subtitle": "Acesse sua conta Mazarbul.",
+    "login.forgot_password": "Esqueceu a senha?",
+    "login.button": "Entrar",
+    "login.no_account": "Ainda não tem uma conta?",
+    "login.register_link": "Cadastre-se",
+    "register.title": "Criar sua conta",
+    "register.subtitle": "Junte-se à comunidade Mazarbul.",
+    "register.button": "Criar conta",
+    "register.already_have_account": "Já tem uma conta?",
+    "register.login_link": "Faça login",
+    "forgot.title": "Recuperar Senha",
+    "forgot.subtitle":
+      "Insira seu e-mail e enviaremos um link para criar uma nova senha.",
+    "forgot.button": "Enviar link de recuperação",
+    "forgot.back_to_login": "Lembrou a senha? Voltar para o Login",
+    "forgot.success_title": "Link enviado!",
+    "forgot.success_text":
+      "Verifique sua caixa de entrada (e pasta de spam) nos próximos minutos.",
+
+    // --- NOVAS CHAVES (Resetar Senha) ---
+    "reset.title": "Crie sua nova senha",
+    "reset.subtitle": "Quase lá! Insira sua nova senha abaixo.",
+    "reset.button": "Salvar Nova Senha",
+    "reset.success.title": "Senha Redefinida!",
+    "reset.success.subtitle": "Sua senha foi alterada com sucesso.",
+    "reset.success.button": "Ir para o Login",
+
+    // --- CHAVES (Formulário) ---
+    "form.firstname": "Nome",
+    "form.lastname": "Sobrenome",
+    "form.email": "Email",
+    "form.username": "Nome de usuário (@)",
+    "form.username_rules":
+      "4-20 caracteres. Apenas letras, números e underscores (_).",
+    "form.password": "Senha",
+    "form.confirm_password": "Confirmar senha",
+    "nav.back_home": "Voltar para o início",
+    "alert.username_invalid_format": "Formato do @username inválido.",
+    "alert.password_mismatch": "As senhas não conferem!",
+
+    // --- CHAVES EXISTENTES ---
     "a11y.open_search": "Abrir busca",
+    "a11y.toggle_theme": "Alternar tema",
+    "a11y.toggle_language": "Mudar idioma",
+    "a11y.settings_page": "Configurações",
+    "a11y.user_profile": "Meu perfil",
     "search.placeholder": "Busca rápida...",
     "section.achievements": "Conquistas",
     "section.favorites": "Favoritos",
@@ -70,7 +165,101 @@ const I18N = {
     "badge.topreviewer": "Top 1% resenhistas",
   },
   EN: {
+    // --- CHAVES (Página de Configurações) ---
+    "settings.title": "Settings",
+    "settings.nav.profile": "Profile",
+    "settings.nav.account": "Account",
+    "settings.nav.preferences": "Preferences",
+    "settings.profile.title": "Public Profile",
+    "settings.profile.subtitle": "How you appear to others on Mazarbul.",
+    "settings.profile.avatar": "Profile Photo",
+    "settings.profile.avatar.change": "Change photo",
+    "settings.profile.avatar.remove": "Remove",
+    "settings.profile.firstname": "First Name",
+    "settings.profile.lastname": "Last Name",
+    "settings.profile.username": "Username (@)",
+    "settings.profile.username.locked": "Usernames cannot be changed.",
+    "settings.profile.bio": "Your Bio",
+    "settings.profile.bio.placeholder": "Write a little about yourself...",
+    "settings.profile.save_button": "Save Profile Changes",
+    "settings.profile.save_button.saving": "Saving...",
+    "settings.profile.save_button.saved": "Saved!",
+    "settings.account.title": "Account",
+    "settings.account.subtitle": "Manage your login and security information.",
+    "settings.account.email": "Email",
+    "settings.account.email.subtitle": "Your login email is",
+    "settings.account.email.change_button": "Change Email",
+    "settings.account.password": "Password",
+    "settings.account.password.subtitle": "Change Password",
+    "settings.account.password.current": "Current Password",
+    "settings.account.password.new": "New Password",
+    "settings.account.password.confirm": "Confirm New Password",
+    "settings.account.password.save_button": "Save New Password",
+    "settings.account.danger_zone": "Danger Zone",
+    "settings.account.delete.button": "Delete my account",
+    "settings.account.delete.text":
+      "This action is permanent and irreversible.",
+    "settings.preferences.title": "Preferences",
+    "settings.preferences.subtitle":
+      "Control your profile privacy and notifications.",
+    "settings.preferences.privacy": "Privacy",
+    "settings.preferences.privacy.private_profile": "Private Profile",
+    "settings.preferences.privacy.private_profile.desc":
+      "If enabled, your profile and activities will only be visible to you.",
+    "settings.preferences.notifications": "Notifications",
+    "settings.preferences.notifications.email.title": "Email Notifications",
+    "settings.preferences.notifications.email.desc":
+      "Receive emails when someone follows you or comments on your reviews.",
+    "settings.preferences.save_button": "Save Preferences",
+
+    // --- CHAVES DE AUTENTICAÇÃO ---
+    "login.title": "Login",
+    "login.subtitle": "Access your Mazarbul account.",
+    "login.forgot_password": "Forgot password?",
+    "login.button": "Sign In",
+    "login.no_account": "Don't have an account yet?",
+    "login.register_link": "Sign up",
+    "register.title": "Create your account",
+    "register.subtitle": "Join the Mazarbul community.",
+    "register.button": "Create account",
+    "register.already_have_account": "Already have an account?",
+    "register.login_link": "Sign in",
+    "forgot.title": "Recover Password",
+    "forgot.subtitle":
+      "Enter your email and we'll send a link to create a new password.",
+    "forgot.button": "Send recovery link",
+    "forgot.back_to_login": "Remembered your password? Back to Login",
+    "forgot.success_title": "Link sent!",
+    "forgot.success_text":
+      "Check your inbox (and spam folder) in the next few minutes.",
+
+    // --- NOVAS CHAVES (Resetar Senha) ---
+    "reset.title": "Create your new password",
+    "reset.subtitle": "Almost there! Enter your new password below.",
+    "reset.button": "Save New Password",
+    "reset.success.title": "Password Reset!",
+    "reset.success.subtitle": "Your password has been changed successfully.",
+    "reset.success.button": "Go to Login",
+
+    // --- CHAVES (Formulário) ---
+    "form.firstname": "First Name",
+    "form.lastname": "Last Name",
+    "form.email": "Email",
+    "form.username": "Username (@)",
+    "form.username_rules":
+      "4-20 characters. Letters, numbers, and underscores (_) only.",
+    "form.password": "Password",
+    "form.confirm_password": "Confirm password",
+    "nav.back_home": "Back to home",
+    "alert.username_invalid_format": "@username format is invalid.",
+    "alert.password_mismatch": "Passwords do not match!",
+
+    // --- CHAVES EXISTENTES ---
     "a11y.open_search": "Open search",
+    "a11y.toggle_theme": "Toggle theme",
+    "a11y.toggle_language": "Change language",
+    "a11y.settings_page": "Settings",
+    "a11y.user_profile": "My profile",
     "search.placeholder": "Quick search...",
     "section.achievements": "Achievements",
     "section.favorites": "Favorites",
@@ -137,7 +326,105 @@ const I18N = {
     "badge.topreviewer": "Top 1% reviewer",
   },
   ES: {
+    // --- CHAVES (Página de Configurações) ---
+    "settings.title": "Configuración",
+    "settings.nav.profile": "Perfil",
+    "settings.nav.account": "Cuenta",
+    "settings.nav.preferences": "Preferencias",
+    "settings.profile.title": "Perfil Público",
+    "settings.profile.subtitle": "Cómo te ven los demás en Mazarbul.",
+    "settings.profile.avatar": "Foto de Perfil",
+    "settings.profile.avatar.change": "Cambiar foto",
+    "settings.profile.avatar.remove": "Eliminar",
+    "settings.profile.firstname": "Nombre",
+    "settings.profile.lastname": "Apellido",
+    "settings.profile.username": "Nombre de usuario (@)",
+    "settings.profile.username.locked":
+      "Los nombres de usuario no se pueden cambiar.",
+    "settings.profile.bio": "Tu Biografía",
+    "settings.profile.bio.placeholder": "Escribe un poco sobre ti...",
+    "settings.profile.save_button": "Guardar cambios del Perfil",
+    "settings.profile.save_button.saving": "Guardando...",
+    "settings.profile.save_button.saved": "¡Guardado!",
+    "settings.account.title": "Cuenta",
+    "settings.account.subtitle":
+      "Gestiona tu información de inicio de sesión y seguridad.",
+    "settings.account.email": "Correo electrónico",
+    "settings.account.email.subtitle": "Tu correo de inicio de sesión es",
+    "settings.account.email.change_button": "Cambiar Correo",
+    "settings.account.password": "Contraseña",
+    "settings.account.password.subtitle": "Cambiar Contraseña",
+    "settings.account.password.current": "Contraseña Actual",
+    "settings.account.password.new": "Nueva Contraseña",
+    "settings.account.password.confirm": "Confirmar Nueva Contraseña",
+    "settings.account.password.save_button": "Guardar Nueva Contraseña",
+    "settings.account.danger_zone": "Zona de Peligro",
+    "settings.account.delete.button": "Eliminar mi cuenta",
+    "settings.account.delete.text": "Esta acción es permanente e irreversible.",
+    "settings.preferences.title": "Preferencias",
+    "settings.preferences.subtitle":
+      "Controla la privacidad de tu perfil y notificaciones.",
+    "settings.preferences.privacy": "Privacidad",
+    "settings.preferences.privacy.private_profile": "Perfil Privado",
+    "settings.preferences.privacy.private_profile.desc":
+      "Si está activado, tu perfil y actividades solo serán visibles para ti.",
+    "settings.preferences.notifications": "Notificaciones",
+    "settings.preferences.notifications.email.title":
+      "Notificaciones por Correo",
+    "settings.preferences.notifications.email.desc":
+      "Recibir correos cuando alguien te siga o comente en tus reseñas.",
+    "settings.preferences.save_button": "Guardar Preferencias",
+
+    // --- CHAVES DE AUTENTICAÇÃO ---
+    "login.title": "Iniciar sesión",
+    "login.subtitle": "Accede a tu cuenta Mazarbul.",
+    "login.forgot_password": "¿Olvidaste tu contraseña?",
+    "login.button": "Entrar",
+    "login.no_account": "¿Aún no tienes una cuenta?",
+    "login.register_link": "Regístrate",
+    "register.title": "Crea tu cuenta",
+    "register.subtitle": "Únete a la comunidad Mazarbul.",
+    "register.button": "Crear cuenta",
+    "register.already_have_account": "¿Ya tienes una cuenta?",
+    "register.login_link": "Iniciar sesión",
+    "forgot.title": "Recuperar Contraseña",
+    "forgot.subtitle":
+      "Ingresa tu correo y te enviaremos un enlace para crear una nueva contraseña.",
+    "forgot.button": "Enviar enlace de recuperación",
+    "forgot.back_to_login":
+      "¿Recordaste tu contraseña? Volver a Iniciar Sesión",
+    "forgot.success_title": "¡Enlace enviado!",
+    "forgot.success_text":
+      "Revisa tu bandeja de entrada (y la carpeta de spam) en los próximos minutos.",
+
+    // --- NOVAS CHAVES (Resetar Senha) ---
+    "reset.title": "Crea tu nueva contraseña",
+    "reset.subtitle":
+      "¡Casi listo! Ingresa tu nueva contraseña a continuación.",
+    "reset.button": "Guardar Nueva Contraseña",
+    "reset.success.title": "¡Contraseña Restablecida!",
+    "reset.success.subtitle": "Tu contraseña ha sido cambiada exitosamente.",
+    "reset.success.button": "Ir a Iniciar Sesión",
+
+    // --- CHAVES (Formulário) ---
+    "form.firstname": "Nombre",
+    "form.lastname": "Apellido",
+    "form.email": "Correo electrónico",
+    "form.username": "Nombre de usuario (@)",
+    "form.username_rules":
+      "4-20 caracteres. Solo letras, números y guiones bajos (_).",
+    "form.password": "Contraseña",
+    "form.confirm_password": "Confirmar contraseña",
+    "nav.back_home": "Volver al inicio",
+    "alert.username_invalid_format": "El formato del @username no es válido.",
+    "alert.password_mismatch": "¡Las contraseñas no coinciden!",
+
+    // --- CHAVES EXISTENTES ---
     "a11y.open_search": "Abrir búsqueda",
+    "a11y.toggle_theme": "Alternar tema",
+    "a11y.toggle_language": "Cambiar idioma",
+    "a11y.settings_page": "Configuración",
+    "a11y.user_profile": "Mi perfil",
     "search.placeholder": "Búsqueda rápida...",
     "section.achievements": "Logros",
     "section.favorites": "Favoritos",
@@ -196,11 +483,11 @@ const I18N = {
     "tag.rock": "Rock",
     "tag.conceitual": "Conceptual",
     "tag.ciberpunk": "Ciberpunk",
-    "tag.alternativo": "Alternativo",
+    "tag.alternativo": "Alternative",
     "badge.52books": "52 libros en 2024",
-    "badge.12games": "12 juegos en 2024",
+    "badge.12games": "12 juegos em 2024",
     "badge.clubreader": "Lectura colectiva de club",
-    "badge.52films": "52 películas en 2024",
+    "badge.52films": "52 películas em 2024",
     "badge.topreviewer": "Top 1% reseñadores",
   },
 };
@@ -221,6 +508,7 @@ export function useI18n() {
     }
   }, [lang]);
 
+  // Usando a sua lógica original, que já é robusta
   const t = (key) => {
     return (I18N[lang] && I18N[lang][key]) || I18N.PT[key] || key;
   };
