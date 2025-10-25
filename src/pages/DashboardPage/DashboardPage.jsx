@@ -9,7 +9,7 @@ import FavoritesSection from "../../components/user/FavoritesSection/FavoritesSe
 import BadgesRibbon from "../../components/user/BadgesRibbon/BadgesRibbon.jsx";
 import ReviewsPanel from "../../components/user/ReviewsPanel/ReviewsPanel.jsx";
 import ActivityCalendar from "../../components/dashboard/ActivityCalendar/ActivityCalendar.jsx";
-import CollectionList from "../../components/dashboard/CollectionList/CollectionList.jsx"; // 1. Importar o novo componente
+import CollectionList from "../../components/dashboard/CollectionList/CollectionList.jsx";
 
 // ==========================
 // Componente da Página do Dashboard do USUÁRIO LOGADO
@@ -75,9 +75,15 @@ export default function DashboardPage({ theme, setTheme, lang, setLang, t }) {
               ref={rightColumnRef}
               className="lg:col-span-5 flex flex-col gap-8"
             >
-              <ActivityCalendar reviews={reviews} t={t} />
+              {/* ===== A ÚNICA ALTERAÇÃO ESTÁ AQUI ===== */}
+              {/* Este 'div' com margem no topo empurra o calendário para baixo,
+                  alinhando o topo do card do calendário com o topo do card de reviews.
+                  A margem 'mt-9' (2.25rem) corresponde exatamente à altura do
+                  título "Reviews recentes" mais sua margem inferior. */}
+              <div className="mt-9">
+                <ActivityCalendar reviews={reviews} t={t} />
+              </div>
 
-              {/* 2. Substituindo o placeholder pelo componente real */}
               <CollectionList collections={collections} t={t} />
             </div>
           </section>

@@ -2,7 +2,7 @@ import React from "react";
 import { ChevronRight } from "lucide-react";
 
 // Componente para o cabeçalho de uma seção, com título, ícone e filtros.
-function SectionHeader({ title, href, icon, filters }) {
+function SectionHeader({ title, href, icon, filters, t }) {
   return (
     <div className="mb-3 grid grid-cols-[auto_1fr_auto] items-center gap-2">
       {/* Lado esquerdo: Ícone e Título */}
@@ -24,7 +24,7 @@ function SectionHeader({ title, href, icon, filters }) {
       <div className="justify-self-end">
         {href ? (
           <button className="h-8 px-3 inline-flex items-center justify-center gap-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-sm leading-none font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800/60">
-            <span className="leading-none">Explorar</span>
+            <span className="leading-none">{t("action.explore")}</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         ) : (

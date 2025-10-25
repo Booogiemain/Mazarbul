@@ -506,6 +506,7 @@ export default function HomePage({ theme, setTheme, lang, setLang, t }) {
                   icon={<StarIcon className="w-4 h-4" />}
                   href="#"
                   filters={renderCategoryChips(filterHigh, setFilterHigh)}
+                  t={t}
                 />
                 <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
                   {highlights.map((m) => (
@@ -525,6 +526,7 @@ export default function HomePage({ theme, setTheme, lang, setLang, t }) {
                   icon={<Clock className="w-4 h-4" />}
                   href="#"
                   filters={renderCategoryChips(filterRecent, setFilterRecent)}
+                  t={t}
                 />
                 <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
                   {recents.map((m) => (
@@ -543,6 +545,7 @@ export default function HomePage({ theme, setTheme, lang, setLang, t }) {
                   title={t("section.clubs")}
                   icon={<Users className="w-4 h-4" />}
                   href="#"
+                  t={t}
                 />
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {clubs.map((c) => (
@@ -579,6 +582,7 @@ export default function HomePage({ theme, setTheme, lang, setLang, t }) {
               <SectionHeader
                 title={t("section.friends")}
                 icon={<MessageSquare className="w-4 h-4" />}
+                t={t}
               />
               <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 divide-y divide-neutral-200 dark:divide-neutral-800 flex-1 min-h-0 max-h-full overflow-y-auto">
                 {friendsFeed.map((f) => (
