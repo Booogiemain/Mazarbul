@@ -8,12 +8,18 @@ export default function TechnicalDetails({ details, type, t, lang }) {
 
   // Função para renderizar um par de chave-valor da ficha técnica
   const renderDetailItem = (labelKey, value) => {
+    // Se o valor não existir, não renderiza a linha
+    if (!value) {
+      return null;
+    }
+
     let displayValue = value;
 
-    // A CORREÇÃO ESTÁ AQUI: Nova lógica para lidar com arrays (Gênero)
+    // Lida com arrays de tags (Gênero)
     if (Array.isArray(value)) {
       displayValue = value.map((key) => t(key)).join(", ");
     } else if (
+      // Lida com objetos de tradução (País)
       typeof value === "object" &&
       value !== null &&
       value[lang.toUpperCase()]
@@ -42,6 +48,7 @@ export default function TechnicalDetails({ details, type, t, lang }) {
         {t("section.techDetails")}
       </h2>
       <dl>
+        {/* --- DETALHES PARA FILMES --- */}
         {type === "filme" && (
           <>
             {renderDetailItem("details.director", details.Diretor)}
@@ -51,6 +58,19 @@ export default function TechnicalDetails({ details, type, t, lang }) {
             {renderDetailItem("details.country", details.País)}
           </>
         )}
+
+        {/* --- DETALHES PARA LIVROS --- */}
+        {type === "livro" && (
+          <>
+            {renderDetailItem("details.author", details.Autor)}
+            {renderDetailItem("details.pages", details.Páginas)}
+            {renderDetailItem("details.genre", details.Gênero)}
+            {renderDetailItem("details.year", details.Ano)}
+            {renderDetailItem("details.country", details.País)}
+          </>
+        )}
+
+        {/* --- Adicionar blocos para outros tipos de mídia (jogos, álbuns) aqui no futuro --- */}
       </dl>
     </div>
   );

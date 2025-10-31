@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 // DICIONÁRIO COMPLETO, INCLUINDO AS NOVAS CHAVES
 const I18N = {
   PT: {
+    // --- CHAVES (Detalhes da Mídia) ---
+    "details.author": "Autor",
+    "details.pages": "Páginas",
+
     // --- CHAVES (Página de Configurações) ---
     "settings.title": "Configurações",
     "settings.nav.profile": "Perfil",
@@ -158,6 +162,8 @@ const I18N = {
     "tag.conceitual": "Conceitual",
     "tag.ciberpunk": "Ciberpunk",
     "tag.alternativo": "Alternativo",
+    "tag.acao": "Ação", // ADICIONADO
+    "tag.romance": "Romance", // ADICIONADO
     "badge.52books": "52 livros em 2024",
     "badge.12games": "12 jogos em 2024",
     "badge.clubreader": "Leitura coletiva de clube",
@@ -165,6 +171,10 @@ const I18N = {
     "badge.topreviewer": "Top 1% resenhistas",
   },
   EN: {
+    // --- CHAVES (Detalhes da Mídia) ---
+    "details.author": "Author",
+    "details.pages": "Pages",
+
     // --- CHAVES (Página de Configurações) ---
     "settings.title": "Settings",
     "settings.nav.profile": "Profile",
@@ -319,6 +329,8 @@ const I18N = {
     "tag.conceitual": "Conceptual",
     "tag.ciberpunk": "Cyberpunk",
     "tag.alternativo": "Alternative",
+    "tag.acao": "Action", // ADICIONADO
+    "tag.romance": "Romance", // ADICIONADO
     "badge.52books": "52 books in 2024",
     "badge.12games": "12 games in 2024",
     "badge.clubreader": "Book club collective reading",
@@ -326,6 +338,10 @@ const I18N = {
     "badge.topreviewer": "Top 1% reviewer",
   },
   ES: {
+    // --- CHAVES (Detalhes da Mídia) ---
+    "details.author": "Autor",
+    "details.pages": "Páginas",
+
     // --- CHAVES (Página de Configurações) ---
     "settings.title": "Configuración",
     "settings.nav.profile": "Perfil",
@@ -484,6 +500,8 @@ const I18N = {
     "tag.conceitual": "Conceptual",
     "tag.ciberpunk": "Ciberpunk",
     "tag.alternativo": "Alternative",
+    "tag.acao": "Acción", // ADICIONADO
+    "tag.romance": "Romance", // ADICIONADO
     "badge.52books": "52 libros en 2024",
     "badge.12games": "12 juegos em 2024",
     "badge.clubreader": "Lectura colectiva de club",

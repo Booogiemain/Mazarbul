@@ -138,19 +138,19 @@ export default function MediaDetailsPage({
               )}
             </div>
             <div className="lg:col-span-5">
-              {mediaData.communityAverage !== undefined && (
-                <UserReviewEditor
-                  communityAverage={mediaData.communityAverage}
-                  t={t}
-                />
-              )}
+              {/* --- ALTERAÇÃO AQUI: Removida a condição para sempre mostrar a review do usuário --- */}
+              <UserReviewEditor
+                communityAverage={mediaData.communityAverage}
+                t={t}
+              />
             </div>
           </section>
 
-          {/* A CORREÇÃO ESTÁ AQUI: Usando t() para o título */}
-          {mediaData.communityReviews && (
-            <CommunityReviewsFeed reviews={mediaData.communityReviews} t={t} />
-          )}
+          {/* --- ALTERAÇÃO AQUI: Removida a condição para sempre mostrar a seção de reviews da comunidade --- */}
+          <CommunityReviewsFeed
+            reviews={mediaData.communityReviews || []}
+            t={t}
+          />
         </main>
       </div>
     </div>

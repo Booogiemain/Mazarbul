@@ -5,7 +5,7 @@ import { useMemo } from "react";
 // ==========================
 
 // --- DADOS DE MÍDIA DETALHADOS ---
-const mediaDatabase = {
+export const mediaDatabase = {
   m1: {
     id: "m1",
     type: "filme",
@@ -28,7 +28,6 @@ const mediaDatabase = {
       Duração: "2h 46min",
       Gênero: ["tag.scifi", "tag.aventura"],
       Ano: "2024",
-      // A CORREÇÃO ESTÁ AQUI: Voltando a usar um objeto para tradução, com nomes completos.
       País: {
         PT: "Estados Unidos",
         EN: "United States",
@@ -41,21 +40,96 @@ const mediaDatabase = {
         id: "cr1",
         user: { name: "Júlia", handle: "@ju", avatar: "J" },
         score: 9.1,
-        text: "Visual imersivo e trilha absurda. A escala épica não atropela os personagens, e a fotografia vende o deserto como algo vivo.",
-      },
-      {
-        id: "cr2",
-        user: { name: "Carlos", handle: "@carlos", avatar: "C" },
-        score: 9.5,
-        text: "Uma adaptação magistral. Villeneuve entende o material de origem e entrega um espetáculo cinematográfico raramente visto.",
-      },
-      {
-        id: "cr3",
-        user: { name: "Beatriz", handle: "@bia", avatar: "B" },
-        score: 8.8,
-        text: "Achei o ritmo um pouco lento em algumas partes, mas as cenas de ação são incríveis e o design de produção é de outro mundo.",
+        text: "Visual imersivo e trilha absurda...",
       },
     ],
+  },
+  "duna-livro": {
+    id: "duna-livro",
+    type: "livro",
+    title: {
+      PT: "Duna",
+      EN: "Dune",
+      ES: "Dune",
+    },
+    posterUrl:
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414l/44767458.jpg",
+    backdropUrl: "https://images.alphacoders.com/133/1333069.jpeg",
+    sinopse: {
+      PT: "Uma mistura de aventura e misticismo, ecologia e política, este romance premiado deu origem a um dos universos mais épicos da ficção científica.",
+      EN: "A blend of adventure and mysticism, ecology and politics, this award-winning novel gave rise to one of the most epic universes in science fiction.",
+      ES: "Una mezcla de aventura y misticismo, ecología y política, esta novela galardonada dio origen a uno de los universos más épicos de la ciencia ficción.",
+    },
+    details: {
+      Autor: "Frank Herbert",
+      Páginas: "688",
+      Gênero: ["tag.scifi", "tag.fantasia", "tag.epica"],
+      Ano: "1965",
+      País: {
+        PT: "Estados Unidos",
+        EN: "United States",
+        ES: "Estados Unidos",
+      },
+    },
+  },
+  "duna-1984": {
+    id: "duna-1984",
+    type: "filme",
+    title: {
+      PT: "Duna",
+      EN: "Dune",
+      ES: "Duna",
+    },
+    posterUrl:
+      "https://image.tmdb.org/t/p/w500/a3nDwAnKAl0jsSmsGaen09F2s6G.jpg",
+    backdropUrl:
+      "https://media.wired.com/photos/5f97371a536952d793623916/master/pass/Culture_Dune_Lynch-10659730-Edit.jpg",
+    sinopse: {
+      PT: "Em um futuro distante, clãs nobres rivais lutam pelo controle do desértico planeta Arrakis, a única fonte da valiosa especiaria Melange. A família Atreides aceita a administração do planeta, mas é traída por seus inimigos, os Harkonnens.",
+      EN: "In the distant future, rival noble clans fight for control of the desert planet Arrakis, the only source of the valuable spice Melange. The Atreides family accepts stewardship of the planet, but is betrayed by their enemies, the Harkonnens.",
+      ES: "En un futuro lejano, clanes nobles rivales luchan por el control del planeta desértico Arrakis, la única fuente de la valiosa especia Melange. La familia Atreides acepta la administración del planeta, pero es traicionada por sus enemigos, los Harkonnen.",
+    },
+    details: {
+      Diretor: "David Lynch",
+      Duração: "2h 17min",
+      Gênero: ["tag.scifi", "tag.aventura", "tag.acao"],
+      Ano: "1984",
+      País: {
+        PT: "Estados Unidos",
+        EN: "United States",
+        ES: "Estados Unidos",
+      },
+    },
+  },
+  "portrait-2019": {
+    id: "portrait-2019",
+    type: "filme",
+    aliases: ["Portrait de la jeune fille en feu"],
+    title: {
+      PT: "Retrato de uma Jovem em Chamas",
+      EN: "Portrait of a Lady on Fire",
+      ES: "Retrato de una mujer en llamas",
+    },
+    posterUrl:
+      "https://image.tmdb.org/t/p/w500/s2C0QeCcrT1BwE7cW3H1a3q3uY1.jpg",
+    backdropUrl:
+      "https://image.tmdb.org/t/p/w1280/g6PfZVLtYCaPiof5G3PEsIGV2cf.jpg",
+    sinopse: {
+      PT: "França, 1770. Marianne, uma pintora, é contratada para pintar o retrato de casamento de Héloïse, uma jovem que acaba de deixar o convento. Héloïse resiste ao seu destino, recusando-se a posar, então Marianne deve pintá-la em segredo.",
+      EN: "France, 1770. Marianne, a painter, is commissioned to paint the wedding portrait of Héloïse, a young woman who has just left the convent. Héloïse resists her fate by refusing to pose, so Marianne must paint her in secret.",
+      ES: "Francia, 1770. Marianne, una pintora, recibe el encargo de pintar el retrato de bodas de Héloïse, una joven que acaba de salir del convento. Héloïse se resiste a su destino negándose a posar, por lo que Marianne debe pintarla en secreto.",
+    },
+    details: {
+      Diretor: "Céline Sciamma",
+      Duração: "2h 2min",
+      Gênero: ["tag.drama", "tag.romance", "tag.historia"],
+      Ano: "2019",
+      País: {
+        PT: "França",
+        EN: "France",
+        ES: "Francia",
+      },
+    },
   },
 };
 
@@ -452,17 +526,23 @@ const alexlData = {
     },
   ],
 };
+
 const userDatabase = { maris: marisData, alexl: alexlData };
+
 export function getMediaDetails(mediaId) {
   return mediaDatabase[mediaId];
 }
+
 export function useUserProfileData(handle) {
   const userData = userDatabase[handle] || userDatabase.alexl;
+
   const dynamicTags = useMemo(() => {
     if (!userData) return [];
+
     const tagScores = new Map();
     const FAVORITE_WEIGHT = 4;
     const REVIEW_WEIGHT = 2;
+
     (userData.favorites || []).forEach((item) => {
       if (item.tags) {
         item.tags.forEach((tag) => {
@@ -470,6 +550,7 @@ export function useUserProfileData(handle) {
         });
       }
     });
+
     (userData.reviews || []).forEach((item) => {
       if (item.tags) {
         item.tags.forEach((tag) => {
@@ -477,11 +558,14 @@ export function useUserProfileData(handle) {
         });
       }
     });
+
     const sortedTags = Array.from(tagScores.entries())
       .sort(([, scoreA], [, scoreB]) => scoreB - scoreA)
       .slice(0, 10)
       .map(([tag]) => tag);
+
     return sortedTags;
   }, [userData]);
+
   return { ...userData, dynamicTags };
 }
