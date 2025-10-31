@@ -107,8 +107,8 @@ const I18N = {
     "section.achievements": "Conquistas",
     "section.favorites": "Favoritos",
     "favorites.title_prefix": "Favoritos de",
-    "section.reviews": "Reviews recentes",
-    "reviews.title_prefix": "Reviews de", // NOVA CHAVE
+    "section.reviews": "Resenhas recentes", // CORREÇÃO AQUI
+    "reviews.title_prefix": "Resenhas de", // CORREÇÃO AQUI
     "section.highlights": "Destaques",
     "section.recents": "Recentes",
     "section.clubs": "Clubes",
@@ -267,7 +267,7 @@ const I18N = {
     "section.favorites": "Favorites",
     "favorites.title_prefix": "Favorites of",
     "section.reviews": "Recent reviews",
-    "reviews.title_prefix": "Reviews by", // NOVA CHAVE
+    "reviews.title_prefix": "Reviews by",
     "section.highlights": "Highlights",
     "section.recents": "Recents",
     "section.clubs": "Clubs",
@@ -356,7 +356,7 @@ const I18N = {
     "settings.profile.save_button.saved": "¡Guardado!",
     "settings.account.title": "Cuenta",
     "settings.account.subtitle":
-      "Gestiona tu información de inicio de sesión y segurança.",
+      "Gestiona tu información de inicio de sesión y seguridad.",
     "settings.account.email": "Correo electrónico",
     "settings.account.email.subtitle": "Tu correo de inicio de sesión es",
     "settings.account.email.change_button": "Cambiar Correo",
@@ -376,7 +376,7 @@ const I18N = {
     "settings.preferences.privacy.private_profile": "Perfil Privado",
     "settings.preferences.privacy.private_profile.desc":
       "Si está activado, tu perfil y actividades solo serán visibles para ti.",
-    "settings.preferences.notifications": "Notificaciones",
+    "settings.preferences.notifications": "Notificações",
     "settings.preferences.notifications.email.title":
       "Notificaciones por Correo",
     "settings.preferences.notifications.email.desc":
@@ -430,7 +430,7 @@ const I18N = {
     "section.favorites": "Favoritos",
     "favorites.title_prefix": "Favoritos de",
     "section.reviews": "Reseñas recientes",
-    "reviews.title_prefix": "Reseñas de", // NOVA CHAVE
+    "reviews.title_prefix": "Reseñas de",
     "section.highlights": "Destacados",
     "section.recents": "Recientes",
     "section.clubs": "Clubes",
