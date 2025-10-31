@@ -61,26 +61,22 @@ export default function DashboardPage({ theme, setTheme, lang, setLang, t }) {
         <main className="max-w-7xl mx-auto px-4 pt-24 pb-16 flex flex-col gap-8">
           <ProfileHeader profile={profile} tags={dynamicTags} t={t} />
           <BadgesRibbon badges={badges} t={t} />
-          {/* MODIFICAÇÃO: Passando o 'handle' do perfil para a seção de favoritos */}
           <FavoritesSection items={favorites} t={t} handle={profile.handle} />
 
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             <div className="lg:col-span-7">
+              {/* MODIFICAÇÃO: Passando o 'handle' do perfil para o painel de reviews */}
               <ReviewsPanel
                 reviews={reviews}
                 t={t}
                 containerHeight={leftColumnHeight}
+                handle={profile.handle}
               />
             </div>
             <div
               ref={rightColumnRef}
               className="lg:col-span-5 flex flex-col gap-8"
             >
-              {/* ===== A ÚNICA ALTERAÇÃO ESTÁ AQUI ===== */}
-              {/* Este 'div' com margem no topo empurra o calendário para baixo,
-                  alinhando o topo do card do calendário com o topo do card de reviews.
-                  A margem 'mt-9' (2.25rem) corresponde exatamente à altura do
-                  título "Reviews recentes" mais sua margem inferior. */}
               <div className="mt-9">
                 <ActivityCalendar reviews={reviews} t={t} />
               </div>

@@ -54,17 +54,17 @@ export default function ProfilePage({ theme, setTheme, lang, setLang, t }) {
           <BadgesRibbon badges={badges} t={t} />
           <div className="h-8" />
 
-          {/* LAYOUT DE 2 COLUNAS RESTAURADO */}
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start min-h-0">
             <div ref={leftRef} className="lg:col-span-7 min-h-0">
-              {/* MODIFICAÇÃO: Passando o 'handle' da URL para a seção de favoritos */}
               <FavoritesSection items={favorites} t={t} handle={handle} />
             </div>
             <div className="lg:col-span-5 min-h-0">
+              {/* MODIFICAÇÃO: Passando o 'handle' da URL para o painel de reviews */}
               <ReviewsPanel
                 reviews={reviews}
                 t={t}
                 containerHeight={containerH}
+                handle={handle}
               />
             </div>
           </section>

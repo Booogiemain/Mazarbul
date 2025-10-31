@@ -11,7 +11,8 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage.jsx";
 import SettingsPage from "./pages/SettingsPage/SettingsPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage.jsx";
-import FavoritesPage from "./pages/FavoritesPage/FavoritesPage.jsx"; // NOVA IMPORTAÇÃO
+import FavoritesPage from "./pages/FavoritesPage/FavoritesPage.jsx";
+import ReviewsPage from "./pages/ReviewsPage/ReviewsPage.jsx"; // NOVA IMPORTAÇÃO
 
 // Importar os hooks
 import { useTheme } from "./hooks/useTheme";
@@ -46,10 +47,14 @@ function App() {
           path="/profile/:handle"
           element={<ProfilePage {...pageProps} />}
         />
-        {/* NOVA ROTA */}
         <Route
           path="/profile/:handle/favorites"
           element={<FavoritesPage {...pageProps} />}
+        />
+        {/* NOVA ROTA */}
+        <Route
+          path="/profile/:handle/reviews"
+          element={<ReviewsPage {...pageProps} />}
         />
         <Route path="/dashboard" element={<DashboardPage {...pageProps} />} />
         <Route
@@ -64,7 +69,6 @@ function App() {
           path="/forgot-password"
           element={<ForgotPasswordPage {...pageProps} />}
         />
-        {/* NOVA ROTA DE RESETAR SENHA */}
         <Route
           path="/reset-password"
           element={<ResetPasswordPage {...pageProps} />}
