@@ -1,11 +1,12 @@
 import React, { useState, useMemo } from "react";
-import { Link } from "react-router-dom"; // 1. Importar o Link
+import { Link } from "react-router-dom";
 import { Star as StarIcon, ChevronRight } from "lucide-react";
 
 import { cx } from "../../../utils/formatters";
 import MediaCard from "../../ui/MediaCard/MediaCard.jsx";
 
-function FavoritesSection({ items, t }) {
+// MODIFICAÇÃO: Adicionada a prop 'handle'
+function FavoritesSection({ items, t, handle }) {
   const [filter, setFilter] = useState("todos");
 
   const filteredItems = useMemo(() => {
@@ -59,16 +60,19 @@ function FavoritesSection({ items, t }) {
           </div>
         </div>
         <div className="justify-self-end">
-          <button className="h-8 px-3 inline-flex items-center justify-center gap-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-sm leading-none font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800/60">
+          {/* MODIFICAÇÃO: O <button> foi substituído pelo <Link> */}
+          <Link
+            to={`/profile/${handle}/favorites`}
+            className="h-8 px-3 inline-flex items-center justify-center gap-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-sm leading-none font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800/60"
+          >
             <span className="leading-none">{t("action.explore")}</span>
             <ChevronRight className="w-4 h-4 shrink-0" />
-          </button>
+          </Link>
         </div>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 min-h-[32.75rem]">
         {filteredItems.map((item) => (
-          // 2. Envolver o MediaCard com o Link
           <Link to={`/media/${item.id}`} key={item.id}>
             <MediaCard item={item} wide badgeLabel={t(`badge.${item.type}`)} />
           </Link>

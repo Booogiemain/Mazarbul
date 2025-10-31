@@ -106,6 +106,7 @@ const I18N = {
     "search.placeholder": "Busca rápida...",
     "section.achievements": "Conquistas",
     "section.favorites": "Favoritos",
+    "favorites.title_prefix": "Favoritos de",
     "section.reviews": "Reviews recentes",
     "section.highlights": "Destaques",
     "section.recents": "Recentes",
@@ -162,8 +163,8 @@ const I18N = {
     "tag.conceitual": "Conceitual",
     "tag.ciberpunk": "Ciberpunk",
     "tag.alternativo": "Alternativo",
-    "tag.acao": "Ação", // ADICIONADO
-    "tag.romance": "Romance", // ADICIONADO
+    "tag.acao": "Ação",
+    "tag.romance": "Romance",
     "badge.52books": "52 livros em 2024",
     "badge.12games": "12 jogos em 2024",
     "badge.clubreader": "Leitura coletiva de clube",
@@ -174,8 +175,6 @@ const I18N = {
     // --- CHAVES (Detalhes da Mídia) ---
     "details.author": "Author",
     "details.pages": "Pages",
-
-    // --- CHAVES (Página de Configurações) ---
     "settings.title": "Settings",
     "settings.nav.profile": "Profile",
     "settings.nav.account": "Account",
@@ -221,8 +220,6 @@ const I18N = {
     "settings.preferences.notifications.email.desc":
       "Receive emails when someone follows you or comments on your reviews.",
     "settings.preferences.save_button": "Save Preferences",
-
-    // --- CHAVES DE AUTENTICAÇÃO ---
     "login.title": "Login",
     "login.subtitle": "Access your Mazarbul account.",
     "login.forgot_password": "Forgot password?",
@@ -242,16 +239,12 @@ const I18N = {
     "forgot.success_title": "Link sent!",
     "forgot.success_text":
       "Check your inbox (and spam folder) in the next few minutes.",
-
-    // --- NOVAS CHAVES (Resetar Senha) ---
     "reset.title": "Create your new password",
     "reset.subtitle": "Almost there! Enter your new password below.",
     "reset.button": "Save New Password",
     "reset.success.title": "Password Reset!",
     "reset.success.subtitle": "Your password has been changed successfully.",
     "reset.success.button": "Go to Login",
-
-    // --- CHAVES (Formulário) ---
     "form.firstname": "First Name",
     "form.lastname": "Last Name",
     "form.email": "Email",
@@ -263,8 +256,6 @@ const I18N = {
     "nav.back_home": "Back to home",
     "alert.username_invalid_format": "@username format is invalid.",
     "alert.password_mismatch": "Passwords do not match!",
-
-    // --- CHAVES EXISTENTES ---
     "a11y.open_search": "Open search",
     "a11y.toggle_theme": "Toggle theme",
     "a11y.toggle_language": "Change language",
@@ -273,6 +264,7 @@ const I18N = {
     "search.placeholder": "Quick search...",
     "section.achievements": "Achievements",
     "section.favorites": "Favorites",
+    "favorites.title_prefix": "Favorites of",
     "section.reviews": "Recent reviews",
     "section.highlights": "Highlights",
     "section.recents": "Recents",
@@ -329,8 +321,8 @@ const I18N = {
     "tag.conceitual": "Conceptual",
     "tag.ciberpunk": "Cyberpunk",
     "tag.alternativo": "Alternative",
-    "tag.acao": "Action", // ADICIONADO
-    "tag.romance": "Romance", // ADICIONADO
+    "tag.acao": "Action",
+    "tag.romance": "Romance",
     "badge.52books": "52 books in 2024",
     "badge.12games": "12 games in 2024",
     "badge.clubreader": "Book club collective reading",
@@ -341,8 +333,6 @@ const I18N = {
     // --- CHAVES (Detalhes da Mídia) ---
     "details.author": "Autor",
     "details.pages": "Páginas",
-
-    // --- CHAVES (Página de Configurações) ---
     "settings.title": "Configuración",
     "settings.nav.profile": "Perfil",
     "settings.nav.account": "Cuenta",
@@ -390,8 +380,6 @@ const I18N = {
     "settings.preferences.notifications.email.desc":
       "Recibir correos cuando alguien te siga o comente en tus reseñas.",
     "settings.preferences.save_button": "Guardar Preferencias",
-
-    // --- CHAVES DE AUTENTICAÇÃO ---
     "login.title": "Iniciar sesión",
     "login.subtitle": "Accede a tu cuenta Mazarbul.",
     "login.forgot_password": "¿Olvidaste tu contraseña?",
@@ -412,8 +400,6 @@ const I18N = {
     "forgot.success_title": "¡Enlace enviado!",
     "forgot.success_text":
       "Revisa tu bandeja de entrada (y la carpeta de spam) en los próximos minutos.",
-
-    // --- NOVAS CHAVES (Resetar Senha) ---
     "reset.title": "Crea tu nueva contraseña",
     "reset.subtitle":
       "¡Casi listo! Ingresa tu nueva contraseña a continuación.",
@@ -421,8 +407,6 @@ const I18N = {
     "reset.success.title": "¡Contraseña Restablecida!",
     "reset.success.subtitle": "Tu contraseña ha sido cambiada exitosamente.",
     "reset.success.button": "Ir a Iniciar Sesión",
-
-    // --- CHAVES (Formulário) ---
     "form.firstname": "Nombre",
     "form.lastname": "Apellido",
     "form.email": "Correo electrónico",
@@ -434,8 +418,6 @@ const I18N = {
     "nav.back_home": "Volver al inicio",
     "alert.username_invalid_format": "El formato del @username no es válido.",
     "alert.password_mismatch": "¡Las contraseñas no coinciden!",
-
-    // --- CHAVES EXISTENTES ---
     "a11y.open_search": "Abrir búsqueda",
     "a11y.toggle_theme": "Alternar tema",
     "a11y.toggle_language": "Cambiar idioma",
@@ -444,6 +426,7 @@ const I18N = {
     "search.placeholder": "Búsqueda rápida...",
     "section.achievements": "Logros",
     "section.favorites": "Favoritos",
+    "favorites.title_prefix": "Favoritos de",
     "section.reviews": "Reseñas recientes",
     "section.highlights": "Destacados",
     "section.recents": "Recientes",
@@ -500,8 +483,8 @@ const I18N = {
     "tag.conceitual": "Conceptual",
     "tag.ciberpunk": "Ciberpunk",
     "tag.alternativo": "Alternative",
-    "tag.acao": "Acción", // ADICIONADO
-    "tag.romance": "Romance", // ADICIONADO
+    "tag.acao": "Acción",
+    "tag.romance": "Romance",
     "badge.52books": "52 libros en 2024",
     "badge.12games": "12 juegos em 2024",
     "badge.clubreader": "Lectura colectiva de club",
@@ -526,7 +509,6 @@ export function useI18n() {
     }
   }, [lang]);
 
-  // Usando a sua lógica original, que já é robusta
   const t = (key) => {
     return (I18N[lang] && I18N[lang][key]) || I18N.PT[key] || key;
   };

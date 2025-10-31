@@ -1,5 +1,3 @@
-// src/App.jsx
-
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -12,8 +10,8 @@ import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage/RegisterPage.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage.jsx";
 import SettingsPage from "./pages/SettingsPage/SettingsPage.jsx";
-// Importando a nova página de Resetar Senha
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage.jsx";
+import FavoritesPage from "./pages/FavoritesPage/FavoritesPage.jsx"; // NOVA IMPORTAÇÃO
 
 // Importar os hooks
 import { useTheme } from "./hooks/useTheme";
@@ -47,6 +45,11 @@ function App() {
         <Route
           path="/profile/:handle"
           element={<ProfilePage {...pageProps} />}
+        />
+        {/* NOVA ROTA */}
+        <Route
+          path="/profile/:handle/favorites"
+          element={<FavoritesPage {...pageProps} />}
         />
         <Route path="/dashboard" element={<DashboardPage {...pageProps} />} />
         <Route
