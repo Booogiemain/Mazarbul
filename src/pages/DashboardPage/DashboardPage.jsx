@@ -65,7 +65,6 @@ export default function DashboardPage({ theme, setTheme, lang, setLang, t }) {
 
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             <div className="lg:col-span-7">
-              {/* MODIFICAÇÃO: Passando o 'handle' do perfil para o painel de reviews */}
               <ReviewsPanel
                 reviews={reviews}
                 t={t}
@@ -77,11 +76,19 @@ export default function DashboardPage({ theme, setTheme, lang, setLang, t }) {
               ref={rightColumnRef}
               className="lg:col-span-5 flex flex-col gap-8"
             >
-              <div className="mt-9">
+              {/* CORREÇÃO DE LAYOUT:
+                  Ajustando a margem do topo para 'mt-11' (2.75rem) para
+                  compensar a nova altura do cabeçalho do ReviewsPanel.
+              */}
+              <div className="mt-11">
                 <ActivityCalendar reviews={reviews} t={t} />
               </div>
 
-              <CollectionList collections={collections} t={t} />
+              <CollectionList
+                collections={collections}
+                t={t}
+                handle={profile.handle}
+              />
             </div>
           </section>
         </main>

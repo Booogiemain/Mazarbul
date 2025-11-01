@@ -44,6 +44,16 @@ export default function FavoritesPage({ theme, setTheme, lang, setLang, t }) {
     return <div className="text-center py-20">Utilizador não encontrado.</div>;
   }
 
+  // Lógica de Título Dinâmico
+  const pageTitle = isOwner ? (
+    t("favorites.my_title") // "Meus favoritos"
+  ) : (
+    <>
+      {t("favorites.title_prefix")} {/* "Favoritos de" */}
+      <span>{profile.name}</span> {/* "Marina Silva" */}
+    </>
+  );
+
   return (
     <div className={cx(theme === "dark" ? "dark" : "", "font-sans")}>
       <div className="min-h-screen bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
@@ -56,11 +66,9 @@ export default function FavoritesPage({ theme, setTheme, lang, setLang, t }) {
         />
 
         <main className="max-w-7xl mx-auto px-4 pt-24 pb-16 flex flex-col gap-8">
-          {/* CORREÇÃO FINAL: As classes do <span> foram removidas para que ele
-              herde o estilo do <h1>, garantindo uma fonte consistente. */}
+          {/* CORREÇÃO: Título agora usa a lógica condicional */}
           <h1 className="text-3xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100">
-            {t("favorites.title_prefix")}{" "}
-            <span>{profile.handle.replace("@", "")}</span>
+            {pageTitle}
           </h1>
 
           {localFavorites.length > 0 ? (

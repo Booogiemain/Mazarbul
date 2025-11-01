@@ -8,6 +8,11 @@ import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
 import ReviewCard from "../../components/user/ReviewCard/ReviewCard.jsx";
 
 // ==========================
+// MOCK DE AUTENTICAÇÃO
+const LOGGED_IN_USER_HANDLE = "alexl";
+// ==========================
+
+// ==========================
 // Componente da Página de Reviews
 // ==========================
 export default function ReviewsPage({ theme, setTheme, lang, setLang, t }) {
@@ -17,6 +22,9 @@ export default function ReviewsPage({ theme, setTheme, lang, setLang, t }) {
   // Busca os dados do perfil específico usando o handle da URL
   const { profile, reviews } = useUserProfileData(handle);
 
+  // Determina se o utilizador logado é o dono do perfil
+  const isOwner = profile?.handle === `@${LOGGED_IN_USER_HANDLE}`;
+
   if (!profile || !reviews) {
     return (
       <div className="text-center py-20">
@@ -24,6 +32,16 @@ export default function ReviewsPage({ theme, setTheme, lang, setLang, t }) {
       </div>
     );
   }
+
+  // Lógica de Título Dinâmico
+  const pageTitle = isOwner ? (
+    t("reviews.my_title") // "Minhas resenhas"
+  ) : (
+    <>
+      {t("reviews.title_prefix")} {/* "Resenhas de" */}
+      <span>{profile.name}</span> {/* "Marina Silva" */}
+    </>
+  );
 
   return (
     <div className={cx(theme === "dark" ? "dark" : "", "font-sans")}>
@@ -37,10 +55,9 @@ export default function ReviewsPage({ theme, setTheme, lang, setLang, t }) {
         />
 
         <main className="max-w-7xl mx-auto px-4 pt-24 pb-16 flex flex-col gap-8">
-          {/* Título com a fonte corrigida (sem classes no span) */}
+          {/* Título com a fonte corrigida e lógica condicional */}
           <h1 className="text-3xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100">
-            {t("reviews.title_prefix")}{" "}
-            <span>{profile.handle.replace("@", "")}</span>
+            {pageTitle}
           </h1>
 
           {/* Lista de Reviews */}

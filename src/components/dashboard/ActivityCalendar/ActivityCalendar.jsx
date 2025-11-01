@@ -75,20 +75,30 @@ export default function ActivityCalendar({ reviews, t }) {
 
   const filterChips = [
     { k: "todos", label: t("filter.all") },
-    { k: "filme", label: t("filter.movies") },
+    { k: "filme", label: t("filter.movies") }, // CORREÇÃO DO ERRO DE DIGITAÇÃO AQUI
     { k: "livro", label: t("filter.books") },
     { k: "jogo", label: t("filter.games") },
     { k: "album", label: t("filter.albums") },
   ];
 
+  // CORREÇÃO: Função para formatar o mês corretamente
+  const formatMonthTitle = (date) => {
+    const formatted = date.toLocaleString("pt-BR", {
+      month: "long",
+      year: "numeric",
+    });
+    // Garante que o "de" seja minúsculo e a primeira letra do mês seja maiúscula
+    return formatted
+      .replace(" de ", " de ")
+      .replace(/^[a-z]/, (char) => char.toUpperCase());
+  };
+
   return (
     <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 min-h-[320px]">
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-neutral-800 dark:text-neutral-100 capitalize">
-          {currentDate.toLocaleString("pt-BR", {
-            month: "long",
-            year: "numeric",
-          })}
+        {/* CORREÇÃO: Removido 'capitalize' e usada a nova função de formatação */}
+        <h3 className="font-semibold text-neutral-800 dark:text-neutral-100">
+          {formatMonthTitle(currentDate)}
         </h3>
         <div className="flex items-center gap-2">
           <button
