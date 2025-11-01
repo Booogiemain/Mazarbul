@@ -4,12 +4,20 @@ import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 
 // Importando componentes e utilitários
-import { getMediaDetails } from "../../hooks/useUserProfileData.js";
+import {
+  getMediaDetails,
+  useUserProfileData, // Importação completa
+} from "../../hooks/useUserProfileData.js";
 import { cx } from "../../utils/formatters";
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
 import TechnicalDetails from "../../components/media/TechnicalDetails/TechnicalDetails.jsx";
 import UserReviewEditor from "../../components/media/UserReviewEditor/UserReviewEditor.jsx";
 import CommunityReviewsFeed from "../../components/media/CommunityReviewsFeed/CommunityReviewsFeed.jsx";
+
+// ==========================
+// MOCK DE AUTENTICAÇÃO
+const LOGGED_IN_USER_HANDLE = "alexl";
+// ==========================
 
 // ==========================
 // Componente da Página de Detalhes da Mídia
@@ -23,12 +31,26 @@ export default function MediaDetailsPage({
 }) {
   const { mediaId } = useParams();
   const [mediaData, setMediaData] = useState(null);
-  const [isFavorited, setIsFavorited] = useState(false);
+
+  // Busca os dados do *utilizador logado* para saber os seus favoritos
+  const { favorites: loggedInUserFavorites } = useUserProfileData(
+    LOGGED_IN_USER_HANDLE,
+  );
+
+  // Lógica de estado do "Favorito"
+  const [isFavorited, setIsFavorited] = useState(() => {
+    // Verifica se a mediaId atual está na lista de favoritos do usuário logado
+    if (!loggedInUserFavorites || !mediaId) return false;
+    return loggedInUserFavorites.some((fav) => fav.id === mediaId);
+  });
 
   useEffect(() => {
     const data = getMediaDetails(mediaId);
     setMediaData(data);
-  }, [mediaId]);
+
+    // Atualiza o estado de favorito se o mediaId mudar (navegando de uma pág para outra)
+    setIsFavorited(loggedInUserFavorites.some((fav) => fav.id === mediaId));
+  }, [mediaId, loggedInUserFavorites]);
 
   if (!mediaData) {
     return (
@@ -50,6 +72,9 @@ export default function MediaDetailsPage({
   }
 
   const handleFavoriteClick = () => {
+    // A lógica aqui é apenas uma simulação de UI.
+    // (Numa app real, isto chamaria a API para adicionar/remover
+    // e depois atualizaria o estado global de favoritos)
     setIsFavorited(!isFavorited);
   };
 
@@ -105,7 +130,10 @@ export default function MediaDetailsPage({
                   whileTap={{ scale: 1.2 }}
                   onClick={handleFavoriteClick}
                   className="mt-4 p-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm inline-flex"
-                  aria-label="Adicionar aos favoritos"
+                  // MODIFICAÇÃO: 'aria-label' agora é dinâmico
+                  aria-label={t(
+                    isFavorited ? "a11y.remove_favorite" : "a11y.add_favorite",
+                  )}
                 >
                   <Heart
                     className={cx(
@@ -138,7 +166,6 @@ export default function MediaDetailsPage({
               )}
             </div>
             <div className="lg:col-span-5">
-              {/* --- ALTERAÇÃO AQUI: Removida a condição para sempre mostrar a review do usuário --- */}
               <UserReviewEditor
                 communityAverage={mediaData.communityAverage}
                 t={t}
@@ -146,7 +173,6 @@ export default function MediaDetailsPage({
             </div>
           </section>
 
-          {/* --- ALTERAÇÃO AQUI: Removida a condição para sempre mostrar a seção de reviews da comunidade --- */}
           <CommunityReviewsFeed
             reviews={mediaData.communityReviews || []}
             t={t}

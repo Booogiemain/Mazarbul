@@ -134,7 +134,6 @@ export const mediaDatabase = {
 };
 
 // --- DADOS DE USUÁRIO ---
-// (O restante do arquivo, com marisData, alexlData, e as funções, permanece o mesmo)
 const marisData = {
   profile: {
     name: "Marina Silva",
@@ -318,6 +317,7 @@ const marisData = {
       text: "Visualmente deslumbrante e atmosférico...",
     },
   ],
+  collections: [], // MODIFICAÇÃO: Adicionado array vazio para consistência
 };
 const alexlData = {
   profile: {
@@ -341,6 +341,20 @@ const alexlData = {
     },
   ],
   favorites: [
+    // MODIFICAÇÃO: Adicionado o item 'm1' para que o alexl tenha um favorito
+    // que exista na mediaDatabase, permitindo o teste.
+    {
+      id: "m1",
+      type: "filme",
+      title: {
+        PT: "Duna: Parte Dois",
+        EN: "Dune: Part Two",
+        ES: "Dune: Parte Dos",
+      },
+      year: 2024,
+      score: 9.2,
+      tags: ["tag.scifi", "tag.aventura"],
+    },
     {
       id: "al_fav1",
       type: "jogo",
@@ -534,7 +548,9 @@ export function getMediaDetails(mediaId) {
 }
 
 export function useUserProfileData(handle) {
-  const userData = userDatabase[handle] || userDatabase.alexl;
+  // MODIFICAÇÃO: Corrigindo a lógica de fallback para o Dashboard
+  const finalHandle = handle || "alexl";
+  const userData = userDatabase[finalHandle] || userDatabase.alexl;
 
   const dynamicTags = useMemo(() => {
     if (!userData) return [];

@@ -103,6 +103,8 @@ const I18N = {
     "a11y.toggle_language": "Mudar idioma",
     "a11y.settings_page": "Configurações",
     "a11y.user_profile": "Meu perfil",
+    "a11y.add_favorite": "Adicionar aos favoritos", // NOVA CHAVE
+    "a11y.remove_favorite": "Remover dos favoritos", // NOVA CHAVE
     "search.placeholder": "Busca rápida...",
     "section.achievements": "Conquistas",
     "section.favorites": "Favoritos",
@@ -110,7 +112,7 @@ const I18N = {
     "favorites.my_title": "Meus favoritos",
     "section.reviews": "Resenhas recentes",
     "reviews.title_prefix": "Resenhas de",
-    "reviews.my_title": "Minhas resenhas", // NOVA CHAVE
+    "reviews.my_title": "Minhas resenhas",
     "section.highlights": "Destaques",
     "section.recents": "Recentes",
     "section.clubs": "Clubes",
@@ -268,6 +270,8 @@ const I18N = {
     "a11y.toggle_language": "Change language",
     "a11y.settings_page": "Settings",
     "a11y.user_profile": "My profile",
+    "a11y.add_favorite": "Add to favorites", // NOVA CHAVE
+    "a11y.remove_favorite": "Remove from favorites", // NOVA CHAVE
     "search.placeholder": "Quick search...",
     "section.achievements": "Achievements",
     "section.favorites": "Favorites",
@@ -275,7 +279,7 @@ const I18N = {
     "favorites.my_title": "My favorites",
     "section.reviews": "Recent reviews",
     "reviews.title_prefix": "Reviews by",
-    "reviews.my_title": "My reviews", // NOVA CHAVE
+    "reviews.my_title": "My reviews",
     "section.highlights": "Highlights",
     "section.recents": "Recents",
     "section.clubs": "Clubs",
@@ -437,6 +441,8 @@ const I18N = {
     "a11y.toggle_language": "Cambiar idioma",
     "a11y.settings_page": "Configuración",
     "a11y.user_profile": "Mi perfil",
+    "a11y.add_favorite": "Añadir a favoritos", // NOVA CHAVE
+    "a11y.remove_favorite": "Quitar de favoritos", // NOVA CHAVE
     "search.placeholder": "Búsqueda rápida...",
     "section.achievements": "Logros",
     "section.favorites": "Favoritos",
@@ -444,7 +450,7 @@ const I18N = {
     "favorites.my_title": "Mis favoritos",
     "section.reviews": "Reseñas recientes",
     "reviews.title_prefix": "Reseñas de",
-    "reviews.my_title": "Mis reseñas", // NOVA CHAVE
+    "reviews.my_title": "Mis reseñas",
     "section.highlights": "Destacados",
     "section.recents": "Recientes",
     "section.clubs": "Clubes",
