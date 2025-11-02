@@ -63,7 +63,7 @@ Mazarbul é uma aplicação web focada no registro e partilha de atividades cult
 
 1.  **Clonar o repositório:**
     ```bash
-    git clone [https://github.com/Booogiemain/Mazarbul.git](https://github.com/Booogiemain/Mazarbul.git)
+    git clone [[https://github.com/0zzmandias/Mazarbul.git]](https://github.com/0zzmandias/Mazarbul.git)
     ```
 
 2.  **Aceder ao diretório do projeto:**
@@ -78,4 +78,4 @@ Mazarbul é uma aplicação web focada no registro e partilha de atividades cult
 
 4.  **Iniciar o servidor de desenvolvimento:**
     ```bash
-    npm
+    npm run dev
