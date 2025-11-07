@@ -4,10 +4,8 @@ import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 
 // Importando componentes e utilitários
-import {
-  getMediaDetails,
-  useUserProfileData, // Importação completa
-} from "../../hooks/useUserProfileData.js";
+import { useUserProfileData } from "../../hooks/useUserProfileData.js";
+import { useUserDatabase } from "../../contexts/UserDatabaseContext.jsx"; // 1. Importar o Contexto
 import { cx } from "../../utils/formatters";
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
 import TechnicalDetails from "../../components/media/TechnicalDetails/TechnicalDetails.jsx";
@@ -32,25 +30,20 @@ export default function MediaDetailsPage({
   const { mediaId } = useParams();
   const [mediaData, setMediaData] = useState(null);
 
-  // Busca os dados do *utilizador logado* para saber os seus favoritos
-  const { favorites: loggedInUserFavorites } = useUserProfileData(
-    LOGGED_IN_USER_HANDLE,
-  );
+  // 2. Usar o Contexto para ler a "memória" e pegar as funções
+  const { db, mediaDatabase, toggleFavorite } = useUserDatabase();
 
-  // Lógica de estado do "Favorito"
-  const [isFavorited, setIsFavorited] = useState(() => {
-    // Verifica se a mediaId atual está na lista de favoritos do usuário logado
-    if (!loggedInUserFavorites || !mediaId) return false;
-    return loggedInUserFavorites.some((fav) => fav.id === mediaId);
-  });
+  // 3. Buscar os dados do usuário logado (alexl) a partir do 'db' (do Contexto)
+  const loggedInUserFavorites = db[LOGGED_IN_USER_HANDLE]?.favorites || [];
+
+  // 4. O estado 'isFavorited' agora é derivado diretamente do Contexto
+  const isFavorited = loggedInUserFavorites.some((fav) => fav.id === mediaId);
 
   useEffect(() => {
-    const data = getMediaDetails(mediaId);
+    // Busca os dados da mídia do 'mediaDatabase' (vindo do Contexto)
+    const data = mediaDatabase[mediaId];
     setMediaData(data);
-
-    // Atualiza o estado de favorito se o mediaId mudar (navegando de uma pág para outra)
-    setIsFavorited(loggedInUserFavorites.some((fav) => fav.id === mediaId));
-  }, [mediaId, loggedInUserFavorites]);
+  }, [mediaId, mediaDatabase]);
 
   if (!mediaData) {
     return (
@@ -72,10 +65,8 @@ export default function MediaDetailsPage({
   }
 
   const handleFavoriteClick = () => {
-    // A lógica aqui é apenas uma simulação de UI.
-    // (Numa app real, isto chamaria a API para adicionar/remover
-    // e depois atualizaria o estado global de favoritos)
-    setIsFavorited(!isFavorited);
+    // 5. O clique agora chama a função do Contexto para mudar a "memória"
+    toggleFavorite(`@${LOGGED_IN_USER_HANDLE}`, mediaData);
   };
 
   const langKey = lang.toUpperCase();

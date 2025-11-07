@@ -13,7 +13,8 @@ import SettingsPage from "./pages/SettingsPage/SettingsPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage.jsx";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage.jsx";
 import ReviewsPage from "./pages/ReviewsPage/ReviewsPage.jsx";
-import ListDetailsPage from "./pages/ListDetailsPage/ListDetailsPage.jsx"; // NOVA IMPORTAÇÃO
+// import ListDetailsPage from "./pages/ListDetailsPage/ListDetailsPage.jsx"; // ROTA OBSOLETA REMOVIDA
+import ListManagementPage from "./pages/ListManagementPage/ListManagementPage.jsx"; // NOVA IMPORTAÇÃO
 
 // Importar os hooks
 import { useTheme } from "./hooks/useTheme";
@@ -56,12 +57,18 @@ function App() {
           path="/profile/:handle/reviews"
           element={<ReviewsPage {...pageProps} />}
         />
-        {/* NOVA ROTA */}
-        <Route
+        {/* ROTA OBSOLETA REMOVIDA */}
+        {/* <Route
           path="/profile/:handle/list/:collectionId"
           element={<ListDetailsPage {...pageProps} />}
-        />
+        /> */}
+
         <Route path="/dashboard" element={<DashboardPage {...pageProps} />} />
+        {/* NOVA ROTA DE GESTÃO DE LISTAS */}
+        <Route
+          path="/dashboard/lists"
+          element={<ListManagementPage {...pageProps} />}
+        />
         <Route
           path="/media/:mediaId"
           element={<MediaDetailsPage {...pageProps} />}

@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 // Importando componentes, hooks e utilitários
 import { cx } from "../../utils/formatters";
 import { useUserProfileData } from "../../hooks/useUserProfileData.js";
+import { useUserDatabase } from "../../contexts/UserDatabaseContext.jsx"; // 1. Importar o Contexto
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
 import MediaCard from "../../components/ui/MediaCard/MediaCard.jsx";
 
 // ==========================
 // MOCK DE AUTENTICAÇÃO
-// O utilizador logado está definido como 'alexl'.
 const LOGGED_IN_USER_HANDLE = "alexl";
 // ==========================
 
@@ -20,24 +20,23 @@ export default function FavoritesPage({ theme, setTheme, lang, setLang, t }) {
   const { handle } = useParams();
   const navigate = useNavigate();
 
+  // 2. Usar o Contexto para ler a "memória" e pegar as funções
+  const { toggleFavorite } = useUserDatabase();
+  // O 'useUserProfileData' agora lê do Contexto, então 'profile' e 'favorites'
+  // estarão sempre atualizados com a "memória" da sessão.
   const { profile, favorites } = useUserProfileData(handle);
 
-  const [localFavorites, setLocalFavorites] = useState(favorites || []);
-
-  // Determina se o utilizador logado é o dono do perfil que está a ser visto.
   const isOwner = profile?.handle === `@${LOGGED_IN_USER_HANDLE}`;
 
-  useEffect(() => {
-    setLocalFavorites(favorites || []);
-  }, [favorites]);
-
   const handleRemoveFavorite = (mediaIdToRemove) => {
-    // Ação de remover só é permitida se o utilizador for o dono.
-    if (!isOwner) return;
-
-    setLocalFavorites((currentFavorites) =>
-      currentFavorites.filter((item) => item.id !== mediaIdToRemove),
-    );
+    // 3. Ação de remover agora chama a função do Contexto
+    // Precisamos do 'mediaData' completo para a função 'toggleFavorite'
+    // Como esta página só lista favoritos, o item já está nos dados
+    const itemToRemove = favorites.find((fav) => fav.id === mediaIdToRemove);
+    if (itemToRemove) {
+      // Passamos o item completo, pois 'toggleFavorite' precisa dele
+      toggleFavorite(profile.handle, itemToRemove);
+    }
   };
 
   if (!profile) {
@@ -66,14 +65,14 @@ export default function FavoritesPage({ theme, setTheme, lang, setLang, t }) {
         />
 
         <main className="max-w-7xl mx-auto px-4 pt-24 pb-16 flex flex-col gap-8">
-          {/* CORREÇÃO: Título agora usa a lógica condicional */}
           <h1 className="text-3xl font-bold tracking-tight text-neutral-800 dark:text-neutral-100">
             {pageTitle}
           </h1>
 
-          {localFavorites.length > 0 ? (
+          {/* 4. A grelha agora lê 'favorites' direto do hook, que vem do Contexto */}
+          {favorites && favorites.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-              {localFavorites.map((item) => (
+              {favorites.map((item) => (
                 <MediaCard
                   key={item.id}
                   item={item}

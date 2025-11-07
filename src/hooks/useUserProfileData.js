@@ -1,11 +1,13 @@
 import { useMemo } from "react";
+// 1. Importar o hook para usar o Contexto
+import { useUserDatabase } from "../contexts/UserDatabaseContext.jsx";
 
 // ==========================
 // SIMULAÇÃO DE BANCO DE DADOS (MOCK DB)
 // ==========================
 
 // --- DADOS DE MÍDIA DETALHADOS ---
-export const mediaDatabase = {
+const mediaDatabase = {
   m1: {
     id: "m1",
     type: "filme",
@@ -21,7 +23,7 @@ export const mediaDatabase = {
     sinopse: {
       PT: "Paul Atreides se une a Chani e aos Fremen em uma guerra de vingança contra os conspiradores que destruíram sua família. Diante de uma escolha entre o amor de sua vida e o destino do universo conhecido, ele se esforça para evitar um futuro terrível que só ele pode prever.",
       EN: "Paul Atreides unites with Chani and the Fremen on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future only he can foresee.",
-      ES: "Paul Atreides se une a Chani y a los Fremen mientras emprende un camino de venganza contra los conspiradores que destruyeron a su familia. Al enfrentarse a una elección entre el amor de su vida y el destino del universo, se esfuerza por evitar un futuro terrible que solo él puede prever.",
+      ES: "Paul Atreides se une a Chani y a los Fremen mientras emprende un camino de venganza contra los conspiradores que destruyeron a su familia. Al enfrentarse a una elección entre el amor de su vida y el destino del universo, se esfuerça por evitar un futuro terrible que solo él pode prever.",
     },
     details: {
       Diretor: "Denis Villeneuve",
@@ -317,7 +319,7 @@ const marisData = {
       text: "Visualmente deslumbrante e atmosférico...",
     },
   ],
-  collections: [], // MODIFICAÇÃO: Adicionado array vazio para consistência
+  collections: [],
 };
 const alexlData = {
   profile: {
@@ -341,8 +343,6 @@ const alexlData = {
     },
   ],
   favorites: [
-    // MODIFICAÇÃO: Adicionado o item 'm1' para que o alexl tenha um favorito
-    // que exista na mediaDatabase, permitindo o teste.
     {
       id: "m1",
       type: "filme",
@@ -541,17 +541,32 @@ const alexlData = {
   ],
 };
 
-const userDatabase = { maris: marisData, alexl: alexlData };
+// MODIFICAÇÃO: Exporta os dados estáticos para o Contexto
+export const staticUserDatabase = { maris: marisData, alexl: alexlData };
+export const staticMediaDatabase = mediaDatabase;
 
-export function getMediaDetails(mediaId) {
-  return mediaDatabase[mediaId];
+// --- FUNÇÃO ANTIGA (ainda usada pelo Contexto para carregar dados iniciais) ---
+function getUserData(handle) {
+  const finalHandle = handle || "alexl";
+  const userData = staticUserDatabase[finalHandle] || staticUserDatabase.alexl;
+  return userData;
 }
 
-export function useUserProfileData(handle) {
-  // MODIFICAÇÃO: Corrigindo a lógica de fallback para o Dashboard
-  const finalHandle = handle || "alexl";
-  const userData = userDatabase[finalHandle] || userDatabase.alexl;
+// --- FUNÇÃO ANTIGA (agora exportada para o Contexto) ---
+export function getMediaDetails(mediaId) {
+  return staticMediaDatabase[mediaId];
+}
 
+// ==========================
+// NOVO HOOK (useUserProfileData)
+// ==========================
+export function useUserProfileData(handle) {
+  // 2. Lê os dados do Contexto (a "memória" de sessão)
+  const { db } = useUserDatabase();
+  const finalHandle = handle || "alexl";
+  const userData = db[finalHandle] || db.alexl;
+
+  // A lógica de tags dinâmicas permanece a mesma, mas lendo do 'userData' do Contexto
   const dynamicTags = useMemo(() => {
     if (!userData) return [];
 

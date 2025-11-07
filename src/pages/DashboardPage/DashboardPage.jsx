@@ -15,7 +15,7 @@ import CollectionList from "../../components/dashboard/CollectionList/Collection
 // Componente da Página do Dashboard do USUÁRIO LOGADO
 // ==========================
 export default function DashboardPage({ theme, setTheme, lang, setLang, t }) {
-  // Pega os dados do usuário logado (Alex) por padrão
+  // O hook agora lê do Contexto, mas a chamada é a mesma
   const { profile, badges, favorites, reviews, dynamicTags, collections } =
     useUserProfileData();
 
@@ -76,19 +76,12 @@ export default function DashboardPage({ theme, setTheme, lang, setLang, t }) {
               ref={rightColumnRef}
               className="lg:col-span-5 flex flex-col gap-8"
             >
-              {/* CORREÇÃO DE LAYOUT:
-                  Ajustando a margem do topo para 'mt-11' (2.75rem) para
-                  compensar a nova altura do cabeçalho do ReviewsPanel.
-              */}
               <div className="mt-11">
                 <ActivityCalendar reviews={reviews} t={t} />
               </div>
 
-              <CollectionList
-                collections={collections}
-                t={t}
-                handle={profile.handle}
-              />
+              {/* MODIFICAÇÃO: 'handle' não é mais necessário */}
+              <CollectionList collections={collections} t={t} />
             </div>
           </section>
         </main>

@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Sun, Moon, User, Settings, Search as SearchIcon } from "lucide-react";
 
-// Importando a nossa "base de dados" de mídias
-import { mediaDatabase } from "../../../hooks/useUserProfileData";
+// MODIFICAÇÃO: Corrigido o nome da importação
+import { staticMediaDatabase as mediaDatabase } from "../../../hooks/useUserProfileData";
 
 function HeaderBar({ theme, setTheme, lang, setLang, t }) {
   const [searchOpen, setSearchOpen] = useState(false);
