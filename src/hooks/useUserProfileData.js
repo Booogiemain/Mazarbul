@@ -3,6 +3,42 @@ import { useMemo } from "react";
 import { useUserDatabase } from "../contexts/UserDatabaseContext.jsx";
 
 // ==========================
+// LISTA MESTRA DE CONQUISTAS (NOVA)
+// ==========================
+export const MASTER_ACHIEVEMENTS_LIST = [
+  // --- ANÉIS DE PODER ---
+  { id: "the-one", tiers: [12, 25, 52], iconName: "book-open" },
+  { id: "narya", tiers: [12, 25, 52], iconName: "music" },
+  { id: "vilya", tiers: [12, 25, 52], iconName: "film" },
+  { id: "nenya", tiers: [12, 25, 52], iconName: "gamepad" },
+
+  // --- CONVERGÊNCIA HARMÔNICA ---
+  { id: "life-universe-everything", tiers: [1, 6, 12], iconName: "rocket" },
+  { id: "horror-business", tiers: [1, 6, 12], iconName: "skull" },
+  { id: "wood-between-worlds", tiers: [1, 6, 12], iconName: "sword" },
+  { id: "once-upon-time-west", tiers: [1, 6, 12], iconName: "sun" },
+  { id: "kagemusha", tiers: [1, 6, 12], iconName: "sword-crossed" },
+  { id: "help-me-eros", tiers: [1, 6, 12], iconName: "heart" },
+  { id: "guernica", tiers: [1, 6, 12], iconName: "shield" },
+  { id: "nighthawks", tiers: [1, 6, 12], iconName: "search" },
+
+  // --- EXPLORAÇÃO E ANÁLISE ---
+  { id: "perche-leggere-classici", tiers: [1, 6, 12], iconName: "hourglass" },
+  { id: "zeitgeist", tiers: [6, 12, 25], iconName: "zap" },
+  { id: "moritarnon", tiers: [1, 3, 6], iconName: "eye-off" },
+  { id: "arda", tiers: [1, 3, 6], iconName: "globe" },
+  { id: "rhun", tiers: [1, 3, 6], iconName: "compass" },
+  { id: "khazad-dum", tiers: [1, 6, 12], iconName: "pickaxe" },
+
+  // --- CRÍTICA E COLEÇÃO ---
+  { id: "manwe", tiers: [1, 6, 12], iconName: "thumbs-up" },
+  { id: "melkor", tiers: [1, 6, 12], iconName: "thumbs-down" },
+  { id: "trivium", tiers: [1, 3, 6], iconName: "layers" },
+  { id: "quadrivium", tiers: [1, 3, 6], iconName: "box" },
+  { id: "dagor-dagorath", tiers: [1, 3, 6], iconName: "infinity" },
+];
+
+// ==========================
 // SIMULAÇÃO DE BANCO DE DADOS (MOCK DB)
 // ==========================
 
@@ -135,7 +171,7 @@ const mediaDatabase = {
   },
 };
 
-// --- DADOS DE USUÁRIO ---
+// --- DADOS DE USUÁRIO (MARINA) ---
 const marisData = {
   profile: {
     name: "Marina Silva",
@@ -143,37 +179,14 @@ const marisData = {
     bio: "Viciada em listas, sci‑fi e cafés gelados. Avalio tudo que assisto/leio/jogo para lembrar por que gostei.",
     avatarUrl: "https://i.pravatar.cc/200?img=5",
   },
+  // PROGRESSO DAS CONQUISTAS (NOVO FORMATO)
   badges: [
-    {
-      id: "bd1",
-      icon: "BookOpen",
-      color: "from-pink-500/20 to-pink-500/10",
-      nameKey: "badge.52books",
-    },
-    {
-      id: "bd2",
-      icon: "Gamepad2",
-      color: "from-emerald-500/20 to-emerald-500/10",
-      nameKey: "badge.12games",
-    },
-    {
-      id: "bd3",
-      icon: "Users",
-      color: "from-amber-500/20 to-amber-500/10",
-      nameKey: "badge.clubreader",
-    },
-    {
-      id: "bd4",
-      icon: "Film",
-      color: "from-indigo-500/20 to-indigo-500/10",
-      nameKey: "badge.52films",
-    },
-    {
-      id: "bd5",
-      icon: "StarIcon",
-      color: "from-fuchsia-500/20 to-fuchsia-500/10",
-      nameKey: "badge.topreviewer",
-    },
+    { id: "the-one", progress: 60 }, // Ouro (52)
+    { id: "narya", progress: 5 }, // Nada
+    { id: "vilya", progress: 26 }, // Prata
+    { id: "nenya", progress: 12 }, // Bronze
+    { id: "zeitgeist", progress: 8 },
+    { id: "khazad-dum", progress: 2 },
   ],
   favorites: [
     {
@@ -321,6 +334,8 @@ const marisData = {
   ],
   collections: [],
 };
+
+// --- DADOS DE USUÁRIO (ALEX) ---
 const alexlData = {
   profile: {
     name: "Alex Lima",
@@ -328,19 +343,13 @@ const alexlData = {
     bio: "Explorando mundos de fantasia e futuros distópicos. Foco em RPGs, cinema de autor e álbuns conceituais.",
     avatarUrl: "https://i.pravatar.cc/200?img=12",
   },
+  // PROGRESSO DAS CONQUISTAS (NOVO FORMATO)
   badges: [
-    {
-      id: "bd_al1",
-      icon: "Gamepad2",
-      color: "from-sky-500/20 to-sky-500/10",
-      nameKey: "badge.12games",
-    },
-    {
-      id: "bd_al2",
-      icon: "StarIcon",
-      color: "from-fuchsia-500/20 to-fuchsia-500/10",
-      nameKey: "badge.topreviewer",
-    },
+    { id: "the-one", progress: 14 }, // Bronze
+    { id: "narya", progress: 55 }, // Ouro
+    { id: "nenya", progress: 24 }, // Bronze (quase Prata)
+    { id: "wood-between-worlds", progress: 7 }, // Prata
+    { id: "zeitgeist", progress: 10 }, // Bronze
   ],
   favorites: [
     {

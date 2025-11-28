@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Star as StarIcon, ChevronRight } from "lucide-react";
+import { Star as StarIcon } from "lucide-react";
 
 import { cx } from "../../../utils/formatters";
 import MediaCard from "../../ui/MediaCard/MediaCard.jsx";
+import ExpandButton from "../../ui/ExpandButton/ExpandButton.jsx"; // Importando o novo botão
 
-// MODIFICAÇÃO: Adicionada a prop 'handle'
 function FavoritesSection({ items, t, handle }) {
   const [filter, setFilter] = useState("todos");
 
@@ -32,10 +32,10 @@ function FavoritesSection({ items, t, handle }) {
             key={f.k}
             onClick={() => setFilter(f.k)}
             className={cx(
-              "px-3 py-1.5 rounded-full border",
+              "px-3 py-1.5 rounded-full border text-xs font-medium transition-colors",
               filter === f.k
                 ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 border-neutral-900 dark:border-white"
-                : "border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800/60",
+                : "border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800",
             )}
           >
             {f.label}
@@ -48,29 +48,31 @@ function FavoritesSection({ items, t, handle }) {
   return (
     <section>
       <div className="mb-3 grid grid-cols-[auto_1fr_auto] items-center gap-2">
+        {/* Título e Ícone */}
         <div className="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
           <StarIcon className="w-4 h-4" />
           <h3 className="text-base font-semibold text-neutral-800 dark:text-neutral-100">
             {t("section.favorites")}
           </h3>
         </div>
-        <div className="justify-self-start lg:justify-self-center">
-          <div className="flex items-center gap-2 text-xs flex-wrap">
+
+        {/* Filtros (Chips) */}
+        <div className="justify-self-start lg:justify-self-center overflow-x-auto no-scrollbar w-full lg:w-auto px-2 lg:px-0">
+          <div className="flex items-center gap-2 text-xs whitespace-nowrap">
             {renderFilterChips()}
           </div>
         </div>
+
+        {/* Botão Expandir (+) */}
         <div className="justify-self-end">
-          {/* MODIFICAÇÃO: O <button> foi substituído pelo <Link> */}
-          <Link
+          <ExpandButton
             to={`/profile/${handle}/favorites`}
-            className="h-8 px-3 inline-flex items-center justify-center gap-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-sm leading-none font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800/60"
-          >
-            <span className="leading-none">{t("action.explore")}</span>
-            <ChevronRight className="w-4 h-4 shrink-0" />
-          </Link>
+            ariaLabel={t("action.explore")}
+          />
         </div>
       </div>
 
+      {/* Grid de Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 min-h-[32.75rem]">
         {filteredItems.map((item) => (
           <Link to={`/media/${item.id}`} key={item.id}>

@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { List, ChevronRight } from "lucide-react";
+import { List } from "lucide-react";
 import { cx } from "../../../utils/formatters";
+import ExpandButton from "../../ui/ExpandButton/ExpandButton.jsx"; // Importando o novo botão
 
 // Paleta de cores para os ícones de tipo de mídia
 const palette = {
@@ -12,7 +12,6 @@ const palette = {
   album: "bg-amber-500",
 };
 
-// MODIFICAÇÃO: Prop 'handle' não é mais necessária aqui
 export default function CollectionList({ collections, t }) {
   return (
     <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 min-h-[256px]">
@@ -21,18 +20,13 @@ export default function CollectionList({ collections, t }) {
           <List className="w-4 h-4 text-neutral-500" />
           {t("section.collections")}
         </h3>
-        {/* MODIFICAÇÃO: Botão agora é um Link para a página de gestão */}
-        <Link
-          to="/dashboard/lists"
-          className="h-7 px-2 inline-flex items-center justify-center gap-1 rounded-full border border-neutral-200 dark:border-neutral-700 text-xs leading-none font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800/60"
-        >
-          {t("action.manage", "Gerir")}
-        </Link>
+
+        {/* Botão padronizado (+) para ir à gestão de listas */}
+        <ExpandButton to="/dashboard/lists" ariaLabel={t("action.manage")} />
       </div>
 
       <div className="flex flex-col gap-3">
         {(collections || []).map((collection) => (
-          // MODIFICAÇÃO: Item da lista não é mais um link, é apenas visual
           <motion.div
             key={collection.id}
             className="w-full text-left p-3 rounded-xl border border-neutral-200/80 dark:border-neutral-800/60 bg-neutral-50/50 dark:bg-neutral-900/50"
@@ -41,7 +35,6 @@ export default function CollectionList({ collections, t }) {
               <span className="font-semibold text-sm text-neutral-800 dark:text-neutral-100">
                 {collection.title}
               </span>
-              {/* Ícone de seta removido, pois não é mais um link direto */}
             </div>
             <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-1">
               {collection.description}

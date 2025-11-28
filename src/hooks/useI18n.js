@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// DICIONÁRIO COMPLETO, INCLUINDO AS NOVAS CHAVES
+// DICIONÁRIO COMPLETO, INCLUINDO AS NOVAS CHAVES DE CONQUISTAS
 const I18N = {
   PT: {
     // --- CHAVES (Detalhes da Mídia) ---
@@ -76,7 +76,7 @@ const I18N = {
     "forgot.success_text":
       "Verifique sua caixa de entrada (e pasta de spam) nos próximos minutos.",
 
-    // --- NOVAS CHAVES (Resetar Senha) ---
+    // --- CHAVES (Resetar Senha) ---
     "reset.title": "Crie sua nova senha",
     "reset.subtitle": "Quase lá! Insira sua nova senha abaixo.",
     "reset.button": "Salvar Nova Senha",
@@ -128,7 +128,7 @@ const I18N = {
     "action.see_all": "Ver todas",
     "action.manage": "Gerir",
     "action.saveReview": "Salvar Review",
-    "list.actions_title": "Ações", // NOVA CHAVE
+    "list.actions_title": "Ações",
     "list.owner_prefix": "Lista de",
     "list.empty_state": "Esta lista ainda não tem itens.",
     "list.create_new": "Criar Nova Lista",
@@ -152,11 +152,11 @@ const I18N = {
     "list.add_items_title": "Adicionar Mídias",
     "list.add_media": "Adicionar Mídias",
     "list.search_placeholder": "Procurar filmes, livros, jogos...",
-    "list.no_results": "Nenhum resultado encontrado.", // NOVA CHAVE
+    "list.no_results": "Nenhum resultado encontrado.",
     "list.current_items_title": "Itens na Lista",
     "list.empty_state_editor": "Adicione mídias usando a busca acima.",
-    "list.item_singular": "item", // NOVA CHAVE
-    "list.item_plural": "itens", // NOVA CHAVE
+    "list.item_singular": "item",
+    "list.item_plural": "itens",
     "filter.all": "Todos",
     "filter.movies": "Filmes",
     "filter.books": "Livros",
@@ -207,6 +207,58 @@ const I18N = {
     "badge.clubreader": "Leitura coletiva de clube",
     "badge.52films": "52 filmes em 2024",
     "badge.topreviewer": "Top 1% resenhistas",
+
+    // --- NOVAS CHAVES (Página de Conquistas) ---
+    "achievements.title": "Conquistas",
+    "achievements.subtitle":
+      "Acompanhe sua jornada através do multiverso cultural.",
+    "achievements.progress": "Progresso",
+    "achievements.locked": "Bloqueado",
+    "achievement.desc.the-one":
+      "Registre sua jornada literária ao longo de um ano.",
+    "achievement.desc.narya":
+      "Registre sua jornada musical ao longo de um ano.",
+    "achievement.desc.vilya":
+      "Registre sua jornada cinematográfica ao longo de um ano.",
+    "achievement.desc.nenya":
+      "Registre sua jornada nos games ao longo de um ano.",
+    "achievement.desc.life-universe-everything":
+      "Complete o ciclo de obras de Ficção Científica em livros, filmes e jogos.",
+    "achievement.desc.horror-business":
+      "Complete o ciclo de obras de Terror em livros, filmes e jogos.",
+    "achievement.desc.wood-between-worlds":
+      "Complete o ciclo de obras de Fantasia em livros, filmes e jogos.",
+    "achievement.desc.once-upon-time-west":
+      "Complete o ciclo de obras de Western em livros, filmes e jogos.",
+    "achievement.desc.kagemusha":
+      "Complete o ciclo de obras Eastern em livros, filmes e jogos.",
+    "achievement.desc.help-me-eros":
+      "Complete o ciclo de obras de Romance em livros, filmes e jogos.",
+    "achievement.desc.guernica":
+      "Complete o ciclo de obras de Guerra em livros, filmes e jogos.",
+    "achievement.desc.nighthawks":
+      "Complete o ciclo de obras Noir em livros, filmes e jogos.",
+    "achievement.desc.perche-leggere-classici":
+      "Analise Livros anteriores a 1900, Filmes anteriores a 1950, Álbuns anteriores a 1970 ou Jogos anteriores a 2000.",
+    "achievement.desc.zeitgeist":
+      "Mantenha-se atualizado analisando obras lançadas na última década.",
+    "achievement.desc.moritarnon":
+      "Descubra e analise obras que sofreram censura ou banimento histórico.",
+    "achievement.desc.arda":
+      "Complete o ciclo de análises de obras de todos os 6 continentes.",
+    "achievement.desc.rhun":
+      "Amplie horizontes com obras de países fora do eixo do Norte Global.",
+    "achievement.desc.khazad-dum":
+      "Escave profundamente em busca de obras independentes ou de nicho.",
+    "achievement.desc.manwe":
+      "Defenda uma obra incompreendida: Nota pessoal alta vs. Média geral baixa.",
+    "achievement.desc.melkor":
+      "Critique um favorito das massas: Nota pessoal baixa vs. Média geral alta.",
+    "achievement.desc.trivium": "Complete a jornada de uma trilogia inteira.",
+    "achievement.desc.quadrivium":
+      "Complete a jornada de uma tetralogia inteira.",
+    "achievement.desc.dagor-dagorath":
+      "Chegue ao fim de uma saga de livros, filmes ou jogos.",
   },
   EN: {
     // --- CHAVES (Detalhes da Mídia) ---
@@ -323,7 +375,7 @@ const I18N = {
     "action.see_all": "See all",
     "action.manage": "Manage",
     "action.saveReview": "Save Review",
-    "list.actions_title": "Actions", // NOVA CHAVE
+    "list.actions_title": "Actions",
     "list.owner_prefix": "List by",
     "list.empty_state": "This list does not have any items yet.",
     "list.create_new": "Create New List",
@@ -350,8 +402,8 @@ const I18N = {
     "list.no_results": "No results found.",
     "list.current_items_title": "Items in List",
     "list.empty_state_editor": "Add media using the search above.",
-    "list.item_singular": "item", // NOVA CHAVE
-    "list.item_plural": "items", // NOVA CHAVE
+    "list.item_singular": "item",
+    "list.item_plural": "items",
     "filter.all": "All",
     "filter.movies": "Movies",
     "filter.books": "Books",
@@ -402,6 +454,52 @@ const I18N = {
     "badge.clubreader": "Book club collective reading",
     "badge.52films": "52 films in 2024",
     "badge.topreviewer": "Top 1% reviewer",
+
+    // --- NOVAS CHAVES (Achievements Page) ---
+    "achievements.title": "Achievements",
+    "achievements.subtitle":
+      "Track your journey through the cultural multiverse.",
+    "achievements.progress": "Progress",
+    "achievements.locked": "Locked",
+    "achievement.desc.the-one": "Log your literary journey over a year.",
+    "achievement.desc.narya": "Log your musical journey over a year.",
+    "achievement.desc.vilya": "Log your cinematic journey over a year.",
+    "achievement.desc.nenya": "Log your gaming journey over a year.",
+    "achievement.desc.life-universe-everything":
+      "Complete the Sci-Fi works cycle in books, films, and games.",
+    "achievement.desc.horror-business":
+      "Complete the Horror works cycle in books, films, and games.",
+    "achievement.desc.wood-between-worlds":
+      "Complete the Fantasy works cycle in books, films, and games.",
+    "achievement.desc.once-upon-time-west":
+      "Complete the Western works cycle in books, films, and games.",
+    "achievement.desc.kagemusha":
+      "Complete the Eastern works cycle in books, films, and games.",
+    "achievement.desc.help-me-eros":
+      "Complete the Romance works cycle in books, films, and games.",
+    "achievement.desc.guernica":
+      "Complete the War works cycle in books, films, and games.",
+    "achievement.desc.nighthawks":
+      "Complete the Noir works cycle in books, films, and games.",
+    "achievement.desc.perche-leggere-classici":
+      "Review Books pre-1900, Films pre-1950, Albums pre-1970, or Games pre-2000.",
+    "achievement.desc.zeitgeist":
+      "Stay current by reviewing works released in the last decade.",
+    "achievement.desc.moritarnon":
+      "Discover and review historically banned or censored works.",
+    "achievement.desc.arda":
+      "Complete the analysis cycle of works from all 6 continents.",
+    "achievement.desc.rhun":
+      "Broaden horizons with works from countries outside the Global North.",
+    "achievement.desc.khazad-dum": "Dig deep for independent or niche works.",
+    "achievement.desc.manwe":
+      "Defend a misunderstood work: High personal score vs. Low general average.",
+    "achievement.desc.melkor":
+      "Critique a crowd favorite: Low personal score vs. High general average.",
+    "achievement.desc.trivium": "Complete the journey of a full trilogy.",
+    "achievement.desc.quadrivium": "Complete the journey of a full tetralogy.",
+    "achievement.desc.dagor-dagorath":
+      "Reach the end of a book, film, or game saga.",
   },
   ES: {
     // --- CHAVES (Detalhes da Mídia) ---
@@ -522,7 +620,7 @@ const I18N = {
     "action.see_all": "Ver todas",
     "action.manage": "Gestionar",
     "action.saveReview": "Guardar Reseña",
-    "list.actions_title": "Acciones", // NOVA CHAVE
+    "list.actions_title": "Acciones",
     "list.owner_prefix": "Lista de",
     "list.empty_state": "Esta lista aún no tiene elementos.",
     "list.create_new": "Crear Nueva Lista",
@@ -549,8 +647,8 @@ const I18N = {
     "list.no_results": "No se encontraron resultados.",
     "list.current_items_title": "Elementos en la Lista",
     "list.empty_state_editor": "Añade medios usando la búsqueda de arriba.",
-    "list.item_singular": "elemento", // NOVA CHAVE
-    "list.item_plural": "elementos", // NOVA CHAVE
+    "list.item_singular": "elemento",
+    "list.item_plural": "elementos",
     "filter.all": "Todos",
     "filter.movies": "Películas",
     "filter.books": "Libros",
@@ -601,6 +699,56 @@ const I18N = {
     "badge.clubreader": "Lectura colectiva de club",
     "badge.52films": "52 películas em 2024",
     "badge.topreviewer": "Top 1% reseñadores",
+
+    // --- NOVAS CHAVES (Página de Logros) ---
+    "achievements.title": "Logros",
+    "achievements.subtitle": "Sigue tu viaje a través del multiverso cultural.",
+    "achievements.progress": "Progreso",
+    "achievements.locked": "Bloqueado",
+    "achievement.desc.the-one":
+      "Registra tu viaje literario a lo largo de un año.",
+    "achievement.desc.narya": "Registra tu viaje musical a lo largo de un año.",
+    "achievement.desc.vilya":
+      "Registra tu viaje cinematográfico a lo largo de un año.",
+    "achievement.desc.nenya":
+      "Registra tu viaje en videojuegos a lo largo de un año.",
+    "achievement.desc.life-universe-everything":
+      "Completa el ciclo de obras de Ciencia Ficción en libros, películas y juegos.",
+    "achievement.desc.horror-business":
+      "Completa el ciclo de obras de Terror en libros, películas y juegos.",
+    "achievement.desc.wood-between-worlds":
+      "Completa el ciclo de obras de Fantasía en libros, películas y juegos.",
+    "achievement.desc.once-upon-time-west":
+      "Completa el ciclo de obras Western en libros, películas y juegos.",
+    "achievement.desc.kagemusha":
+      "Completa el ciclo de obras Orientales en libros, películas y juegos.",
+    "achievement.desc.help-me-eros":
+      "Completa el ciclo de obras de Romance en libros, películas y juegos.",
+    "achievement.desc.guernica":
+      "Completa el ciclo de obras de Guerra en libros, películas y juegos.",
+    "achievement.desc.nighthawks":
+      "Completa el ciclo de obras Noir en libros, películas y juegos.",
+    "achievement.desc.perche-leggere-classici":
+      "Analiza Libros anteriores a 1900, Películas anteriores a 1950, Álbumes anteriores a 1970 o Juegos anteriores a 2000.",
+    "achievement.desc.zeitgeist":
+      "Mantente actualizado analizando obras lanzadas en la última década.",
+    "achievement.desc.moritarnon":
+      "Descubre y analiza obras que sufrieron censura o prohibición histórica.",
+    "achievement.desc.arda":
+      "Completa el ciclo de análisis de obras de los 6 continentes.",
+    "achievement.desc.rhun":
+      "Amplía horizontes con obras de países fuera del eje del Norte Global.",
+    "achievement.desc.khazad-dum":
+      "Excava profundamente en busca de obras independientes o de nicho.",
+    "achievement.desc.manwe":
+      "Defiende una obra incomprendida: Nota personal alta vs. Promedio general bajo.",
+    "achievement.desc.melkor":
+      "Critica un favorito de las masas: Nota personal baja vs. Promedio general alto.",
+    "achievement.desc.trivium": "Completa el viaje de una trilogía entera.",
+    "achievement.desc.quadrivium":
+      "Completa el viaje de una tetralogía entera.",
+    "achievement.desc.dagor-dagorath":
+      "Llega al final de una saga de libros, películas o juegos.",
   },
 };
 

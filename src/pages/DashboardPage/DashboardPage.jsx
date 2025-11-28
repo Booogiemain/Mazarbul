@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 // Importando componentes, hooks e utilitários
 import { cx } from "../../utils/formatters";
 import { useUserProfileData } from "../../hooks/useUserProfileData.js";
+import { useAuth } from "../../contexts/AuthContext.jsx"; // IMPORTANTE: Importar o contexto de Auth
+
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
 import ProfileHeader from "../../components/user/ProfileHeader/ProfileHeader.jsx";
 import FavoritesSection from "../../components/user/FavoritesSection/FavoritesSection.jsx";
@@ -15,11 +17,12 @@ import CollectionList from "../../components/dashboard/CollectionList/Collection
 // Componente da Página do Dashboard do USUÁRIO LOGADO
 // ==========================
 export default function DashboardPage({ theme, setTheme, lang, setLang, t }) {
-  // O hook agora lê do Contexto, mas a chamada é a mesma
+  // Pega o usuário logado do contexto (ex: Alex)
+  const { currentUser } = useAuth();
+
   const { profile, badges, favorites, reviews, dynamicTags, collections } =
     useUserProfileData();
 
-  // Lógica de sincronização de altura, baseada na coluna da direita
   const rightColumnRef = useRef(null);
   const [leftColumnHeight, setLeftColumnHeight] = useState(0);
 
@@ -60,7 +63,15 @@ export default function DashboardPage({ theme, setTheme, lang, setLang, t }) {
 
         <main className="max-w-7xl mx-auto px-4 pt-24 pb-16 flex flex-col gap-8">
           <ProfileHeader profile={profile} tags={dynamicTags} t={t} />
-          <BadgesRibbon badges={badges} t={t} />
+
+          {/* AQUI ESTÁ A LIGAÇÃO: Passamos handle e isOwner para o botão + funcionar */}
+          <BadgesRibbon
+            badges={badges}
+            t={t}
+            handle={currentUser?.handle} // Passa "alex"
+            isOwner={true} // Garante que o botão + apareça no Dashboard
+          />
+
           <FavoritesSection items={favorites} t={t} handle={profile.handle} />
 
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -80,7 +91,6 @@ export default function DashboardPage({ theme, setTheme, lang, setLang, t }) {
                 <ActivityCalendar reviews={reviews} t={t} />
               </div>
 
-              {/* MODIFICAÇÃO: 'handle' não é mais necessário */}
               <CollectionList collections={collections} t={t} />
             </div>
           </section>

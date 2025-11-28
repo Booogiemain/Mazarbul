@@ -1,62 +1,143 @@
 import React from "react";
 import {
-  BadgeCheck,
   BookOpen,
-  Gamepad2,
-  Users,
+  Music,
   Film,
-  Star as StarIcon,
-  ChevronRight,
+  Gamepad2,
+  Rocket,
+  Skull,
+  Sword,
+  Sun,
+  Swords,
+  Heart,
+  Shield,
+  Search,
+  Hourglass,
+  Zap,
+  EyeOff,
+  Globe,
+  Compass,
+  Pickaxe,
+  ThumbsUp,
+  ThumbsDown,
+  Layers,
+  Box,
+  Infinity,
+  Star,
+  BadgeCheck,
 } from "lucide-react";
 import { cx } from "../../../utils/formatters";
+import ExpandButton from "../../ui/ExpandButton/ExpandButton";
+// Importamos a definição estática para saber qual ícone usar
+import { MASTER_ACHIEVEMENTS_LIST } from "../../../hooks/useUserProfileData";
 
-const iconMap = {
-  BookOpen,
-  Gamepad2,
-  Users,
-  Film,
-  StarIcon,
+const ICON_MAP = {
+  "book-open": BookOpen,
+  music: Music,
+  film: Film,
+  gamepad: Gamepad2,
+  rocket: Rocket,
+  skull: Skull,
+  sword: Sword,
+  sun: Sun,
+  "sword-crossed": Swords,
+  heart: Heart,
+  shield: Shield,
+  search: Search,
+  hourglass: Hourglass,
+  zap: Zap,
+  "eye-off": EyeOff,
+  globe: Globe,
+  compass: Compass,
+  pickaxe: Pickaxe,
+  "thumbs-up": ThumbsUp,
+  "thumbs-down": ThumbsDown,
+  layers: Layers,
+  box: Box,
+  infinity: Infinity,
 };
 
-function BadgesRibbon({ badges, t }) {
+const COLORS = {
+  bronze: "#cd7f32",
+  silver: "#9ca3af",
+  gold: "#eab308",
+  locked: "#525252",
+};
+
+const getBadgeColor = (progress, tiers) => {
+  if (!tiers) return COLORS.locked;
+  const [bronze, silver, gold] = tiers;
+  if (progress >= gold) return COLORS.gold;
+  if (progress >= silver) return COLORS.silver;
+  if (progress >= bronze) return COLORS.bronze;
+  return COLORS.locked;
+};
+
+function BadgesRibbon({ badges, t, handle, isOwner }) {
+  // Se não houver badges ou a lista estiver vazia, não renderiza nada
   if (!badges || badges.length === 0) {
     return null;
   }
 
+  // FILTRO E ENRIQUECIMENTO:
+  // 1. Pegamos apenas os badges que o usuário tem algum progresso.
+  // 2. Buscamos a definição visual (ícone, tiers) na MASTER_LIST usando o ID.
+  const displayBadges = badges
+    .map((userBadge) => {
+      const definition = MASTER_ACHIEVEMENTS_LIST.find(
+        (item) => item.id === userBadge.id,
+      );
+      if (!definition) return null;
+      return {
+        ...userBadge, // tem id e progress
+        ...definition, // tem iconName e tiers
+      };
+    })
+    .filter(Boolean); // Remove nulos caso algum ID não bata
+
+  if (displayBadges.length === 0) return null;
+
   return (
     <section>
-      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 mb-3">
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
           <BadgeCheck className="w-4 h-4" />
           <h3 className="text-base font-semibold text-neutral-800 dark:text-neutral-100">
             {t("section.achievements")}
           </h3>
         </div>
-        <div />
-        <div className="justify-self-end">
-          <button className="h-8 px-3 inline-flex items-center justify-center gap-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-sm leading-none font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800/60">
-            <span className="leading-none">{t("action.explore")}</span>
-            <ChevronRight className="w-4 h-4 shrink-0" />
-          </button>
-        </div>
+
+        {isOwner && handle && (
+          <ExpandButton
+            to={`/profile/${handle}/achievements`}
+            ariaLabel={t("action.see_all")}
+          />
+        )}
       </div>
-      <div className="flex flex-wrap items-center gap-3 select-none">
-        {badges.map((badge) => {
-          const IconComponent = iconMap[badge.icon] || BadgeCheck;
+
+      <div className="flex flex-wrap items-center gap-4 select-none">
+        {displayBadges.map((badge) => {
+          const IconComponent = ICON_MAP[badge.iconName] || Star;
+          const badgeColor = getBadgeColor(badge.progress, badge.tiers);
+
+          // Opcional: Só mostrar no Ribbon se tiver atingido pelo menos Bronze?
+          // Se quiser mostrar tudo que tem progresso > 0, deixe assim.
+          // Se quiser esconder os bloqueados: if (badgeColor === COLORS.locked) return null;
+
           return (
-            <div key={badge.id} className="relative group">
+            <div
+              key={badge.id}
+              className="relative group flex flex-col items-center"
+            >
               <div
-                className={cx(
-                  "w-14 h-14 rounded-full border border-neutral-200 dark:border-neutral-800 bg-gradient-to-br",
-                  badge.color,
-                  "flex items-center justify-center",
-                )}
+                className="w-12 h-12 rounded-full border-2 flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 transition-colors"
+                style={{ borderColor: badgeColor, color: badgeColor }}
               >
-                <IconComponent className="w-6 h-6 text-neutral-800 dark:text-neutral-200" />
+                <IconComponent size={20} strokeWidth={2} />
               </div>
-              {/* AQUI ESTÁ A MUDANÇA: Usando t(badge.nameKey) para traduzir */}
-              <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-2 py-1 rounded-md text-xs bg-neutral-900 text-white opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-20 shadow-md transition-opacity">
-                {t(badge.nameKey)}
+
+              <div className="absolute top-full mt-2 px-2 py-1 rounded bg-neutral-900 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none">
+                {t(`achievement.desc.${badge.id}`) || badge.id}
               </div>
             </div>
           );

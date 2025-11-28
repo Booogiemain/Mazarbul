@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { MessageSquare, ChevronRight } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 
-// MODIFICAÇÃO: Corrigido o caminho da importação para subir um nível de diretório
 import ReviewCard from "../ReviewCard/ReviewCard.jsx";
+import ExpandButton from "../../ui/ExpandButton/ExpandButton.jsx"; // Importando o novo botão
 
 // Componente para exibir o painel de reviews de um usuário.
 function ReviewsPanel({ reviews, t, containerHeight, handle }) {
@@ -25,16 +24,16 @@ function ReviewsPanel({ reviews, t, containerHeight, handle }) {
           </h3>
         </div>
 
-        {/* Link "Ver mais" adicionado */}
+        {/* Div espaçador (caso necessário para o grid layout se manter consistente) */}
+        <div></div>
+
+        {/* Botão Expandir (+) */}
         {handle && (
           <div className="justify-self-end">
-            <Link
+            <ExpandButton
               to={`/profile/${handle}/reviews`}
-              className="h-8 px-3 inline-flex items-center justify-center gap-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-sm leading-none font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800/60"
-            >
-              <span className="leading-none">{t("action.see_more")}</span>
-              <ChevronRight className="w-4 h-4 shrink-0" />
-            </Link>
+              ariaLabel={t("action.see_more")}
+            />
           </div>
         )}
       </div>
@@ -43,7 +42,6 @@ function ReviewsPanel({ reviews, t, containerHeight, handle }) {
       <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 overflow-hidden flex-1 min-h-0">
         <div className="divide-y divide-neutral-200 dark:divide-neutral-800 h-full overflow-y-auto">
           {reviews.map((review) => (
-            // Código do card substituído pelo componente
             <ReviewCard key={review.id} review={review} t={t} />
           ))}
         </div>

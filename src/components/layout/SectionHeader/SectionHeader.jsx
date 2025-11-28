@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronRight } from "lucide-react";
+import ExpandButton from "../../ui/ExpandButton/ExpandButton.jsx"; // Importando o novo botão padronizado
 
 // Componente para o cabeçalho de uma seção, com título, ícone e filtros.
 function SectionHeader({ title, href, icon, filters, t }) {
@@ -14,21 +14,18 @@ function SectionHeader({ title, href, icon, filters, t }) {
       </div>
 
       {/* Centro: Filtros (opcional) */}
-      <div className="justify-self-center">
-        <div className="flex items-center gap-2 text-xs flex-wrap justify-center">
+      <div className="justify-self-center overflow-x-auto no-scrollbar w-full lg:w-auto px-2 lg:px-0">
+        <div className="flex items-center gap-2 text-xs flex-wrap justify-center whitespace-nowrap">
           {filters}
         </div>
       </div>
 
-      {/* Lado direito: Botão "Explorar" (opcional) */}
+      {/* Lado direito: Botão Expandir (+) padronizado */}
       <div className="justify-self-end">
         {href ? (
-          <button className="h-8 px-3 inline-flex items-center justify-center gap-1.5 rounded-full border border-neutral-200 dark:border-neutral-700 text-sm leading-none font-medium hover:bg-neutral-50 dark:hover:bg-neutral-800/60">
-            <span className="leading-none">{t("action.explore")}</span>
-            <ChevronRight className="w-4 h-4" />
-          </button>
+          <ExpandButton to={href} ariaLabel={t("action.explore")} />
         ) : (
-          <span /> // Renderiza um elemento vazio se não houver 'href'
+          <span />
         )}
       </div>
     </div>

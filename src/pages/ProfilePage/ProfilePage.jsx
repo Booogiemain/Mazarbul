@@ -1,27 +1,36 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
-// Importando utilitários e componentes
 import { cx } from "../../utils/formatters";
 import { useUserProfileData } from "../../hooks/useUserProfileData.js";
+import { useAuth } from "../../contexts/AuthContext.jsx";
+
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
 import ProfileHeader from "../../components/user/ProfileHeader/ProfileHeader.jsx";
 import BadgesRibbon from "../../components/user/BadgesRibbon/BadgesRibbon.jsx";
 import FavoritesSection from "../../components/user/FavoritesSection/FavoritesSection.jsx";
 import ReviewsPanel from "../../components/user/ReviewsPanel/ReviewsPanel.jsx";
 
-// ==========================
-// Componente da Página de Perfil VISITADO
-// ==========================
 export default function ProfilePage({ theme, setTheme, lang, setLang, t }) {
   const { handle } = useParams();
+  const { currentUser } = useAuth();
 
-  // AQUI GARANTIMOS QUE SEMPRE BUSCAMOS O USUÁRIO DA URL
+  // --- LÓGICA CORRIGIDA (CASE INSENSITIVE) ---
+  // Verifica se o usuário existe, se a URL tem handle, e se são iguais (ignorando Alex vs alex)
+  const isOwner =
+    currentUser &&
+    handle &&
+    currentUser.handle.toLowerCase() === handle.toLowerCase();
+
+  // Define qual perfil carregar.
+  const dataHandle = handle || "maris";
+
   const { profile, badges, favorites, reviews, dynamicTags } =
-    useUserProfileData(handle || "maris"); // Usa 'maris' como fallback para garantir que não mostre Alex
+    useUserProfileData(dataHandle);
 
   const leftRef = useRef(null);
   const [containerH, setContainerH] = useState(0);
+
   useEffect(() => {
     const measure = () => {
       const rect = leftRef.current?.getBoundingClientRect();
@@ -51,20 +60,27 @@ export default function ProfilePage({ theme, setTheme, lang, setLang, t }) {
         <main className="max-w-7xl mx-auto px-4 pt-24 pb-16">
           <ProfileHeader profile={profile} tags={dynamicTags} t={t} />
           <div className="h-8" />
-          <BadgesRibbon badges={badges} t={t} />
+
+          {/* O botão só aparecerá se isOwner for estritamente verdadeiro */}
+          <BadgesRibbon
+            badges={badges}
+            t={t}
+            handle={dataHandle}
+            isOwner={isOwner}
+          />
+
           <div className="h-8" />
 
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start min-h-0">
             <div ref={leftRef} className="lg:col-span-7 min-h-0">
-              <FavoritesSection items={favorites} t={t} handle={handle} />
+              <FavoritesSection items={favorites} t={t} handle={dataHandle} />
             </div>
             <div className="lg:col-span-5 min-h-0">
-              {/* MODIFICAÇÃO: Passando o 'handle' da URL para o painel de reviews */}
               <ReviewsPanel
                 reviews={reviews}
                 t={t}
                 containerHeight={containerH}
-                handle={handle}
+                handle={dataHandle}
               />
             </div>
           </section>

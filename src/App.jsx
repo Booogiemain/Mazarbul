@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// IMPORTAÇÃO DO CONTEXTO
+import { AuthProvider } from "./contexts/AuthContext.jsx";
+
 // Importar as páginas
 import HomePage from "./pages/HomePage/HomePage.jsx";
 import ProfilePage from "./pages/ProfilePage/ProfilePage.jsx";
@@ -13,8 +16,8 @@ import SettingsPage from "./pages/SettingsPage/SettingsPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage.jsx";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage.jsx";
 import ReviewsPage from "./pages/ReviewsPage/ReviewsPage.jsx";
-// import ListDetailsPage from "./pages/ListDetailsPage/ListDetailsPage.jsx"; // ROTA OBSOLETA REMOVIDA
-import ListManagementPage from "./pages/ListManagementPage/ListManagementPage.jsx"; // NOVA IMPORTAÇÃO
+import AchievementsPage from "./pages/AchievementsPage/AchievementsPage.jsx";
+import ListManagementPage from "./pages/ListManagementPage/ListManagementPage.jsx";
 
 // Importar os hooks
 import { useTheme } from "./hooks/useTheme";
@@ -24,72 +27,63 @@ function App() {
   const { theme, setTheme } = useTheme();
   const { lang, setLang, t } = useI18n();
 
-  // Props globais para passar para todas as páginas
   const pageProps = { theme, setTheme, lang, setLang, t };
 
-  // Efeito para aplicar o TEMA (Dark/Light)
   useEffect(() => {
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
     root.classList.add(theme);
-  }, [theme]); // Roda toda vez que 'theme' mudar
+  }, [theme]);
 
-  // Efeito para aplicar o IDIOMA
   useEffect(() => {
     const root = window.document.documentElement;
     root.setAttribute("lang", lang.toLowerCase());
-  }, [lang]); // Roda toda vez que 'lang' mudar
+  }, [lang]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Rotas principais */}
-        <Route path="/" element={<HomePage {...pageProps} />} />
-        <Route
-          path="/profile/:handle"
-          element={<ProfilePage {...pageProps} />}
-        />
-        <Route
-          path="/profile/:handle/favorites"
-          element={<FavoritesPage {...pageProps} />}
-        />
-        <Route
-          path="/profile/:handle/reviews"
-          element={<ReviewsPage {...pageProps} />}
-        />
-        {/* ROTA OBSOLETA REMOVIDA */}
-        {/* <Route
-          path="/profile/:handle/list/:collectionId"
-          element={<ListDetailsPage {...pageProps} />}
-        /> */}
-
-        <Route path="/dashboard" element={<DashboardPage {...pageProps} />} />
-        {/* NOVA ROTA DE GESTÃO DE LISTAS */}
-        <Route
-          path="/dashboard/lists"
-          element={<ListManagementPage {...pageProps} />}
-        />
-        <Route
-          path="/media/:mediaId"
-          element={<MediaDetailsPage {...pageProps} />}
-        />
-
-        {/* ROTAS DE AUTENTICAÇÃO */}
-        <Route path="/login" element={<LoginPage {...pageProps} />} />
-        <Route path="/register" element={<RegisterPage {...pageProps} />} />
-        <Route
-          path="/forgot-password"
-          element={<ForgotPasswordPage {...pageProps} />}
-        />
-        <Route
-          path="/reset-password"
-          element={<ResetPasswordPage {...pageProps} />}
-        />
-
-        {/* ROTA DE CONFIGURAÇÕES */}
-        <Route path="/settings" element={<SettingsPage {...pageProps} />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage {...pageProps} />} />
+          <Route
+            path="/profile/:handle"
+            element={<ProfilePage {...pageProps} />}
+          />
+          <Route
+            path="/profile/:handle/favorites"
+            element={<FavoritesPage {...pageProps} />}
+          />
+          <Route
+            path="/profile/:handle/reviews"
+            element={<ReviewsPage {...pageProps} />}
+          />
+          <Route
+            path="/profile/:handle/achievements"
+            element={<AchievementsPage {...pageProps} />}
+          />
+          <Route path="/dashboard" element={<DashboardPage {...pageProps} />} />
+          <Route
+            path="/dashboard/lists"
+            element={<ListManagementPage {...pageProps} />}
+          />
+          <Route
+            path="/media/:mediaId"
+            element={<MediaDetailsPage {...pageProps} />}
+          />
+          <Route path="/login" element={<LoginPage {...pageProps} />} />
+          <Route path="/register" element={<RegisterPage {...pageProps} />} />
+          <Route
+            path="/forgot-password"
+            element={<ForgotPasswordPage {...pageProps} />}
+          />
+          <Route
+            path="/reset-password"
+            element={<ResetPasswordPage {...pageProps} />}
+          />
+          <Route path="/settings" element={<SettingsPage {...pageProps} />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
