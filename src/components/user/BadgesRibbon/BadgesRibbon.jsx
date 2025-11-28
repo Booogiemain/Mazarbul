@@ -28,7 +28,6 @@ import {
 } from "lucide-react";
 import { cx } from "../../../utils/formatters";
 import ExpandButton from "../../ui/ExpandButton/ExpandButton";
-// Importamos a definição estática para saber qual ícone usar
 import { MASTER_ACHIEVEMENTS_LIST } from "../../../hooks/useUserProfileData";
 
 const ICON_MAP = {
@@ -74,14 +73,10 @@ const getBadgeColor = (progress, tiers) => {
 };
 
 function BadgesRibbon({ badges, t, handle, isOwner }) {
-  // Se não houver badges ou a lista estiver vazia, não renderiza nada
   if (!badges || badges.length === 0) {
     return null;
   }
 
-  // FILTRO E ENRIQUECIMENTO:
-  // 1. Pegamos apenas os badges que o usuário tem algum progresso.
-  // 2. Buscamos a definição visual (ícone, tiers) na MASTER_LIST usando o ID.
   const displayBadges = badges
     .map((userBadge) => {
       const definition = MASTER_ACHIEVEMENTS_LIST.find(
@@ -89,11 +84,11 @@ function BadgesRibbon({ badges, t, handle, isOwner }) {
       );
       if (!definition) return null;
       return {
-        ...userBadge, // tem id e progress
-        ...definition, // tem iconName e tiers
+        ...userBadge,
+        ...definition,
       };
     })
-    .filter(Boolean); // Remove nulos caso algum ID não bata
+    .filter(Boolean);
 
   if (displayBadges.length === 0) return null;
 
@@ -120,9 +115,10 @@ function BadgesRibbon({ badges, t, handle, isOwner }) {
           const IconComponent = ICON_MAP[badge.iconName] || Star;
           const badgeColor = getBadgeColor(badge.progress, badge.tiers);
 
-          // Opcional: Só mostrar no Ribbon se tiver atingido pelo menos Bronze?
-          // Se quiser mostrar tudo que tem progresso > 0, deixe assim.
-          // Se quiser esconder os bloqueados: if (badgeColor === COLORS.locked) return null;
+          // Formata o ID para Título (ex: "the-one" -> "The One")
+          const badgeTitle = badge.id
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, (l) => l.toUpperCase());
 
           return (
             <div
@@ -136,7 +132,11 @@ function BadgesRibbon({ badges, t, handle, isOwner }) {
                 <IconComponent size={20} strokeWidth={2} />
               </div>
 
-              <div className="absolute top-full mt-2 px-2 py-1 rounded bg-neutral-900 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none">
+              {/* Tooltip atualizado: Título em negrito + Descrição */}
+              <div className="absolute top-full mt-2 px-3 py-2 rounded bg-neutral-900 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none shadow-lg border border-neutral-700">
+                <span className="font-bold text-neutral-200">
+                  {badgeTitle}:
+                </span>{" "}
                 {t(`achievement.desc.${badge.id}`) || badge.id}
               </div>
             </div>
