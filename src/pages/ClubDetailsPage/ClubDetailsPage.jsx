@@ -16,7 +16,6 @@ import {
   Lock,
   Search,
   Plus,
-  ChevronRight,
 } from "lucide-react";
 import { cx } from "../../utils/formatters";
 import { useUserProfileData } from "../../hooks/useUserProfileData.js";
@@ -37,7 +36,7 @@ const TypeIcon = {
 const ClubWorkCard = ({ work, variant = "active", t }) => {
   const WorkIcon = TypeIcon[work.type] || BookOpen;
 
-  // Dados Mockados de Autor/Empresa
+  // Dados Mockados de Autor/Empresa (apenas para visualização, idealmente viriam do objeto work)
   const authorMap = {
     Duna: "Frank Herbert",
     "Duna: Parte Dois": "Denis Villeneuve",
@@ -164,7 +163,7 @@ const DiscussionRow = ({ topic, isExtra }) => (
   </div>
 );
 
-// Componente Auxiliar: Card de Membro (Agora clicável)
+// Componente Auxiliar: Card de Membro (Clicável)
 const MemberCard = ({ name, handle, role, avatar }) => (
   <Link
     to={`/profile/${handle.replace("@", "")}`}
@@ -199,9 +198,11 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
   const club = clubs?.find((c) => c.id === clubId);
   const [activeTab, setActiveTab] = useState("overview");
   const [membershipStatus, setMembershipStatus] = useState("not_member");
-  const [memberSearch, setMemberSearch] = useState(""); // Estado para busca de membros
 
-  // Filtragem de membros baseada na busca
+  // Estado para busca de membros
+  const [memberSearch, setMemberSearch] = useState("");
+
+  // Lógica de Filtro de Membros
   const filteredMembers = useMemo(() => {
     if (!club?.members) return [];
     if (!memberSearch) return club.members;
@@ -265,6 +266,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
       { id: "members", label: t("club.tab.members") },
       { id: "history", label: t("club.tab.history") },
     ];
+
     return (
       <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
         {tabs.map((tab) => (
@@ -407,7 +409,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                     </div>
                   </div>
 
-                  {/* Em Andamento (Discussões por Mídia) */}
+                  {/* Em Andamento (Cards) */}
                   <div>
                     <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-neutral-900 dark:text-neutral-100">
                       <BookOpen className="w-5 h-5 text-indigo-500" />
@@ -461,7 +463,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                       ))}
                     </div>
                   ) : (
-                    <p className="text-center text-neutral-500 py-8 border border-dashed rounded-xl">
+                    <p className="text-center text-neutral-500 py-8 border border-dashed rounded-xl border-neutral-300 dark:border-neutral-700">
                       Nenhum membro encontrado.
                     </p>
                   )}
