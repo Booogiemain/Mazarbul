@@ -10,7 +10,6 @@ const TypeIcon = {
   album: Disc,
 };
 
-// Mapeamento para as chaves de tradução
 const ActivityLabelKey = {
   livro: "club.activity.livro",
   filme: "club.activity.filme",
@@ -19,15 +18,33 @@ const ActivityLabelKey = {
 };
 
 export default function ClubCard({ club, t }) {
-  const WorkIcon = TypeIcon[club.currentWork?.type] || BookOpen;
+  // LÓGICA DE ADAPTAÇÃO:
+  // Verifica se existe a lista nova 'activeWorks'. Se sim, pega o primeiro item.
+  // Se não, tenta pegar o antigo 'currentWork' (caso algum dado antigo tenha sobrado).
+  const primaryWork =
+    club.activeWorks && club.activeWorks.length > 0
+      ? club.activeWorks[0]
+      : club.currentWork;
 
-  // Define o texto dinâmico
-  const activityKey =
-    ActivityLabelKey[club.currentWork?.type] || "club.reading_now";
+  // Define o ícone com base no tipo do trabalho principal
+  const WorkIcon = primaryWork
+    ? TypeIcon[primaryWork.type] || BookOpen
+    : BookOpen;
+
+  // Define o texto (Lendo/Jogando) com base no tipo
+  const activityKey = primaryWork
+    ? ActivityLabelKey[primaryWork.type] || "club.reading_now"
+    : "club.reading_now";
   const activityText = t ? t(activityKey) : "Atividade";
+
+  // Conta quantos extras existem além do principal
+  const extraWorksCount = club.activeWorks
+    ? Math.max(0, club.activeWorks.length - 1)
+    : 0;
 
   return (
     <div className="group flex flex-col bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-300 hover:shadow-lg dark:hover:shadow-neutral-900/50">
+      {/* Capa */}
       <div
         className={cx(
           "h-32 w-full bg-gradient-to-br p-4 flex flex-col justify-between",
@@ -41,6 +58,7 @@ export default function ClubCard({ club, t }) {
         </div>
       </div>
 
+      {/* Conteúdo */}
       <div className="p-5 flex flex-col flex-1 gap-4">
         <div>
           <h3 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
@@ -51,20 +69,30 @@ export default function ClubCard({ club, t }) {
           </p>
         </div>
 
-        {club.currentWork && (
-          <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800 flex items-center gap-3">
+        {/* Card de Atividade Principal */}
+        {primaryWork && (
+          <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800 flex items-center gap-3 relative">
             <div className="w-10 h-10 rounded-lg bg-white dark:bg-neutral-800 flex items-center justify-center text-indigo-500 shadow-sm">
               <WorkIcon size={20} />
             </div>
             <div className="flex flex-col">
-              {/* Texto Dinâmico Aqui */}
               <span className="text-[10px] uppercase text-neutral-400 font-bold tracking-wider">
                 {activityText}
               </span>
               <span className="text-sm font-semibold text-neutral-900 dark:text-neutral-200 line-clamp-1">
-                {club.currentWork.title}
+                {primaryWork.title}
               </span>
             </div>
+
+            {/* Badge indicando "+2" se houver mais atividades */}
+            {extraWorksCount > 0 && (
+              <div
+                className="absolute top-2 right-2 text-[10px] font-bold text-neutral-500 bg-neutral-200 dark:bg-neutral-700 px-1.5 py-0.5 rounded-full"
+                title={`+${extraWorksCount} outras atividades`}
+              >
+                +{extraWorksCount}
+              </div>
+            )}
           </div>
         )}
 

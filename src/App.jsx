@@ -18,7 +18,8 @@ import FavoritesPage from "./pages/FavoritesPage/FavoritesPage.jsx";
 import ReviewsPage from "./pages/ReviewsPage/ReviewsPage.jsx";
 import AchievementsPage from "./pages/AchievementsPage/AchievementsPage.jsx";
 import ListManagementPage from "./pages/ListManagementPage/ListManagementPage.jsx";
-import ClubsDiscoveryPage from "./pages/ClubsDiscoveryPage/ClubsDiscoveryPage.jsx"; // NOVA PÁGINA
+import ClubsDiscoveryPage from "./pages/ClubsDiscoveryPage/ClubsDiscoveryPage.jsx";
+import ClubDetailsPage from "./pages/ClubDetailsPage/ClubDetailsPage.jsx"; // NOVA IMPORTAÇÃO
 
 // Importar os hooks
 import { useTheme } from "./hooks/useTheme";
@@ -72,10 +73,14 @@ function App() {
             element={<MediaDetailsPage {...pageProps} />}
           />
 
-          {/* NOVA ROTA DE CLUBES */}
+          {/* ROTAS DE CLUBES */}
           <Route
             path="/clubs"
             element={<ClubsDiscoveryPage {...pageProps} />}
+          />
+          <Route
+            path="/club/:clubId"
+            element={<ClubDetailsPage {...pageProps} />}
           />
 
           <Route path="/login" element={<LoginPage {...pageProps} />} />

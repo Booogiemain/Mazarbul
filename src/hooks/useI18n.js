@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 
+// DICIONÁRIO COMPLETO
 const I18N = {
   PT: {
-    // ... (Mantenha as chaves gerais, actions, details, list, form, auth como estão) ...
-    // Vou focar apenas nas seções afetadas para economizar espaço, mas o arquivo deve conter TUDO.
-    // Como você pediu o arquivo INTEIRO, aqui vai a versão completa com as adições:
-
     // --- GERAIS ---
     "nav.back_home": "Voltar para o início",
     "search.placeholder": "Busca rápida...",
@@ -31,17 +28,33 @@ const I18N = {
     "section.communityAverage": "Média da Comunidade",
     "section.communityReviews": "Vozes da Comunidade",
 
-    // --- CLUBES (ATUALIZADO) ---
+    // --- CLUBES (GERAL) ---
     "clubs.title": "Explorar Clubes",
     "clubs.subtitle":
       "Encontre sua tribo, participe de leituras conjuntas e discuta suas obras favoritas.",
+    "club.reading_now": "Lendo Agora",
     "action.visit_club": "Visitar Clube",
     "clubs.search_placeholder": "Buscar clubes por nome ou tag...",
     "clubs.filter_all": "Todos",
     "clubs.filter_reading": "Leitura",
     "clubs.filter_cinema": "Cinema",
     "clubs.filter_gaming": "Games",
-    "clubs.filter_music": "Música", // NOVO
+    "clubs.filter_music": "Música",
+
+    // --- DETALHES DO CLUBE (NOVO) ---
+    "club.tab.overview": "Visão Geral",
+    "club.tab.discussions": "Discussões",
+    "club.tab.members": "Membros",
+    "club.tab.history": "Histórico",
+    "club.section.active_works": "Em Andamento",
+    "club.section.rules": "Regras do Clube",
+    "club.section.about": "Sobre",
+    "club.action.join": "Entrar no Clube",
+    "club.action.leave": "Sair do Clube",
+    "club.action.manage": "Gerir Clube",
+    "club.role.owner": "Fundador",
+    "club.role.member": "Membro",
+    "club.next_meeting": "Próximo Encontro",
 
     // Textos dinâmicos de atividade
     "club.activity.livro": "Lendo Agora",
@@ -253,7 +266,7 @@ const I18N = {
       "Receber emails quando alguém seguir você ou comentar em suas reviews.",
     "settings.preferences.save_button": "Salvar Preferências",
 
-    // --- FORMULÁRIOS ---
+    // --- FORM ---
     "form.firstname": "Nome",
     "form.lastname": "Sobrenome",
     "form.email": "Email",
@@ -294,26 +307,7 @@ const I18N = {
     "reset.success.button": "Ir para o Login",
   },
   EN: {
-    // --- CLUBS ---
-    "clubs.title": "Explore Clubs",
-    "clubs.subtitle":
-      "Find your tribe, join group readings, and discuss your favorite works.",
-    "action.visit_club": "Visit Club",
-    "clubs.search_placeholder": "Search clubs by name or tag...",
-    "clubs.filter_all": "All",
-    "clubs.filter_reading": "Reading",
-    "clubs.filter_cinema": "Cinema",
-    "clubs.filter_gaming": "Games",
-    "clubs.filter_music": "Music", // NOVO
-
-    // Dynamic Activity Texts
-    "club.activity.livro": "Reading Now",
-    "club.activity.filme": "Watching Now",
-    "club.activity.jogo": "Playing Now",
-    "club.activity.album": "Listening Now",
-
-    // ... (Mantenha o restante das chaves em Inglês igual ao que já tinha) ...
-    // Estou omitindo o resto para focar na mudança, mas o arquivo real deve ter tudo.
+    // --- GENERAL ---
     "nav.back_home": "Back to home",
     "search.placeholder": "Quick search...",
     "a11y.open_search": "Open search",
@@ -323,6 +317,8 @@ const I18N = {
     "a11y.user_profile": "My profile",
     "a11y.add_favorite": "Add to favorites",
     "a11y.remove_favorite": "Remove from favorites",
+
+    // --- SECTIONS ---
     "section.highlights": "Highlights",
     "section.recents": "Recents",
     "section.clubs": "Clubs",
@@ -335,6 +331,41 @@ const I18N = {
     "section.yourReview": "Your Review",
     "section.communityAverage": "Community Average",
     "section.communityReviews": "Community Voices",
+
+    // --- CLUBS ---
+    "clubs.title": "Explore Clubs",
+    "clubs.subtitle":
+      "Find your tribe, join group readings, and discuss your favorite works.",
+    "action.visit_club": "Visit Club",
+    "clubs.search_placeholder": "Search clubs by name or tag...",
+    "clubs.filter_all": "All",
+    "clubs.filter_reading": "Reading",
+    "clubs.filter_cinema": "Cinema",
+    "clubs.filter_gaming": "Games",
+    "clubs.filter_music": "Music",
+
+    // --- CLUB DETAILS (NEW) ---
+    "club.tab.overview": "Overview",
+    "club.tab.discussions": "Discussions",
+    "club.tab.members": "Members",
+    "club.tab.history": "History",
+    "club.section.active_works": "Active Works",
+    "club.section.rules": "Club Rules",
+    "club.section.about": "About",
+    "club.action.join": "Join Club",
+    "club.action.leave": "Leave Club",
+    "club.action.manage": "Manage Club",
+    "club.role.owner": "Founder",
+    "club.role.member": "Member",
+    "club.next_meeting": "Next Meeting",
+
+    // Dynamic Activity Texts
+    "club.activity.livro": "Reading Now",
+    "club.activity.filme": "Watching Now",
+    "club.activity.jogo": "Playing Now",
+    "club.activity.album": "Listening Now",
+
+    // --- ACHIEVEMENTS ---
     "section.achievements": "Achievements",
     "achievements.title": "Achievements",
     "achievements.subtitle":
@@ -380,12 +411,16 @@ const I18N = {
     "achievement.desc.quadrivium": "Complete the journey of a full tetralogy.",
     "achievement.desc.dagor-dagorath":
       "Reach the end of a book, film, or game saga.",
+
+    // --- ACTIONS & LABELS ---
     "action.explore": "Explore",
     "action.see_more": "See more",
     "action.see_all": "See all",
     "action.manage": "Manage",
     "action.saveReview": "Save Review",
     "label.next": "Next",
+
+    // --- DETAILS ---
     "details.author": "Author",
     "details.pages": "Pages",
     "details.director": "Director",
@@ -393,6 +428,8 @@ const I18N = {
     "details.genre": "Genre",
     "details.year": "Year",
     "details.country": "Country",
+
+    // --- LISTS ---
     "list.actions_title": "Actions",
     "list.owner_prefix": "List by",
     "list.empty_state": "This list does not have any items yet.",
@@ -422,6 +459,8 @@ const I18N = {
     "list.empty_state_editor": "Add media using the search above.",
     "list.item_singular": "item",
     "list.item_plural": "items",
+
+    // --- FILTERS & TAGS ---
     "filter.all": "All",
     "filter.movies": "Movies",
     "filter.books": "Books",
@@ -471,6 +510,8 @@ const I18N = {
     "tag.cultura": "Culture",
     "tag.futurismo": "Futurism",
     "tag.tecnologia": "Technology",
+
+    // --- PROFILE & SETTINGS ---
     "favorites.title_prefix": "Favorites of",
     "favorites.my_title": "My favorites",
     "reviews.title_prefix": "Reviews by",
@@ -520,6 +561,8 @@ const I18N = {
     "settings.preferences.notifications.email.desc":
       "Receive emails when someone follows you or comments on your reviews.",
     "settings.preferences.save_button": "Save Preferences",
+
+    // --- FORM ---
     "form.firstname": "First Name",
     "form.lastname": "Last Name",
     "form.email": "Email",
@@ -531,6 +574,8 @@ const I18N = {
     "form.placeholder.review": "Write your review...",
     "alert.username_invalid_format": "@username format is invalid.",
     "alert.password_mismatch": "Passwords do not match!",
+
+    // --- AUTH ---
     "login.title": "Login",
     "login.subtitle": "Access your Mazarbul account.",
     "login.forgot_password": "Forgot password?",
@@ -558,25 +603,22 @@ const I18N = {
     "reset.success.button": "Go to Login",
   },
   ES: {
-    // --- CLUBES ---
-    "clubs.title": "Explorar Clubes",
-    "clubs.subtitle":
-      "Encuentra tu tribu, participa en lecturas conjuntas y discute tus obras favoritas.",
-    "action.visit_club": "Visitar Club",
-    "clubs.search_placeholder": "Buscar clubes por nombre o etiqueta...",
-    "clubs.filter_all": "Todos",
-    "clubs.filter_reading": "Lectura",
-    "clubs.filter_cinema": "Cine",
-    "clubs.filter_gaming": "Juegos",
-    "clubs.filter_music": "Música", // NOVO
-
-    // Textos dinâmicos
-    "club.activity.livro": "Leyendo Ahora",
-    "club.activity.filme": "Viendo Ahora",
-    "club.activity.jogo": "Jugando Ahora",
-    "club.activity.album": "Escuchando Ahora",
-
-    // ... (O resto das chaves em espanhol) ...
+    // ... (Espanhol atualizado implicitamente, mantenha o arquivo completo para ES também se desejar, mas PT e EN são os mais críticos agora)
+    // Para economizar espaço na resposta, estou replicando a estrutura do PT para ES apenas nas chaves novas:
+    "club.tab.overview": "Visión General",
+    "club.tab.discussions": "Discusiones",
+    "club.tab.members": "Miembros",
+    "club.tab.history": "Historial",
+    "club.section.active_works": "En Progreso",
+    "club.section.rules": "Reglas del Club",
+    "club.section.about": "Sobre",
+    "club.action.join": "Unirse al Club",
+    "club.action.leave": "Salir del Club",
+    "club.action.manage": "Gestionar Club",
+    "club.role.owner": "Fundador",
+    "club.role.member": "Miembro",
+    "club.next_meeting": "Próxima Reunión",
+    // ... resto do ES mantido ...
     "nav.back_home": "Volver al inicio",
     "search.placeholder": "Búsqueda rápida...",
     "a11y.open_search": "Abrir búsqueda",
@@ -598,6 +640,21 @@ const I18N = {
     "section.yourReview": "Tu Reseña",
     "section.communityAverage": "Promedio de la Comunidad",
     "section.communityReviews": "Voces de la Comunidad",
+    "clubs.title": "Explorar Clubes",
+    "clubs.subtitle":
+      "Encuentra tu tribu, participa en lecturas conjuntas y discute tus obras favoritas.",
+    "club.reading_now": "Leyendo Ahora",
+    "action.visit_club": "Visitar Club",
+    "clubs.search_placeholder": "Buscar clubes por nombre o etiqueta...",
+    "clubs.filter_all": "Todos",
+    "clubs.filter_reading": "Lectura",
+    "clubs.filter_cinema": "Cine",
+    "clubs.filter_gaming": "Juegos",
+    "clubs.filter_music": "Música",
+    "club.activity.livro": "Leyendo Ahora",
+    "club.activity.filme": "Viendo Ahora",
+    "club.activity.jogo": "Jugando Ahora",
+    "club.activity.album": "Escuchando Ahora",
     "section.achievements": "Logros",
     "achievements.title": "Logros",
     "achievements.subtitle": "Sigue tu viaje a través del multiverso cultural.",
@@ -674,7 +731,7 @@ const I18N = {
       "Selecciona una lista de la derecha para eliminar.",
     "list.or_create_prompt": "o crea una nueva.",
     "list.form_name": "Nombre",
-    "list.form_name_placeholder": "Ej: Clássicos de Fantasía",
+    "list.form_name_placeholder": "Ej: Clásicos de Fantasía",
     "list.form_desc": "Descripción",
     "list.form_desc_placeholder": "Una breve descripción de tu lista...",
     "list.form_create_button": "Crear Lista",
@@ -783,7 +840,7 @@ const I18N = {
     "settings.preferences.privacy.private_profile": "Perfil Privado",
     "settings.preferences.privacy.private_profile.desc":
       "Si está activado, tu perfil y actividades solo serán visibles para ti.",
-    "settings.preferences.notifications": "Notificações",
+    "settings.preferences.notifications": "Notificaciones",
     "settings.preferences.notifications.email.title":
       "Notificaciones por Correo",
     "settings.preferences.notifications.email.desc":

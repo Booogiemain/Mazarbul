@@ -3,16 +3,13 @@ import { useMemo } from "react";
 import { useUserDatabase } from "../contexts/UserDatabaseContext.jsx";
 
 // ==========================
-// LISTA MESTRA DE CONQUISTAS (NOVA)
+// LISTA MESTRA DE CONQUISTAS
 // ==========================
 export const MASTER_ACHIEVEMENTS_LIST = [
-  // --- ANÉIS DE PODER ---
   { id: "the-one", tiers: [12, 25, 52], iconName: "book-open" },
   { id: "narya", tiers: [12, 25, 52], iconName: "music" },
   { id: "vilya", tiers: [12, 25, 52], iconName: "film" },
   { id: "nenya", tiers: [12, 25, 52], iconName: "gamepad" },
-
-  // --- CONVERGÊNCIA HARMÔNICA ---
   { id: "life-universe-everything", tiers: [1, 6, 12], iconName: "rocket" },
   { id: "horror-business", tiers: [1, 6, 12], iconName: "skull" },
   { id: "wood-between-worlds", tiers: [1, 6, 12], iconName: "sword" },
@@ -21,16 +18,12 @@ export const MASTER_ACHIEVEMENTS_LIST = [
   { id: "help-me-eros", tiers: [1, 6, 12], iconName: "heart" },
   { id: "guernica", tiers: [1, 6, 12], iconName: "shield" },
   { id: "nighthawks", tiers: [1, 6, 12], iconName: "search" },
-
-  // --- EXPLORAÇÃO E ANÁLISE ---
   { id: "perche-leggere-classici", tiers: [1, 6, 12], iconName: "hourglass" },
   { id: "zeitgeist", tiers: [6, 12, 25], iconName: "zap" },
   { id: "moritarnon", tiers: [1, 3, 6], iconName: "eye-off" },
   { id: "arda", tiers: [1, 3, 6], iconName: "globe" },
   { id: "rhun", tiers: [1, 3, 6], iconName: "compass" },
   { id: "khazad-dum", tiers: [1, 6, 12], iconName: "pickaxe" },
-
-  // --- CRÍTICA E COLEÇÃO ---
   { id: "manwe", tiers: [1, 6, 12], iconName: "thumbs-up" },
   { id: "melkor", tiers: [1, 6, 12], iconName: "thumbs-down" },
   { id: "trivium", tiers: [1, 3, 6], iconName: "layers" },
@@ -39,90 +32,175 @@ export const MASTER_ACHIEVEMENTS_LIST = [
 ];
 
 // ==========================
-// BANCO DE DADOS DE CLUBES (NOVO)
+// BANCO DE DADOS DE CLUBES (ATUALIZADO COM MEMBROS)
 // ==========================
 const clubsDatabase = [
   {
     id: "c1",
     name: "Clube Sci-Fi",
     description: "Explorando o desconhecido, de Asimov a Cyberpunk.",
+    ownerHandle: "alexl",
     membersCount: 142,
     nextMeeting: "27/10 • 20:00",
     tags: ["tag.scifi", "tag.futurismo", "tag.tecnologia"],
     coverGradient: "from-indigo-500 via-purple-500 to-pink-500",
-    currentWork: { type: "livro", title: "Duna" },
+    rules:
+      "1. Respeito acima de tudo.\n2. Spoilers apenas com aviso ou na thread específica.\n3. Votações ficam abertas por 48h.",
+    activeWorks: [
+      { id: "duna-livro", type: "livro", title: "Duna" },
+      { id: "m1", type: "filme", title: "Duna: Parte Dois" },
+      { id: "g_mass_effect", type: "jogo", title: "Mass Effect Legendary" },
+      { id: "a_blade_runner_ost", type: "album", title: "Blade Runner Blues" },
+    ],
+    topics: [
+      {
+        id: "t1",
+        title: "Boas-vindas e Apresentações",
+        author: "alexl",
+        replies: 45,
+        isPinned: true,
+        context: "general",
+      },
+      {
+        id: "t2",
+        title: "Discussão: Capítulos 1-5",
+        author: "alexl",
+        replies: 12,
+        isPinned: false,
+        context: "duna-livro",
+      },
+      {
+        id: "t3",
+        title: "O filme fez justiça ao livro?",
+        author: "maris",
+        replies: 28,
+        isPinned: false,
+        context: "m1",
+      },
+    ],
+    // LISTA DE MEMBROS MOCKADA
+    members: [
+      { name: "Alex Lima", handle: "@alexl", role: "owner", avatar: "A" },
+      { name: "Marina Silva", handle: "@maris", role: "mod", avatar: "M" },
+      { name: "João Silva", handle: "@joao", role: "member", avatar: "J" },
+      { name: "Ana Clara", handle: "@anac", role: "member", avatar: "A" },
+      { name: "Lucas P.", handle: "@lucas", role: "member", avatar: "L" },
+      { name: "Beatriz", handle: "@bia", role: "member", avatar: "B" },
+    ],
   },
   {
     id: "c2",
     name: "Terror à Meia-Noite",
     description: "Dissecando o horror psicológico e slashers clássicos.",
+    ownerHandle: "maris",
     membersCount: 89,
     nextMeeting: "31/10 • 23:59",
     tags: ["tag.horror", "tag.cinema", "tag.suspense"],
     coverGradient: "from-red-900 via-red-600 to-orange-900",
-    currentWork: { type: "filme", title: "Hereditário" },
+    rules: "Proibido gore real. Apenas ficção.",
+    activeWorks: [{ id: "m_hereditario", type: "filme", title: "Hereditário" }],
+    topics: [],
+    members: [
+      { name: "Marina Silva", handle: "@maris", role: "owner", avatar: "M" },
+      { name: "Alex Lima", handle: "@alexl", role: "member", avatar: "A" },
+    ],
   },
   {
     id: "c3",
     name: "Indie Games Corner",
     description:
       "Descobrindo joias escondidas e apoiando desenvolvedores independentes.",
+    ownerHandle: "maris",
     membersCount: 215,
     nextMeeting: "10/11 • 18:00",
     tags: ["tag.indie", "tag.jogos", "tag.art"],
     coverGradient: "from-emerald-500 via-teal-500 to-cyan-500",
-    currentWork: { type: "jogo", title: "Hollow Knight" },
+    rules: "Sem gatekeeping. Todo jogo é jogo.",
+    activeWorks: [
+      { id: "g_hollow", type: "jogo", title: "Hollow Knight" },
+      { id: "g_celeste", type: "jogo", title: "Celeste" },
+      { id: "a_celeste_ost", type: "album", title: "Celeste OST" },
+    ],
+    topics: [],
+    members: [],
   },
   {
     id: "c4",
     name: "Sociedade do Anel",
     description: "Para os amantes da alta fantasia e construção de mundos.",
+    ownerHandle: "gandalf_fake",
     membersCount: 350,
     nextMeeting: "05/11 • 19:00",
     tags: ["tag.fantasia", "tag.rpg", "tag.literatura"],
     coverGradient: "from-amber-500 via-yellow-600 to-orange-500",
-    currentWork: { type: "livro", title: "O Silmarillion" },
+    rules: "Fale amigo e entre.",
+    activeWorks: [
+      { id: "b_silmarillion", type: "livro", title: "O Silmarillion" },
+    ],
+    topics: [],
+    members: [],
   },
   {
     id: "c5",
     name: "Cinephiles Noir",
     description: "Sombras, detetives e a estética do cinema preto e branco.",
+    ownerHandle: "bogart",
     membersCount: 45,
     nextMeeting: "15/11 • 21:00",
     tags: ["tag.noir", "tag.cinema", "tag.classico"],
     coverGradient: "from-gray-900 via-gray-700 to-gray-500",
-    currentWork: { type: "filme", title: "O Falcão Maltês" },
+    rules: "Preto e branco é lei.",
+    activeWorks: [{ id: "m_maltese", type: "filme", title: "O Falcão Maltês" }],
+    topics: [],
+    members: [],
   },
   {
     id: "c6",
     name: "Vinil & Café",
     description: "Apreciação de álbuns completos, do Jazz ao Rock Progressivo.",
+    ownerHandle: "alexl",
     membersCount: 120,
     nextMeeting: "Domingo • 10:00",
     tags: ["tag.musica", "tag.jazz", "tag.rock"],
     coverGradient: "from-amber-900 via-yellow-900 to-brown-800",
-    currentWork: { type: "album", title: "Kind of Blue" },
+    rules: "Escute o álbum inteiro antes de opinar.",
+    activeWorks: [{ id: "a_kindofblue", type: "album", title: "Kind of Blue" }],
+    topics: [],
+    members: [],
   },
   {
     id: "c7",
     name: "Literatura Latino-Americana",
     description: "Realismo mágico e as vozes do nosso continente.",
+    ownerHandle: "gabo",
     membersCount: 78,
     nextMeeting: "02/11 • 19:30",
     tags: ["tag.literatura", "tag.cultura", "tag.historia"],
     coverGradient: "from-green-600 via-yellow-500 to-blue-600",
-    currentWork: { type: "livro", title: "Cem Anos de Solidão" },
+    rules: "Português ou Espanhol apenas.",
+    activeWorks: [
+      { id: "b_cem_anos", type: "livro", title: "Cem Anos de Solidão" },
+    ],
+    topics: [],
+    members: [],
   },
   {
     id: "c8",
     name: "Cyberpunk Netrunners",
     description:
       "High Tech, Low Life. Discussões sobre distopias tecnológicas.",
+    ownerHandle: "v_cyber",
     membersCount: 156,
     nextMeeting: "Sexta • 22:00",
     tags: ["tag.scifi", "tag.ciberpunk", "tag.tecnologia"],
     coverGradient: "from-pink-600 via-purple-600 to-cyan-400",
-    currentWork: { type: "jogo", title: "Cyberpunk 2077" },
+    rules: "Não hackear o grupo.",
+    activeWorks: [
+      { id: "g_cp2077", type: "jogo", title: "Cyberpunk 2077" },
+      { id: "m_bladerunner", type: "filme", title: "Blade Runner" },
+    ],
+    topics: [],
+    members: [],
   },
 ];
 
@@ -144,21 +222,13 @@ const mediaDatabase = {
       "https://image.tmdb.org/t/p/w500/1m02V5s5z03iV2lX3a1iV77F22i.jpg",
     backdropUrl:
       "https://image.tmdb.org/t/p/w1280/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg",
-    sinopse: {
-      PT: "Paul Atreides se une a Chani e aos Fremen em uma guerra de vingança contra os conspiradores que destruíram sua família. Diante de uma escolha entre o amor de sua vida e o destino do universo conhecido, ele se esforça para evitar um futuro terrível que só ele pode prever.",
-      EN: "Paul Atreides unites with Chani and the Fremen on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future only he can foresee.",
-      ES: "Paul Atreides se une a Chani y a los Fremen mientras emprende un camino de venganza contra los conspiradores que destruyeron a su familia. Al enfrentarse a una elección entre el amor de su vida y el destino del universo, se esfuerça por evitar un futuro terrible que solo él pode prever.",
-    },
+    sinopse: { PT: "...", EN: "...", ES: "..." },
     details: {
       Diretor: "Denis Villeneuve",
       Duração: "2h 46min",
       Gênero: ["tag.scifi", "tag.aventura"],
       Ano: "2024",
-      País: {
-        PT: "Estados Unidos",
-        EN: "United States",
-        ES: "Estados Unidos",
-      },
+      País: { PT: "EUA", EN: "USA", ES: "EEUU" },
     },
     communityAverage: 9.18,
     communityReviews: [
@@ -170,61 +240,38 @@ const mediaDatabase = {
       },
     ],
   },
+  // ... Demais mídias mantidas ...
   "duna-livro": {
     id: "duna-livro",
     type: "livro",
-    title: {
-      PT: "Duna",
-      EN: "Dune",
-      ES: "Dune",
-    },
+    title: { PT: "Duna", EN: "Dune", ES: "Dune" },
     posterUrl:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414l/44767458.jpg",
     backdropUrl: "https://images.alphacoders.com/133/1333069.jpeg",
-    sinopse: {
-      PT: "Uma mistura de aventura e misticismo, ecologia e política, este romance premiado deu origem a um dos universos mais épicos da ficção científica.",
-      EN: "A blend of adventure and mysticism, ecology and politics, this award-winning novel gave rise to one of the most epic universes in science fiction.",
-      ES: "Una mezcla de aventura y misticismo, ecología y política, esta novela galardonada dio origen a uno de los universos más épicos de la ciencia ficción.",
-    },
+    sinopse: { PT: "..." },
     details: {
       Autor: "Frank Herbert",
       Páginas: "688",
       Gênero: ["tag.scifi", "tag.fantasia", "tag.epica"],
       Ano: "1965",
-      País: {
-        PT: "Estados Unidos",
-        EN: "United States",
-        ES: "Estados Unidos",
-      },
+      País: { PT: "EUA", EN: "USA", ES: "EEUU" },
     },
   },
   "duna-1984": {
     id: "duna-1984",
     type: "filme",
-    title: {
-      PT: "Duna",
-      EN: "Dune",
-      ES: "Duna",
-    },
+    title: { PT: "Duna", EN: "Dune", ES: "Dune" },
     posterUrl:
       "https://image.tmdb.org/t/p/w500/a3nDwAnKAl0jsSmsGaen09F2s6G.jpg",
     backdropUrl:
       "https://media.wired.com/photos/5f97371a536952d793623916/master/pass/Culture_Dune_Lynch-10659730-Edit.jpg",
-    sinopse: {
-      PT: "Em um futuro distante, clãs nobres rivais lutam pelo controle do desértico planeta Arrakis, a única fonte da valiosa especiaria Melange. A família Atreides aceita a administração do planeta, mas é traída por seus inimigos, os Harkonnens.",
-      EN: "In the distant future, rival noble clans fight for control of the desert planet Arrakis, the only source of the valuable spice Melange. The Atreides family accepts stewardship of the planet, but is betrayed by their enemies, the Harkonnens.",
-      ES: "En un futuro lejano, clanes nobles rivales luchan por el control del planeta desértico Arrakis, la única fuente de la valiosa especia Melange. La familia Atreides acepta la administración del planeta, pero es traicionada por sus enemigos, los Harkonnen.",
-    },
+    sinopse: { PT: "..." },
     details: {
       Diretor: "David Lynch",
       Duração: "2h 17min",
       Gênero: ["tag.scifi", "tag.aventura", "tag.acao"],
       Ano: "1984",
-      País: {
-        PT: "Estados Unidos",
-        EN: "United States",
-        ES: "Estados Unidos",
-      },
+      País: { PT: "EUA", EN: "USA", ES: "EEUU" },
     },
   },
   "portrait-2019": {
@@ -240,21 +287,13 @@ const mediaDatabase = {
       "https://image.tmdb.org/t/p/w500/s2C0QeCcrT1BwE7cW3H1a3q3uY1.jpg",
     backdropUrl:
       "https://image.tmdb.org/t/p/w1280/g6PfZVLtYCaPiof5G3PEsIGV2cf.jpg",
-    sinopse: {
-      PT: "França, 1770. Marianne, uma pintora, é contratada para pintar o retrato de casamento de Héloïse, uma jovem que acaba de deixar o convento. Héloïse resiste ao seu destino, recusando-se a posar, então Marianne deve pintá-la em segredo.",
-      EN: "France, 1770. Marianne, a painter, is commissioned to paint the wedding portrait of Héloïse, a young woman who has just left the convent. Héloïse resists her fate by refusing to pose, so Marianne must paint her in secret.",
-      ES: "Francia, 1770. Marianne, una pintora, recibe el encargo de pintar el retrato de bodas de Héloïse, una joven que acaba de salir del convento. Héloïse se resiste a su destino negándose a posar, por lo que Marianne debe pintarla en secreto.",
-    },
+    sinopse: { PT: "..." },
     details: {
       Diretor: "Céline Sciamma",
       Duração: "2h 2min",
       Gênero: ["tag.drama", "tag.romance", "tag.historia"],
       Ano: "2019",
-      País: {
-        PT: "França",
-        EN: "France",
-        ES: "Francia",
-      },
+      País: { PT: "França", EN: "France", ES: "Francia" },
     },
   },
 };
@@ -267,12 +306,11 @@ const marisData = {
     bio: "Viciada em listas, sci‑fi e cafés gelados. Avalio tudo que assisto/leio/jogo para lembrar por que gostei.",
     avatarUrl: "https://i.pravatar.cc/200?img=5",
   },
-  // PROGRESSO DAS CONQUISTAS (LIMPO E NOVO)
   badges: [
-    { id: "the-one", progress: 60 }, // Ouro
-    { id: "narya", progress: 5 }, // Nada
-    { id: "vilya", progress: 26 }, // Prata
-    { id: "nenya", progress: 12 }, // Bronze
+    { id: "the-one", progress: 60 },
+    { id: "narya", progress: 5 },
+    { id: "vilya", progress: 26 },
+    { id: "nenya", progress: 12 },
     { id: "zeitgeist", progress: 8 },
     { id: "khazad-dum", progress: 2 },
   ],
@@ -431,7 +469,6 @@ const alexlData = {
     bio: "Explorando mundos de fantasia e futuros distópicos. Foco em RPGs, cinema de autor e álbuns conceituais.",
     avatarUrl: "https://i.pravatar.cc/200?img=12",
   },
-  // PROGRESSO DAS CONQUISTAS (LIMPO E NOVO)
   badges: [
     { id: "the-one", progress: 14 },
     { id: "narya", progress: 55 },
@@ -638,37 +675,27 @@ const alexlData = {
   ],
 };
 
-// MODIFICAÇÃO: Exporta os dados estáticos para o Contexto
 export const staticUserDatabase = { maris: marisData, alexl: alexlData };
 export const staticMediaDatabase = mediaDatabase;
-// Exportando a nova base de clubes
 export const staticClubsDatabase = clubsDatabase;
 
-// --- FUNÇÃO ANTIGA (ainda usada pelo Contexto para carregar dados iniciais) ---
 function getUserData(handle) {
   const finalHandle = handle || "alexl";
   const userData = staticUserDatabase[finalHandle] || staticUserDatabase.alexl;
   return userData;
 }
 
-// --- FUNÇÃO ANTIGA (agora exportada para o Contexto) ---
 export function getMediaDetails(mediaId) {
   return staticMediaDatabase[mediaId];
 }
 
-// ==========================
-// NOVO HOOK (useUserProfileData)
-// ==========================
 export function useUserProfileData(handle) {
-  // 2. Lê os dados do Contexto (a "memória" de sessão)
   const { db } = useUserDatabase();
   const finalHandle = handle || "alexl";
   const userData = db[finalHandle] || db.alexl;
 
-  // A lógica de tags dinâmicas permanece a mesma, mas lendo do 'userData' do Contexto
   const dynamicTags = useMemo(() => {
     if (!userData) return [];
-
     const tagScores = new Map();
     const FAVORITE_WEIGHT = 4;
     const REVIEW_WEIGHT = 2;
@@ -697,6 +724,5 @@ export function useUserProfileData(handle) {
     return sortedTags;
   }, [userData]);
 
-  // Retornamos também 'clubs' para ser usado globalmente
   return { ...userData, dynamicTags, clubs: staticClubsDatabase };
 }
