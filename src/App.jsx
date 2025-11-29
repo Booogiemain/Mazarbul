@@ -18,6 +18,7 @@ import FavoritesPage from "./pages/FavoritesPage/FavoritesPage.jsx";
 import ReviewsPage from "./pages/ReviewsPage/ReviewsPage.jsx";
 import AchievementsPage from "./pages/AchievementsPage/AchievementsPage.jsx";
 import ListManagementPage from "./pages/ListManagementPage/ListManagementPage.jsx";
+import ClubsDiscoveryPage from "./pages/ClubsDiscoveryPage/ClubsDiscoveryPage.jsx"; // NOVA PÁGINA
 
 // Importar os hooks
 import { useTheme } from "./hooks/useTheme";
@@ -70,6 +71,13 @@ function App() {
             path="/media/:mediaId"
             element={<MediaDetailsPage {...pageProps} />}
           />
+
+          {/* NOVA ROTA DE CLUBES */}
+          <Route
+            path="/clubs"
+            element={<ClubsDiscoveryPage {...pageProps} />}
+          />
+
           <Route path="/login" element={<LoginPage {...pageProps} />} />
           <Route path="/register" element={<RegisterPage {...pageProps} />} />
           <Route

@@ -39,6 +39,94 @@ export const MASTER_ACHIEVEMENTS_LIST = [
 ];
 
 // ==========================
+// BANCO DE DADOS DE CLUBES (NOVO)
+// ==========================
+const clubsDatabase = [
+  {
+    id: "c1",
+    name: "Clube Sci-Fi",
+    description: "Explorando o desconhecido, de Asimov a Cyberpunk.",
+    membersCount: 142,
+    nextMeeting: "27/10 • 20:00",
+    tags: ["tag.scifi", "tag.futurismo", "tag.tecnologia"],
+    coverGradient: "from-indigo-500 via-purple-500 to-pink-500",
+    currentWork: { type: "livro", title: "Duna" },
+  },
+  {
+    id: "c2",
+    name: "Terror à Meia-Noite",
+    description: "Dissecando o horror psicológico e slashers clássicos.",
+    membersCount: 89,
+    nextMeeting: "31/10 • 23:59",
+    tags: ["tag.horror", "tag.cinema", "tag.suspense"],
+    coverGradient: "from-red-900 via-red-600 to-orange-900",
+    currentWork: { type: "filme", title: "Hereditário" },
+  },
+  {
+    id: "c3",
+    name: "Indie Games Corner",
+    description:
+      "Descobrindo joias escondidas e apoiando desenvolvedores independentes.",
+    membersCount: 215,
+    nextMeeting: "10/11 • 18:00",
+    tags: ["tag.indie", "tag.jogos", "tag.art"],
+    coverGradient: "from-emerald-500 via-teal-500 to-cyan-500",
+    currentWork: { type: "jogo", title: "Hollow Knight" },
+  },
+  {
+    id: "c4",
+    name: "Sociedade do Anel",
+    description: "Para os amantes da alta fantasia e construção de mundos.",
+    membersCount: 350,
+    nextMeeting: "05/11 • 19:00",
+    tags: ["tag.fantasia", "tag.rpg", "tag.literatura"],
+    coverGradient: "from-amber-500 via-yellow-600 to-orange-500",
+    currentWork: { type: "livro", title: "O Silmarillion" },
+  },
+  {
+    id: "c5",
+    name: "Cinephiles Noir",
+    description: "Sombras, detetives e a estética do cinema preto e branco.",
+    membersCount: 45,
+    nextMeeting: "15/11 • 21:00",
+    tags: ["tag.noir", "tag.cinema", "tag.classico"],
+    coverGradient: "from-gray-900 via-gray-700 to-gray-500",
+    currentWork: { type: "filme", title: "O Falcão Maltês" },
+  },
+  {
+    id: "c6",
+    name: "Vinil & Café",
+    description: "Apreciação de álbuns completos, do Jazz ao Rock Progressivo.",
+    membersCount: 120,
+    nextMeeting: "Domingo • 10:00",
+    tags: ["tag.musica", "tag.jazz", "tag.rock"],
+    coverGradient: "from-amber-900 via-yellow-900 to-brown-800",
+    currentWork: { type: "album", title: "Kind of Blue" },
+  },
+  {
+    id: "c7",
+    name: "Literatura Latino-Americana",
+    description: "Realismo mágico e as vozes do nosso continente.",
+    membersCount: 78,
+    nextMeeting: "02/11 • 19:30",
+    tags: ["tag.literatura", "tag.cultura", "tag.historia"],
+    coverGradient: "from-green-600 via-yellow-500 to-blue-600",
+    currentWork: { type: "livro", title: "Cem Anos de Solidão" },
+  },
+  {
+    id: "c8",
+    name: "Cyberpunk Netrunners",
+    description:
+      "High Tech, Low Life. Discussões sobre distopias tecnológicas.",
+    membersCount: 156,
+    nextMeeting: "Sexta • 22:00",
+    tags: ["tag.scifi", "tag.ciberpunk", "tag.tecnologia"],
+    coverGradient: "from-pink-600 via-purple-600 to-cyan-400",
+    currentWork: { type: "jogo", title: "Cyberpunk 2077" },
+  },
+];
+
+// ==========================
 // SIMULAÇÃO DE BANCO DE DADOS (MOCK DB)
 // ==========================
 
@@ -553,6 +641,8 @@ const alexlData = {
 // MODIFICAÇÃO: Exporta os dados estáticos para o Contexto
 export const staticUserDatabase = { maris: marisData, alexl: alexlData };
 export const staticMediaDatabase = mediaDatabase;
+// Exportando a nova base de clubes
+export const staticClubsDatabase = clubsDatabase;
 
 // --- FUNÇÃO ANTIGA (ainda usada pelo Contexto para carregar dados iniciais) ---
 function getUserData(handle) {
@@ -607,5 +697,6 @@ export function useUserProfileData(handle) {
     return sortedTags;
   }, [userData]);
 
-  return { ...userData, dynamicTags };
+  // Retornamos também 'clubs' para ser usado globalmente
+  return { ...userData, dynamicTags, clubs: staticClubsDatabase };
 }
