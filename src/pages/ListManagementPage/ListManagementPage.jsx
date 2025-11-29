@@ -1,25 +1,13 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import {
-  List,
-  Plus,
-  Edit3,
-  Trash2,
-  Search,
-  Save,
-  X,
-  ChevronLeft,
-} from "lucide-react";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
+import { List, Plus, Edit3, Trash2, Search, Save, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUserDatabase } from "../../contexts/UserDatabaseContext.jsx";
 import { cx } from "../../utils/formatters";
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
 import MediaCard from "../../components/ui/MediaCard/MediaCard.jsx";
 
-// ==========================
-// MOCK DE AUTENTICAÇÃO
 const LOGGED_IN_USER_HANDLE = "alexl";
-// ==========================
 
 // --- Hook para "hidratar" os itens da lista ---
 function useHydratedItems(collectionItems, allFavorites) {
@@ -58,19 +46,27 @@ function useMediaSearch(query) {
 export default function ListManagementPage(props) {
   const { t } = props;
   const { db } = useUserDatabase();
-  const { profile, collections, favorites } = db[LOGGED_IN_USER_HANDLE] || {};
+  const { collections, favorites } = db[LOGGED_IN_USER_HANDLE] || {};
 
-  // Estado para controlar a lógica da UI
+  // Leitura da URL para pegar o ID
+  const [searchParams] = useSearchParams();
+  const initialListId = searchParams.get("id");
+
   const [mode, setMode] = useState("viewing"); // 'viewing', 'creating', 'editing', 'deleting'
   const [selectedListId, setSelectedListId] = useState(null);
 
-  // Encontra a lista selecionada
+  // Efeito para selecionar a lista quando a página carrega
+  useEffect(() => {
+    if (initialListId) {
+      setSelectedListId(initialListId);
+    }
+  }, [initialListId]);
+
   const selectedCollection = useMemo(
     () => collections?.find((c) => c.id === selectedListId),
     [collections, selectedListId],
   );
 
-  // Ações da Coluna Esquerda
   const handleSetMode = (newMode) => {
     if (mode === newMode) {
       setMode("viewing");
@@ -82,7 +78,6 @@ export default function ListManagementPage(props) {
     }
   };
 
-  // Lógica de seleção (Coluna Direita)
   const handleSelectList = (id) => {
     if (mode === "deleting") return;
     if (mode === "creating") {
@@ -91,13 +86,11 @@ export default function ListManagementPage(props) {
     setSelectedListId(id);
   };
 
-  // Callback para limpar seleção após apagar (Coluna Direita)
   const onListDeleted = () => {
     setSelectedListId(null);
     setMode("viewing");
   };
 
-  // Renderiza o conteúdo da coluna do meio
   const renderMiddleColumn = () => {
     if (mode === "creating") {
       return (
@@ -149,7 +142,7 @@ export default function ListManagementPage(props) {
       <HeaderBar {...props} />
       <main className="max-w-7xl mx-auto px-4 pt-24 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-6">
-          {/* Coluna da Esquerda (Ações) - 1/6 da largura */}
+          {/* Coluna Esquerda (Ações) */}
           <div className="lg:col-span-1">
             <h2 className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-3">
               {t("list.actions_title", "Ações")}
@@ -177,10 +170,10 @@ export default function ListManagementPage(props) {
             </nav>
           </div>
 
-          {/* Coluna do Meio (Conteúdo Dinâmico) - 4/6 (2/3) da largura */}
+          {/* Coluna do Meio */}
           <div className="lg:col-span-4">{renderMiddleColumn()}</div>
 
-          {/* Coluna da Direita (Lista de Listas) - 1/6 da largura */}
+          {/* Coluna da Direita */}
           <div className="lg:col-span-1">
             <h2 className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-3">
               {t("section.collections", "Minhas Listas")}
@@ -205,7 +198,7 @@ export default function ListManagementPage(props) {
   );
 }
 
-// --- Componentes Internos da Página ---
+// --- Componentes Internos ---
 
 function ActionButton({
   icon,
@@ -277,7 +270,6 @@ function HotlistButton({ list, isSelected, mode, onClick, onListDeleted, t }) {
         <span className="font-semibold text-sm text-neutral-800 dark:text-neutral-100 line-clamp-1">
           {list.title}
         </span>
-        {/* CORREÇÃO AQUI: Texto de "itens" agora é traduzido */}
         <span className="text-xs text-neutral-500 flex-shrink-0 ml-2">
           {list.items.length}{" "}
           {list.items.length === 1
@@ -358,20 +350,21 @@ function ListContentViewer({ list, allFavorites, t }) {
               <motion.button
                 key="add-button"
                 onClick={() => setIsSearchOpen(true)}
-                className="h-9 w-9 flex-shrink-0 flex items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700"
+                // CORREÇÃO: Classes padronizadas para o estilo Outline (igual ClubsDiscovery)
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-800 bg-transparent text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                 title={t("list.add_media", "Adicionar Mídias")}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0, opacity: 0 }}
               >
-                <Plus className="w-5 h-5" />
+                <Plus className="w-5 h-5" strokeWidth={2} />
               </motion.button>
             )}
           </AnimatePresence>
         </div>
       </div>
 
-      {/* Área de Resultados da Busca (Aparece quando a busca está aberta) */}
+      {/* Área de Resultados da Busca */}
       <AnimatePresence>
         {isSearchOpen && searchQuery.length > 1 && (
           <motion.div
@@ -416,7 +409,6 @@ function ListContentViewer({ list, allFavorites, t }) {
 
       {/* Grelha de Itens Atuais */}
       {hydratedItems.length > 0 ? (
-        // CORREÇÃO: Trocado de 'grid' para 'flex flex-wrap'
         <div className="flex flex-wrap gap-6">
           {hydratedItems.map((item) => (
             <MediaCard
@@ -441,7 +433,6 @@ function ListContentViewer({ list, allFavorites, t }) {
   );
 }
 
-// Formulário de Criação/Edição (Reutilizado na Coluna do Meio)
 function ListForm({ list, isCreating, onListCreated, t }) {
   const { createCollection, updateCollectionDetails } = useUserDatabase();
   const [title, setTitle] = useState(list?.title || "");
@@ -486,7 +477,6 @@ function ListForm({ list, isCreating, onListCreated, t }) {
               ? t("list.create_new", "Criar Nova Lista")
               : t("list.edit_title", "Editar Lista")}
           </h2>
-          {/* Nome da Lista */}
           <div>
             <label
               htmlFor="listTitle"
@@ -506,7 +496,6 @@ function ListForm({ list, isCreating, onListCreated, t }) {
               className="w-full px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             />
           </div>
-          {/* Descrição */}
           <div>
             <label
               htmlFor="listDesc"
@@ -527,7 +516,6 @@ function ListForm({ list, isCreating, onListCreated, t }) {
             ></textarea>
           </div>
         </div>
-        {/* Footer do Formulário */}
         <div className="px-6 py-4 sm:px-8 border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 flex justify-end">
           <button
             type="submit"
