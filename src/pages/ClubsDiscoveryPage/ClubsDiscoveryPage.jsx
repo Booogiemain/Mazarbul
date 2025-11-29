@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from "react";
-import { Search } from "lucide-react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
+import { Search, Plus } from "lucide-react"; // Removi 'X' da importação
 import { cx } from "../../utils/formatters";
 import { useUserProfileData } from "../../hooks/useUserProfileData.js";
 
@@ -18,27 +18,32 @@ export default function ClubsDiscoveryPage({
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
 
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchInputRef = useRef(null);
+
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
+
   const filteredClubs = useMemo(() => {
     if (!clubs) return [];
 
     return clubs.filter((club) => {
-      // 1. Filtro de Texto
       const matchesSearch =
         club.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         club.description.toLowerCase().includes(searchQuery.toLowerCase());
 
-      // 2. Filtro de Categoria (Tags)
       let matchesCategory = true;
-      if (activeFilter === "reading") {
+      if (activeFilter === "reading")
         matchesCategory = club.tags.includes("tag.literatura");
-      } else if (activeFilter === "cinema") {
+      else if (activeFilter === "cinema")
         matchesCategory = club.tags.includes("tag.cinema");
-      } else if (activeFilter === "gaming") {
+      else if (activeFilter === "gaming")
         matchesCategory = club.tags.includes("tag.jogos");
-      } else if (activeFilter === "music") {
-        // Filtro de música adicionado
+      else if (activeFilter === "music")
         matchesCategory = club.tags.includes("tag.musica");
-      }
 
       return matchesSearch && matchesCategory;
     });
@@ -50,20 +55,20 @@ export default function ClubsDiscoveryPage({
       { id: "reading", label: t("clubs.filter_reading") },
       { id: "cinema", label: t("clubs.filter_cinema") },
       { id: "gaming", label: t("clubs.filter_gaming") },
-      { id: "music", label: t("clubs.filter_music") }, // Botão novo
+      { id: "music", label: t("clubs.filter_music") },
     ];
 
     return (
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 items-center">
         {filters.map((f) => (
           <button
             key={f.id}
             onClick={() => setActiveFilter(f.id)}
             className={cx(
-              "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border",
+              "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border whitespace-nowrap",
               activeFilter === f.id
                 ? "bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-500/20"
-                : "bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:border-neutral-300 dark:hover:border-neutral-700",
+                : "bg-transparent border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:border-neutral-300 dark:hover:border-neutral-700",
             )}
           >
             {f.label}
@@ -72,6 +77,9 @@ export default function ClubsDiscoveryPage({
       </div>
     );
   };
+
+  const iconButtonClass =
+    "w-10 h-10 flex items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-800 bg-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors";
 
   return (
     <div className={cx(theme === "dark" ? "dark" : "", "font-sans")}>
@@ -85,7 +93,7 @@ export default function ClubsDiscoveryPage({
         />
 
         <main className="max-w-7xl mx-auto px-4 pt-24 pb-16">
-          <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div className="mb-8 flex flex-col gap-6">
             <div>
               <h1 className="text-3xl font-bold mb-2 text-neutral-900 dark:text-neutral-100">
                 {t("clubs.title")}
@@ -94,24 +102,72 @@ export default function ClubsDiscoveryPage({
                 {t("clubs.subtitle")}
               </p>
             </div>
-          </div>
 
-          <div className="sticky top-20 z-30 bg-neutral-50/80 dark:bg-neutral-950/80 backdrop-blur-md py-4 mb-6 border-b border-neutral-200/50 dark:border-neutral-800/50 -mx-4 px-4">
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 justify-between items-center">
-              <div className="relative w-full md:w-96 group">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400 group-focus-within:text-indigo-500 transition-colors">
-                  <Search size={18} />
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-neutral-200/50 dark:border-neutral-800/50 pb-6">
+              <div className="flex items-center gap-2">
+                {/* Botão Criar Clube (+) */}
+                <button
+                  className={iconButtonClass}
+                  title="Criar novo clube"
+                  onClick={() =>
+                    alert("Funcionalidade de criar clube virá em breve!")
+                  }
+                >
+                  <Plus size={20} strokeWidth={2} />
+                </button>
+
+                {/* Busca Expansível (Comportamento Nativo) */}
+                <div
+                  className={cx(
+                    "flex items-center border rounded-full transition-all duration-300 ease-in-out overflow-hidden bg-transparent",
+                    isSearchOpen
+                      ? "w-64 pl-3 pr-4 border-neutral-300 dark:border-neutral-700" // Padding ajustado pois não tem mais botão X
+                      : "w-10 border-transparent",
+                  )}
+                >
+                  {/* Botão Lupa */}
+                  <button
+                    onClick={() => setIsSearchOpen(true)}
+                    className={cx(
+                      iconButtonClass,
+                      isSearchOpen
+                        ? "border-0 w-auto h-auto p-0 hover:bg-transparent cursor-default"
+                        : "",
+                    )}
+                  >
+                    <Search size={20} strokeWidth={2} />
+                  </button>
+
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onBlur={() => {
+                      // Fecha ao clicar fora.
+                      // Se quiser que feche SOMENTE se estiver vazio, adicione: if(!searchQuery) setIsSearchOpen(false);
+                      // Mas como pediu "clica fora... ela se fecha", vamos fechar sempre.
+                      setIsSearchOpen(false);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") {
+                        setIsSearchOpen(false);
+                        setSearchQuery(""); // Limpa ao cancelar com Esc
+                        e.currentTarget.blur();
+                      }
+                    }}
+                    placeholder="Buscar..."
+                    className={cx(
+                      "bg-transparent border-none outline-none text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 h-10 transition-all duration-300",
+                      isSearchOpen
+                        ? "w-full opacity-100 ml-2"
+                        : "w-0 opacity-0 ml-0",
+                    )}
+                  />
                 </div>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={t("clubs.search_placeholder")}
-                  className="block w-full pl-10 pr-3 py-2.5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-sm placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
-                />
               </div>
 
-              <div className="w-full md:w-auto overflow-x-auto no-scrollbar pb-1 md:pb-0">
+              <div className="w-full md:w-auto overflow-x-auto no-scrollbar">
                 {renderFilters()}
               </div>
             </div>
