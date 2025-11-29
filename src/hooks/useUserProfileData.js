@@ -179,9 +179,9 @@ const marisData = {
     bio: "Viciada em listas, sci‑fi e cafés gelados. Avalio tudo que assisto/leio/jogo para lembrar por que gostei.",
     avatarUrl: "https://i.pravatar.cc/200?img=5",
   },
-  // PROGRESSO DAS CONQUISTAS (NOVO FORMATO)
+  // PROGRESSO DAS CONQUISTAS (LIMPO E NOVO)
   badges: [
-    { id: "the-one", progress: 60 }, // Ouro (52)
+    { id: "the-one", progress: 60 }, // Ouro
     { id: "narya", progress: 5 }, // Nada
     { id: "vilya", progress: 26 }, // Prata
     { id: "nenya", progress: 12 }, // Bronze
@@ -343,13 +343,13 @@ const alexlData = {
     bio: "Explorando mundos de fantasia e futuros distópicos. Foco em RPGs, cinema de autor e álbuns conceituais.",
     avatarUrl: "https://i.pravatar.cc/200?img=12",
   },
-  // PROGRESSO DAS CONQUISTAS (NOVO FORMATO)
+  // PROGRESSO DAS CONQUISTAS (LIMPO E NOVO)
   badges: [
-    { id: "the-one", progress: 14 }, // Bronze
-    { id: "narya", progress: 55 }, // Ouro
-    { id: "nenya", progress: 24 }, // Bronze (quase Prata)
-    { id: "wood-between-worlds", progress: 7 }, // Prata
-    { id: "zeitgeist", progress: 10 }, // Bronze
+    { id: "the-one", progress: 14 },
+    { id: "narya", progress: 55 },
+    { id: "nenya", progress: 24 },
+    { id: "wood-between-worlds", progress: 7 },
+    { id: "zeitgeist", progress: 10 },
   ],
   favorites: [
     {

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { cx, formatScore } from "../../../utils/formatters";
 import RatingStars from "../../ui/RatingStars/RatingStars.jsx";
 
-// Função de arredondamento para o quarto de ponto mais próximo
 const roundToQuarter = (n) => Math.round(n * 4) / 4;
 
 const StarIcon = (props) => (
@@ -16,6 +14,8 @@ export default function UserReviewEditor({ communityAverage, t }) {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
+
+  const MAX_LENGTH = 500; // Limite Rígido
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -40,7 +40,6 @@ export default function UserReviewEditor({ communityAverage, t }) {
     <div className="flex flex-col gap-8">
       {/* --- Seção "Sua Review" --- */}
       <div className="p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-        {/* A CORREÇÃO ESTÁ AQUI: Usando t() para o título */}
         <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-100 mb-4">
           {t("section.yourReview")}
         </h2>
@@ -75,14 +74,20 @@ export default function UserReviewEditor({ communityAverage, t }) {
           </p>
         </div>
 
-        {/* E AQUI: Usando t() para o placeholder */}
-        <textarea
-          value={reviewText}
-          onChange={(e) => setReviewText(e.target.value)}
-          placeholder={t("form.placeholder.review")}
-          className="w-full h-32 p-3 text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
-        />
-        {/* E AQUI: Usando t() para o texto do botão */}
+        <div className="relative">
+          <textarea
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+            placeholder={t("form.placeholder.review")}
+            maxLength={MAX_LENGTH} // Limite aplicado
+            className="w-full h-32 p-3 text-sm rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition resize-none"
+          />
+          {/* Contador de Caracteres */}
+          <div className="absolute bottom-2 right-3 text-xs text-neutral-400">
+            {reviewText.length}/{MAX_LENGTH}
+          </div>
+        </div>
+
         <button className="w-full mt-4 h-10 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-colors">
           {t("action.saveReview")}
         </button>
