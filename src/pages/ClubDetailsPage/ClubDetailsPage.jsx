@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   Users,
   Calendar,
@@ -9,7 +9,6 @@ import {
   Disc,
   Info,
   ChevronLeft,
-  Clock,
   LogOut,
   MessageSquare,
   Pin,
@@ -17,13 +16,18 @@ import {
   Search,
   Plus,
   ChevronRight,
+  Settings,
+  Trash2,
 } from "lucide-react";
 import { cx } from "../../utils/formatters";
 import { useUserProfileData } from "../../hooks/useUserProfileData.js";
+import { useUserDatabase } from "../../contexts/UserDatabaseContext.jsx"; // Importado para deletar
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
+// IMPORTANTE: Importando o novo modal
+import ManageClubModal from "../../components/club/ManageClubModal/ManageClubModal.jsx";
 
-// Ícones para os slots de atividade
 const TypeIcon = {
   livro: BookOpen,
   filme: Film,
@@ -32,34 +36,21 @@ const TypeIcon = {
 };
 
 // ==========================
-// COMPONENTE UNIFICADO DE CARD DE OBRA (ClubWorkCard)
+// COMPONENTE UNIFICADO DE CARD DE OBRA
 // ==========================
 const ClubWorkCard = ({ work, variant = "active", t }) => {
   const WorkIcon = TypeIcon[work.type] || BookOpen;
-
-  // Dados Mockados de Autor/Empresa
-  const authorMap = {
-    Duna: "Frank Herbert",
-    "Duna: Parte Dois": "Denis Villeneuve",
-    Neuromancer: "William Gibson",
-    "Mass Effect Legendary": "BioWare",
-    "Blade Runner Blues": "Vangelis",
-    Hereditário: "Ari Aster",
-  };
-  const author = authorMap[work.title] || "Artista Desconhecido";
+  const author = work.author || "Artista Desconhecido";
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all group">
-      {/* Capa / Ícone Grande */}
+    <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all group cursor-pointer relative">
       <div className="w-20 h-28 bg-neutral-100 dark:bg-neutral-800 rounded-lg flex items-center justify-center shrink-0 text-neutral-400 shadow-sm group-hover:text-indigo-500 transition-colors">
         <WorkIcon size={32} />
       </div>
 
-      <div className="flex-1 flex flex-col">
-        {/* Header: Status (Apenas Histórico) */}
+      <div className="flex-1 flex flex-col justify-center min-w-0">
         {variant === "history" && (
           <div className="flex items-center justify-between mb-1">
-            {/* CORREÇÃO: Usando tradução */}
             <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider">
               {t ? t("club.card.cycle_prev") : "Ciclo Anterior"}
             </span>
@@ -69,22 +60,18 @@ const ClubWorkCard = ({ work, variant = "active", t }) => {
           </div>
         )}
 
-        {/* Título e Autor */}
-        <h4 className="font-bold text-xl text-neutral-900 dark:text-neutral-100 leading-tight mb-0.5">
+        <h4 className="font-bold text-xl text-neutral-900 dark:text-neutral-100 leading-tight mb-0.5 truncate">
           {work.title}
         </h4>
-        <p className="text-sm text-neutral-500 mb-2">{author}</p>
+        <p className="text-sm text-neutral-500 mb-2 truncate">{author}</p>
 
-        {/* Badge de Tipo */}
         <div className="mb-auto">
           <span className="text-[10px] font-bold bg-neutral-100 dark:bg-neutral-800 text-neutral-500 px-2 py-0.5 rounded uppercase tracking-wide border border-neutral-200 dark:border-neutral-700">
             {t ? t(`badge.${work.type}`) : work.type}
           </span>
         </div>
 
-        {/* Footer */}
         <div className="mt-3 pt-3 border-t border-neutral-100 dark:border-neutral-800 flex items-center gap-4 text-xs">
-          {/* Visão Geral */}
           {variant === "overview" && (
             <Link
               to={`/media/${work.id}`}
@@ -93,8 +80,6 @@ const ClubWorkCard = ({ work, variant = "active", t }) => {
               {t ? t("club.card.view_details") : "Ver ficha técnica"}
             </Link>
           )}
-
-          {/* Discussões */}
           {variant === "discussions" && (
             <>
               <div className="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 font-medium">
@@ -112,8 +97,6 @@ const ClubWorkCard = ({ work, variant = "active", t }) => {
               </div>
             </>
           )}
-
-          {/* Histórico */}
           {variant === "history" && (
             <>
               <button className="font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5 hover:underline">
@@ -131,11 +114,14 @@ const ClubWorkCard = ({ work, variant = "active", t }) => {
           )}
         </div>
       </div>
+
+      <div className="self-center hidden sm:block text-neutral-300 dark:text-neutral-700 group-hover:translate-x-1 transition-transform">
+        <ChevronRight size={20} />
+      </div>
     </div>
   );
 };
 
-// Componente Auxiliar: Linha de Tópico
 const DiscussionRow = ({ topic, isExtra, t }) => (
   <div className="flex items-start gap-4 p-4 border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer group last:border-0">
     <div className="pt-1">
@@ -173,7 +159,6 @@ const DiscussionRow = ({ topic, isExtra, t }) => (
   </div>
 );
 
-// Componente Auxiliar: Card de Membro
 const MemberCard = ({ name, handle, role, avatar, t }) => (
   <Link
     to={`/profile/${handle.replace("@", "")}`}
@@ -203,15 +188,32 @@ const MemberCard = ({ name, handle, role, avatar, t }) => (
 
 export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
   const { clubId } = useParams();
+  const navigate = useNavigate();
   const { clubs } = useUserProfileData();
+  const { deleteClub } = useUserDatabase(); // Hook para deletar
+  const { currentUser } = useAuth();
 
   const club = clubs?.find((c) => c.id === clubId);
-  const [activeTab, setActiveTab] = useState("overview");
-  const [membershipStatus, setMembershipStatus] = useState("not_member");
-  const [memberSearch, setMemberSearch] = useState("");
 
+  // Estado para controlar o Modal de Gestão
+  const [isManageModalOpen, setIsManageModalOpen] = useState(false);
+
+  const [activeTab, setActiveTab] = useState("overview");
+  const [memberSearch, setMemberSearch] = useState("");
   const [isMemberSearchOpen, setIsMemberSearchOpen] = useState(false);
   const memberSearchInputRef = useRef(null);
+
+  const userMembership = useMemo(() => {
+    if (!club || !currentUser) return null;
+    return club.members.find(
+      (m) => m.handle.replace("@", "") === currentUser.handle,
+    );
+  }, [club, currentUser]);
+
+  const isMember = !!userMembership;
+  const isOwner = userMembership?.role === "owner";
+  const isMod = userMembership?.role === "mod";
+  const canManage = isOwner || isMod;
 
   useEffect(() => {
     if (isMemberSearchOpen && memberSearchInputRef.current) {
@@ -239,26 +241,48 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
     );
   }
 
-  const handleMainAction = () => {
-    if (membershipStatus === "not_member") setMembershipStatus("pending");
-    else if (membershipStatus === "member") setMembershipStatus("not_member");
+  const handleJoinLeave = () => {
+    alert("Lógica de entrar/sair será implementada no backend.");
+  };
+
+  const handleDeleteClub = () => {
+    if (
+      window.confirm(
+        "Tem certeza que deseja excluir este clube? Esta ação não pode ser desfeita.",
+      )
+    ) {
+      deleteClub(club.id);
+      navigate("/clubs");
+    }
   };
 
   const renderActionButton = () => {
-    if (membershipStatus === "pending") {
+    if (isOwner) {
       return (
-        <button
-          disabled
-          className="h-9 px-4 rounded-lg bg-neutral-200 dark:bg-neutral-800 text-neutral-500 text-sm font-medium flex items-center gap-2 cursor-not-allowed opacity-80"
-        >
-          <Clock size={16} /> {t("club.status.pending")}
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Botão de Engrenagem: Agora abre o modal */}
+          <button
+            onClick={() => setIsManageModalOpen(true)}
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-800 bg-transparent text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+            title={t("club.action.manage")}
+          >
+            <Settings size={18} strokeWidth={2} />
+          </button>
+          {/* Botão de Deletar: Agora funciona */}
+          <button
+            onClick={handleDeleteClub}
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-red-200 dark:border-red-900/30 bg-transparent text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            title="Deletar Clube"
+          >
+            <Trash2 size={18} strokeWidth={2} />
+          </button>
+        </div>
       );
     }
-    if (membershipStatus === "member") {
+    if (isMember) {
       return (
         <button
-          onClick={handleMainAction}
+          onClick={handleJoinLeave}
           className="h-9 px-4 rounded-lg border border-red-500/50 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 text-sm font-medium flex items-center gap-2 transition-colors"
         >
           <LogOut size={16} /> {t("club.action.leave")}
@@ -267,7 +291,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
     }
     return (
       <button
-        onClick={handleMainAction}
+        onClick={handleJoinLeave}
         className="h-9 px-6 rounded-lg bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-bold shadow-sm hover:opacity-90 transition-opacity"
       >
         {t("club.action.join")}
@@ -282,7 +306,6 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
       { id: "members", label: t("club.tab.members") },
       { id: "history", label: t("club.tab.history") },
     ];
-
     return (
       <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
         {tabs.map((tab) => (
@@ -310,6 +333,17 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
     return club.topics?.filter((t) => t.context === contextId) || [];
   };
 
+  const bannerStyle = club.bannerUrl
+    ? {
+        backgroundImage: `url(${club.bannerUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }
+    : {};
+  const bannerClass = club.bannerUrl
+    ? "w-full pt-24 pb-8 relative overflow-hidden"
+    : cx("w-full pt-24 pb-8 bg-gradient-to-b", club.coverGradient);
+
   return (
     <div className={cx(theme === "dark" ? "dark" : "", "font-sans")}>
       <div className="min-h-screen bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 transition-colors duration-300">
@@ -321,26 +355,25 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
           t={t}
         />
 
-        <div
-          className={cx(
-            "w-full pt-24 pb-8 bg-gradient-to-b",
-            club.coverGradient,
+        <div className={bannerClass} style={bannerStyle}>
+          {club.bannerUrl && (
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
           )}
-        >
-          <div className="max-w-7xl mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4 relative z-10">
             <Link
               to="/clubs"
               className="text-white/80 hover:text-white mb-6 flex items-center gap-1 text-sm font-medium w-fit"
             >
               <ChevronLeft size={16} /> {t("clubs.title")}
             </Link>
-
             <div className="flex flex-col gap-4">
               <h1 className="text-4xl md:text-5xl font-bold text-white shadow-sm tracking-tight">
                 {club.name}
               </h1>
               <div className="flex items-center gap-4 text-white/90 font-medium">
-                <span className="opacity-80">@{club.id}</span>
+                <span className="opacity-80 font-mono bg-white/10 px-2 py-0.5 rounded">
+                  @{club.id}
+                </span>
                 <span className="w-1 h-1 rounded-full bg-white/50" />
                 <span className="flex items-center gap-1.5">
                   <Users size={16} /> {club.membersCount}{" "}
@@ -356,7 +389,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                     key={tag}
                     className="px-3 py-1 rounded-full bg-black/20 backdrop-blur-sm border border-white/10 text-white text-xs font-medium"
                   >
-                    {t(tag)}
+                    {t ? t(tag) : tag}
                   </span>
                 ))}
               </div>
@@ -375,10 +408,20 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
               {activeTab === "overview" && (
                 <>
                   <section>
-                    <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-neutral-800 dark:text-neutral-100">
-                      <BookOpen className="w-5 h-5 text-indigo-500" />
-                      {t("club.section.active_works")}
-                    </h3>
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-bold flex items-center gap-2 text-neutral-800 dark:text-neutral-100">
+                        <BookOpen className="w-5 h-5 text-indigo-500" />
+                        {t("club.section.active_works")}
+                      </h3>
+                      {canManage && (
+                        <button
+                          className="w-8 h-8 flex items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-800 bg-transparent text-neutral-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                          title="Adicionar nova obra"
+                        >
+                          <Plus size={18} strokeWidth={2.5} />
+                        </button>
+                      )}
+                    </div>
                     {club.activeWorks && club.activeWorks.length > 0 ? (
                       <div className="grid grid-cols-1 gap-4">
                         {club.activeWorks.map((work, idx) => (
@@ -426,12 +469,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                       />
                     </div>
                   </div>
-
                   <div>
-                    <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-neutral-900 dark:text-neutral-100">
-                      <BookOpen className="w-5 h-5 text-indigo-500" />
-                      {t("club.section.active_works")}
-                    </h3>
                     <div className="grid grid-cols-1 gap-3">
                       {club.activeWorks?.map((work) => (
                         <ClubWorkCard
@@ -452,7 +490,6 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                     <h3 className="font-bold text-lg">
                       {t("club.tab.members")} ({club.membersCount})
                     </h3>
-
                     <div
                       className={cx(
                         "flex items-center border rounded-full transition-all duration-300 ease-in-out overflow-hidden bg-transparent",
@@ -494,7 +531,6 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                       />
                     </div>
                   </div>
-
                   {filteredMembers.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {filteredMembers.map((member, idx) => (
@@ -568,6 +604,14 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
             </div>
           </div>
         </main>
+
+        {/* RENDERIZAÇÃO DO MODAL DE GESTÃO */}
+        <ManageClubModal
+          isOpen={isManageModalOpen}
+          onClose={() => setIsManageModalOpen(false)}
+          clubData={club}
+          t={t}
+        />
       </div>
     </div>
   );

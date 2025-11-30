@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { X, Image as ImageIcon } from "lucide-react"; // Removido Shield
+import { X, Image as ImageIcon } from "lucide-react";
 import { useUserDatabase } from "../../../contexts/UserDatabaseContext.jsx";
 import { useAuth } from "../../../contexts/AuthContext.jsx";
 
@@ -14,15 +14,18 @@ export default function CreateClubModal({ isOpen, onClose, t }) {
   const [handle, setHandle] = useState("");
   const [description, setDescription] = useState("");
   const [rules, setRules] = useState("");
-  const [bannerImage, setBannerImage] = useState(null);
-  const [bannerPreview, setBannerPreview] = useState(null);
+
+  // Estado do Banner
+  const [bannerFile, setBannerFile] = useState(null); // Armazena o arquivo
+  const [bannerPreview, setBannerPreview] = useState(null); // Armazena a URL de preview
 
   if (!isOpen) return null;
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setBannerImage(file);
+      setBannerFile(file);
+      // Cria URL temporária para preview
       setBannerPreview(URL.createObjectURL(file));
     }
   };
@@ -40,22 +43,26 @@ export default function CreateClubModal({ isOpen, onClose, t }) {
       id: handle.replace("@", ""),
       description,
       rules,
-      tags: [],
+      tags: [], // Tags virão das mídias no futuro
+      // Gradiente padrão se não houver imagem (ou como base)
       coverGradient: "from-gray-800 via-gray-900 to-black",
+      // No mundo real, faríamos upload do bannerFile aqui.
+      // Como é mock, salvamos o preview se existir.
       bannerUrl: bannerPreview,
       nextMeeting: "A definir",
     };
 
     const newClubId = createClub(currentUser?.handle || "anonimo", newClubData);
 
+    // Limpeza
     setName("");
     setHandle("");
     setDescription("");
     setRules("");
-    setBannerImage(null);
+    setBannerFile(null);
     setBannerPreview(null);
-    onClose();
 
+    onClose();
     navigate(`/club/${newClubId}`);
   };
 
@@ -124,7 +131,7 @@ export default function CreateClubModal({ isOpen, onClose, t }) {
               />
             </div>
 
-            {/* Regras (MOVIDO PARA CIMA e ÍCONE REMOVIDO) */}
+            {/* Regras (Primeiro) */}
             <div>
               <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">
                 {t("club.create.rules_label")}
@@ -138,35 +145,35 @@ export default function CreateClubModal({ isOpen, onClose, t }) {
               />
             </div>
 
-            {/* Upload de Banner (MOVIDO PARA BAIXO) */}
+            {/* Upload de Banner (Depois) */}
             <div>
               <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">
                 {t("club.create.banner_label")}
               </label>
-              <div className="flex items-center gap-4">
-                <div className="w-full h-32 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-dashed border-neutral-300 dark:border-neutral-700 flex items-center justify-center overflow-hidden relative group cursor-pointer">
-                  {bannerPreview ? (
-                    <img
-                      src={bannerPreview}
-                      alt="Preview"
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="text-center text-neutral-500 p-4">
-                      <ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                      <span className="text-xs">
-                        {t("club.create.banner_help")}
-                      </span>
-                    </div>
-                  )}
 
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="absolute inset-0 opacity-0 cursor-pointer"
+              <div className="w-full h-32 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-dashed border-neutral-300 dark:border-neutral-700 flex items-center justify-center overflow-hidden relative group cursor-pointer hover:border-indigo-500 transition-colors">
+                {bannerPreview ? (
+                  <img
+                    src={bannerPreview}
+                    alt="Preview"
+                    className="w-full h-full object-cover"
                   />
-                </div>
+                ) : (
+                  <div className="text-center text-neutral-500 p-4">
+                    <ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                    <span className="text-xs">
+                      {t("club.create.banner_help")}
+                    </span>
+                  </div>
+                )}
+
+                {/* Input File: SEM VALUE controlado */}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="absolute inset-0 opacity-0 cursor-pointer"
+                />
               </div>
             </div>
           </form>

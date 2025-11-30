@@ -59,6 +59,21 @@ const I18N = {
     "club.create.cancel": "Cancelar",
     "club.create.submit": "Criar Clube",
 
+    // --- GESTÃO DE CLUBE (NOVO) ---
+    "club.manage.title": "Gerir Clube",
+    "club.manage.tab_info": "Informações",
+    "club.manage.tab_members": "Membros",
+    "club.manage.tab_works": "Obras",
+    "club.manage.save": "Salvar Alterações",
+    "club.manage.approve": "Aprovar",
+    "club.manage.reject": "Recusar",
+    "club.manage.kick": "Remover",
+    "club.manage.promote": "Promover a Mod",
+    "club.manage.demote": "Rebaixar a Membro",
+    "club.manage.pending_requests": "Solicitações Pendentes",
+    "club.manage.active_members": "Membros Ativos",
+    "club.manage.remove_work": "Encerrar Atividade",
+
     // --- DETALHES DO CLUBE ---
     "club.tab.overview": "Visão Geral",
     "club.tab.discussions": "Discussões",
@@ -165,7 +180,7 @@ const I18N = {
     "details.year": "Ano",
     "details.country": "País",
 
-    // --- LISTAS ---
+    // --- LISTS ---
     "list.actions_title": "Ações",
     "list.owner_prefix": "Lista de",
     "list.empty_state": "Esta lista ainda não tem itens.",
@@ -180,7 +195,7 @@ const I18N = {
       "Selecione uma lista na coluna da direita para apagar.",
     "list.or_create_prompt": "ou crie uma nova.",
     "list.form_name": "Nome",
-    "list.form_name_placeholder": "Ex: Clássicos da Fantasia",
+    "list.form_name_placeholder": "Ex: Clássicos de Fantasia",
     "list.form_desc": "Descrição",
     "list.form_desc_placeholder": "Uma breve descrição da sua lista...",
     "list.form_create_button": "Criar Lista",
@@ -327,17 +342,19 @@ const I18N = {
     "forgot.title": "Recuperar Senha",
     "forgot.subtitle":
       "Insira seu e-mail e enviaremos um link para criar uma nova senha.",
-    "forgot.button": "Enviar link de recuperação",
-    "forgot.back_to_login": "Lembrou a senha? Voltar para o Login",
-    "forgot.success_title": "Link enviado!",
+    "forgot.button": "Enviar enlace de recuperação",
+    "forgot.back_to_login":
+      "¿Recordaste tu contraseña? Volver a Iniciar Sesión",
+    "forgot.success_title": "¡Enlace enviado!",
     "forgot.success_text":
-      "Verifique sua caixa de entrada (e pasta de spam) nos próximos minutos.",
-    "reset.title": "Crie sua nova senha",
-    "reset.subtitle": "Quase lá! Insira sua nova senha abaixo.",
-    "reset.button": "Salvar Nova Senha",
-    "reset.success.title": "Senha Redefinida!",
-    "reset.success.subtitle": "Sua senha foi alterada com sucesso.",
-    "reset.success.button": "Ir para o Login",
+      "Revisa tu bandeja de entrada (y la carpeta de spam) en los próximos minutos.",
+    "reset.title": "Crea tu nueva contraseña",
+    "reset.subtitle":
+      "¡Casi listo! Ingresa tu nueva contraseña a continuación.",
+    "reset.button": "Guardar Nueva Contraseña",
+    "reset.success.title": "¡Contraseña Restablecida!",
+    "reset.success.subtitle": "Tu contraseña ha sido cambiada exitosamente.",
+    "reset.success.button": "Ir a Iniciar Sesión",
   },
   EN: {
     // --- GENERAL ---
@@ -365,7 +382,7 @@ const I18N = {
     "section.communityAverage": "Community Average",
     "section.communityReviews": "Community Voices",
 
-    // --- CLUBS (GENERAL) ---
+    // --- CLUBES ---
     "clubs.title": "Explore Clubs",
     "clubs.subtitle":
       "Find your tribe, join group readings, and discuss your favorite works.",
@@ -396,7 +413,22 @@ const I18N = {
     "club.create.cancel": "Cancel",
     "club.create.submit": "Create Club",
 
-    // --- CLUB DETAILS (NEW) ---
+    // --- CLUB MANAGEMENT (NEW) ---
+    "club.manage.title": "Manage Club",
+    "club.manage.tab_info": "Information",
+    "club.manage.tab_members": "Members",
+    "club.manage.tab_works": "Active Works",
+    "club.manage.save": "Save Changes",
+    "club.manage.approve": "Approve",
+    "club.manage.reject": "Reject",
+    "club.manage.kick": "Remove",
+    "club.manage.promote": "Promote to Mod",
+    "club.manage.demote": "Demote to Member",
+    "club.manage.pending_requests": "Pending Requests",
+    "club.manage.active_members": "Active Members",
+    "club.manage.remove_work": "End Activity",
+
+    // --- DETALHES DO CLUBE (NOVO) ---
     "club.tab.overview": "Overview",
     "club.tab.discussions": "Discussions",
     "club.tab.members": "Members",
@@ -414,6 +446,7 @@ const I18N = {
     "club.next_meeting": "Next Meeting",
     "club.add_to_calendar": "Add to Calendar",
     "club.status.pending": "Pending Approval",
+
     "club.card.topics_open": "open topics",
     "club.card.participating": "participating",
     "club.card.cycle_prev": "Previous Cycle",
@@ -425,13 +458,13 @@ const I18N = {
     "club.placeholder.no_activity": "No active work at the moment.",
     "club.placeholder.no_member": "No members found.",
 
-    // Dynamic Activity Texts
+    // Textos dinâmicos de atividade
     "club.activity.livro": "Reading Now",
     "club.activity.filme": "Watching Now",
     "club.activity.jogo": "Playing Now",
     "club.activity.album": "Listening Now",
 
-    // --- ACHIEVEMENTS ---
+    // --- CONQUISTAS ---
     "section.achievements": "Achievements",
     "achievements.title": "Achievements",
     "achievements.subtitle":
@@ -478,7 +511,7 @@ const I18N = {
     "achievement.desc.dagor-dagorath":
       "Reach the end of a book, film, or game saga.",
 
-    // --- ACTIONS & LABELS ---
+    // --- AÇÕES E LABELS ---
     "action.explore": "Explore",
     "action.see_more": "See more",
     "action.see_all": "See all",
@@ -486,7 +519,7 @@ const I18N = {
     "action.saveReview": "Save Review",
     "label.next": "Next",
 
-    // --- DETAILS ---
+    // --- DETALHES DE MÍDIA ---
     "details.author": "Author",
     "details.pages": "Pages",
     "details.director": "Director",
@@ -526,7 +559,7 @@ const I18N = {
     "list.item_singular": "item",
     "list.item_plural": "items",
 
-    // --- FILTERS & TAGS ---
+    // --- FILTROS E TAGS ---
     "filter.all": "All",
     "filter.movies": "Movies",
     "filter.books": "Books",
@@ -577,7 +610,7 @@ const I18N = {
     "tag.futurismo": "Futurism",
     "tag.tecnologia": "Technology",
 
-    // --- PROFILE & SETTINGS ---
+    // --- PERFIL E SETTINGS ---
     "favorites.title_prefix": "Favorites of",
     "favorites.my_title": "My favorites",
     "reviews.title_prefix": "Reviews by",
@@ -724,6 +757,21 @@ const I18N = {
     "club.create.rules_placeholder": "1. Respeto ante todo...",
     "club.create.cancel": "Cancelar",
     "club.create.submit": "Crear Club",
+
+    // --- CLUB MANAGEMENT (NEW) ---
+    "club.manage.title": "Gestionar Club",
+    "club.manage.tab_info": "Información",
+    "club.manage.tab_members": "Miembros",
+    "club.manage.tab_works": "Obras Activas",
+    "club.manage.save": "Guardar Cambios",
+    "club.manage.approve": "Aprobar",
+    "club.manage.reject": "Rechazar",
+    "club.manage.kick": "Expulsar",
+    "club.manage.promote": "Promover a Mod",
+    "club.manage.demote": "Degradar a Miembro",
+    "club.manage.pending_requests": "Solicitudes Pendientes",
+    "club.manage.active_members": "Miembros Activos",
+    "club.manage.remove_work": "Finalizar Actividad",
 
     // --- CLUB DETAILS (NEW) ---
     "club.tab.overview": "Visión General",
@@ -877,9 +925,9 @@ const I18N = {
     "tag.distopia": "Distopía",
     "tag.politica": "Política",
     "tag.roguelike": "Roguelike",
-    "tag.mitologia": "Mitología",
+    "tag.mitologia": "Mitologia",
     "tag.indie": "Indie",
-    "tag.eletronica": "Electrónica",
+    "tag.eletronica": "Eletrónica",
     "tag.disco": "Disco",
     "tag.funk": "Funk",
     "tag.rpg": "RPG",
