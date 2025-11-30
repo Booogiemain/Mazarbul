@@ -41,7 +41,25 @@ const I18N = {
     "clubs.filter_gaming": "Games",
     "clubs.filter_music": "Música",
 
-    // --- DETALHES DO CLUBE (NOVO) ---
+    // --- CRIAÇÃO DE CLUBE (NOVO) ---
+    "club.create.title": "Criar Novo Clube",
+    "club.create.name_label": "Nome do Clube",
+    "club.create.name_placeholder": "Ex: Sociedade do Anel",
+    "club.create.handle_label": "Identificador do Clube (@)",
+    "club.create.handle_placeholder": "ex: sociedade_anel",
+    "club.create.desc_label": "Descrição Curta",
+    "club.create.desc_placeholder": "Sobre o que é este clube?",
+    "club.create.banner_label": "Banner do Clube",
+    "club.create.banner_help": "Envie uma imagem para ser a capa do clube.",
+    "club.create.visual_label": "Identidade Visual",
+    "club.create.preview": "Preview do Banner",
+    "club.create.tags_label": "Tags (Máx. 3)",
+    "club.create.rules_label": "Regras do Clube",
+    "club.create.rules_placeholder": "1. Respeito acima de tudo...",
+    "club.create.cancel": "Cancelar",
+    "club.create.submit": "Criar Clube",
+
+    // --- DETALHES DO CLUBE ---
     "club.tab.overview": "Visão Geral",
     "club.tab.discussions": "Discussões",
     "club.tab.members": "Membros",
@@ -49,12 +67,27 @@ const I18N = {
     "club.section.active_works": "Em Andamento",
     "club.section.rules": "Regras do Clube",
     "club.section.about": "Sobre",
+    "club.section.general_topics": "Tópicos Gerais",
     "club.action.join": "Entrar no Clube",
     "club.action.leave": "Sair do Clube",
     "club.action.manage": "Gerir Clube",
     "club.role.owner": "Fundador",
+    "club.role.mod": "Mod",
     "club.role.member": "Membro",
     "club.next_meeting": "Próximo Encontro",
+    "club.add_to_calendar": "Adicionar ao Calendário",
+    "club.status.pending": "Aguardando Aprovação",
+
+    "club.card.topics_open": "tópicos abertos",
+    "club.card.participating": "participando",
+    "club.card.cycle_prev": "Ciclo Anterior",
+    "club.card.ended_at": "Encerrado em",
+    "club.card.view_archived": "Ver tópicos arquivados",
+    "club.card.responses": "respostas",
+    "club.card.by": "por",
+    "club.card.view_details": "Ver ficha técnica",
+    "club.placeholder.no_activity": "Nenhuma atividade ativa no momento.",
+    "club.placeholder.no_member": "Nenhum membro encontrado.",
 
     // Textos dinâmicos de atividade
     "club.activity.livro": "Lendo Agora",
@@ -332,10 +365,11 @@ const I18N = {
     "section.communityAverage": "Community Average",
     "section.communityReviews": "Community Voices",
 
-    // --- CLUBS ---
+    // --- CLUBS (GENERAL) ---
     "clubs.title": "Explore Clubs",
     "clubs.subtitle":
       "Find your tribe, join group readings, and discuss your favorite works.",
+    "club.reading_now": "Reading Now",
     "action.visit_club": "Visit Club",
     "clubs.search_placeholder": "Search clubs by name or tag...",
     "clubs.filter_all": "All",
@@ -343,6 +377,24 @@ const I18N = {
     "clubs.filter_cinema": "Cinema",
     "clubs.filter_gaming": "Games",
     "clubs.filter_music": "Music",
+
+    // --- CLUB CREATION (NEW) ---
+    "club.create.title": "Create New Club",
+    "club.create.name_label": "Club Name",
+    "club.create.name_placeholder": "Ex: Fellowship of the Ring",
+    "club.create.handle_label": "Club Handle (@)",
+    "club.create.handle_placeholder": "ex: fellowship_ring",
+    "club.create.desc_label": "Short Description",
+    "club.create.desc_placeholder": "What is this club about?",
+    "club.create.banner_label": "Club Banner",
+    "club.create.banner_help": "Upload an image to be the club cover.",
+    "club.create.visual_label": "Visual Identity",
+    "club.create.preview": "Banner Preview",
+    "club.create.tags_label": "Tags (Max 3)",
+    "club.create.rules_label": "Club Rules",
+    "club.create.rules_placeholder": "1. Respect above all...",
+    "club.create.cancel": "Cancel",
+    "club.create.submit": "Create Club",
 
     // --- CLUB DETAILS (NEW) ---
     "club.tab.overview": "Overview",
@@ -352,12 +404,26 @@ const I18N = {
     "club.section.active_works": "Active Works",
     "club.section.rules": "Club Rules",
     "club.section.about": "About",
+    "club.section.general_topics": "General Topics",
     "club.action.join": "Join Club",
     "club.action.leave": "Leave Club",
     "club.action.manage": "Manage Club",
     "club.role.owner": "Founder",
+    "club.role.mod": "Mod",
     "club.role.member": "Member",
     "club.next_meeting": "Next Meeting",
+    "club.add_to_calendar": "Add to Calendar",
+    "club.status.pending": "Pending Approval",
+    "club.card.topics_open": "open topics",
+    "club.card.participating": "participating",
+    "club.card.cycle_prev": "Previous Cycle",
+    "club.card.ended_at": "Ended on",
+    "club.card.view_archived": "View archived topics",
+    "club.card.responses": "replies",
+    "club.card.by": "by",
+    "club.card.view_details": "View details",
+    "club.placeholder.no_activity": "No active work at the moment.",
+    "club.placeholder.no_member": "No members found.",
 
     // Dynamic Activity Texts
     "club.activity.livro": "Reading Now",
@@ -603,22 +669,7 @@ const I18N = {
     "reset.success.button": "Go to Login",
   },
   ES: {
-    // ... (Espanhol atualizado implicitamente, mantenha o arquivo completo para ES também se desejar, mas PT e EN são os mais críticos agora)
-    // Para economizar espaço na resposta, estou replicando a estrutura do PT para ES apenas nas chaves novas:
-    "club.tab.overview": "Visión General",
-    "club.tab.discussions": "Discusiones",
-    "club.tab.members": "Miembros",
-    "club.tab.history": "Historial",
-    "club.section.active_works": "En Progreso",
-    "club.section.rules": "Reglas del Club",
-    "club.section.about": "Sobre",
-    "club.action.join": "Unirse al Club",
-    "club.action.leave": "Salir del Club",
-    "club.action.manage": "Gestionar Club",
-    "club.role.owner": "Fundador",
-    "club.role.member": "Miembro",
-    "club.next_meeting": "Próxima Reunión",
-    // ... resto do ES mantido ...
+    // --- GENERAL ---
     "nav.back_home": "Volver al inicio",
     "search.placeholder": "Búsqueda rápida...",
     "a11y.open_search": "Abrir búsqueda",
@@ -628,6 +679,8 @@ const I18N = {
     "a11y.user_profile": "Mi perfil",
     "a11y.add_favorite": "Añadir a favoritos",
     "a11y.remove_favorite": "Quitar de favoritos",
+
+    // --- SECTIONS ---
     "section.highlights": "Destacados",
     "section.recents": "Recientes",
     "section.clubs": "Clubes",
@@ -640,6 +693,8 @@ const I18N = {
     "section.yourReview": "Tu Reseña",
     "section.communityAverage": "Promedio de la Comunidad",
     "section.communityReviews": "Voces de la Comunidad",
+
+    // --- CLUBES ---
     "clubs.title": "Explorar Clubes",
     "clubs.subtitle":
       "Encuentra tu tribu, participa en lecturas conjuntas y discute tus obras favoritas.",
@@ -651,10 +706,61 @@ const I18N = {
     "clubs.filter_cinema": "Cine",
     "clubs.filter_gaming": "Juegos",
     "clubs.filter_music": "Música",
+
+    // --- CLUB CREATION (NEW) ---
+    "club.create.title": "Crear Nuevo Club",
+    "club.create.name_label": "Nombre del Club",
+    "club.create.name_placeholder": "Ej: La Comunidad del Anillo",
+    "club.create.handle_label": "Identificador del Club (@)",
+    "club.create.handle_placeholder": "ej: comunidad_anillo",
+    "club.create.desc_label": "Descripción Corta",
+    "club.create.desc_placeholder": "¿De qué trata este club?",
+    "club.create.banner_label": "Banner del Club",
+    "club.create.banner_help": "Sube una imagen para ser la portada del club.",
+    "club.create.visual_label": "Identidad Visual",
+    "club.create.preview": "Vista Previa del Banner",
+    "club.create.tags_label": "Etiquetas (Máx. 3)",
+    "club.create.rules_label": "Reglas del Club",
+    "club.create.rules_placeholder": "1. Respeto ante todo...",
+    "club.create.cancel": "Cancelar",
+    "club.create.submit": "Crear Club",
+
+    // --- CLUB DETAILS (NEW) ---
+    "club.tab.overview": "Visión General",
+    "club.tab.discussions": "Discusiones",
+    "club.tab.members": "Miembros",
+    "club.tab.history": "Historial",
+    "club.section.active_works": "En Progreso",
+    "club.section.rules": "Reglas del Club",
+    "club.section.about": "Sobre",
+    "club.section.general_topics": "Temas Generales",
+    "club.action.join": "Unirse al Club",
+    "club.action.leave": "Salir del Club",
+    "club.action.manage": "Gestionar Club",
+    "club.role.owner": "Fundador",
+    "club.role.mod": "Mod",
+    "club.role.member": "Miembro",
+    "club.next_meeting": "Próxima Reunión",
+    "club.add_to_calendar": "Añadir al Calendario",
+    "club.status.pending": "Esperando Aprobación",
+    "club.card.topics_open": "temas abiertos",
+    "club.card.participating": "participando",
+    "club.card.cycle_prev": "Ciclo Anterior",
+    "club.card.ended_at": "Terminado en",
+    "club.card.view_archived": "Ver temas archivados",
+    "club.card.responses": "respuestas",
+    "club.card.by": "por",
+    "club.card.view_details": "Ver detalles",
+    "club.placeholder.no_activity": "No hay actividad activa en este momento.",
+    "club.placeholder.no_member": "No se encontraron miembros.",
+
+    // Dynamic Activity Texts
     "club.activity.livro": "Leyendo Ahora",
     "club.activity.filme": "Viendo Ahora",
     "club.activity.jogo": "Jugando Ahora",
     "club.activity.album": "Escuchando Ahora",
+
+    // --- ACHIEVEMENTS ---
     "section.achievements": "Logros",
     "achievements.title": "Logros",
     "achievements.subtitle": "Sigue tu viaje a través del multiverso cultural.",
@@ -704,12 +810,16 @@ const I18N = {
       "Completa el viaje de una tetralogía entera.",
     "achievement.desc.dagor-dagorath":
       "Llega al final de una saga de libros, películas o juegos.",
+
+    // --- ACTIONS & LABELS ---
     "action.explore": "Explorar",
     "action.see_more": "Ver más",
     "action.see_all": "Ver todas",
     "action.manage": "Gestionar",
     "action.saveReview": "Guardar Reseña",
     "label.next": "Próximo",
+
+    // --- DETAILS ---
     "details.author": "Autor",
     "details.pages": "Páginas",
     "details.director": "Director",
@@ -717,6 +827,8 @@ const I18N = {
     "details.genre": "Género",
     "details.year": "Año",
     "details.country": "País",
+
+    // --- LISTS ---
     "list.actions_title": "Acciones",
     "list.owner_prefix": "Lista de",
     "list.empty_state": "Esta lista aún no tiene elementos.",
@@ -731,7 +843,7 @@ const I18N = {
       "Selecciona una lista de la derecha para eliminar.",
     "list.or_create_prompt": "o crea una nueva.",
     "list.form_name": "Nombre",
-    "list.form_name_placeholder": "Ej: Clásicos de Fantasía",
+    "list.form_name_placeholder": "Ej: Clássicos de Fantasía",
     "list.form_desc": "Descripción",
     "list.form_desc_placeholder": "Una breve descripción de tu lista...",
     "list.form_create_button": "Crear Lista",
@@ -746,6 +858,8 @@ const I18N = {
     "list.empty_state_editor": "Añade medios usando la búsqueda de arriba.",
     "list.item_singular": "elemento",
     "list.item_plural": "elementos",
+
+    // --- FILTROS E TAGS ---
     "filter.all": "Todos",
     "filter.movies": "Películas",
     "filter.books": "Libros",
@@ -795,6 +909,8 @@ const I18N = {
     "tag.cultura": "Cultura",
     "tag.futurismo": "Futurismo",
     "tag.tecnologia": "Tecnología",
+
+    // --- PERFIL E SETTINGS ---
     "favorites.title_prefix": "Favoritos de",
     "favorites.my_title": "Mis favoritos",
     "reviews.title_prefix": "Reseñas de",

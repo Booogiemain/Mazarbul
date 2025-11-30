@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useMemo } from "react";
 import {
   staticUserDatabase,
   staticMediaDatabase,
+  staticClubsDatabase, // Importando clubes estáticos
 } from "../hooks/useUserProfileData.js";
 
 // --- Definição do Contexto ---
@@ -14,6 +15,9 @@ export function UserDatabaseProvider({ children }) {
   // Esta é a nossa "memória" de sessão
   const [db, setDb] = useState(staticUserDatabase);
   const mediaDatabase = staticMediaDatabase; // Mídias são sempre estáticas
+
+  // Estado para os Clubes (Inicia com os estáticos, mas permite adicionar novos)
+  const [clubsDb, setClubsDb] = useState(staticClubsDatabase);
 
   // --- Funções para Modificar a "Memória" ---
 
@@ -202,19 +206,44 @@ export function UserDatabaseProvider({ children }) {
     });
   };
 
+  // --- LÓGICA DE CLUBES (NOVO) ---
+  const createClub = (ownerHandle, clubData) => {
+    const newClub = {
+      id: `c_${Date.now()}`, // ID único
+      ownerHandle: ownerHandle.replace("@", ""), // Garante handle limpo
+      membersCount: 1, // Começa com o dono
+      ...clubData,
+      activeWorks: [], // Começa vazio
+      topics: [], // Começa vazio
+      members: [
+        {
+          name: "Fundador", // (Idealmente pegaria do perfil do user, mas simplificado aqui)
+          handle: ownerHandle,
+          role: "owner",
+          avatar: "F",
+        },
+      ],
+    };
+
+    setClubsDb((prevClubs) => [...prevClubs, newClub]);
+    return newClub.id; // Retorna ID para redirecionamento
+  };
+
   // Disponibiliza a "memória" e as funções para a aplicação
   const value = useMemo(
     () => ({
       db,
-      mediaDatabase, // Disponibiliza o mediaDb estático
+      mediaDatabase,
+      clubsDb, // NOVO: Estado dinâmico de clubes
       toggleFavorite,
       createCollection,
       updateCollectionDetails,
       addMediaToCollection,
       removeMediaFromCollection,
       deleteCollection,
+      createClub, // NOVO: Função para criar clube
     }),
-    [db],
+    [db, clubsDb],
   );
 
   return (

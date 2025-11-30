@@ -37,6 +37,7 @@ const TypeIcon = {
 const ClubWorkCard = ({ work, variant = "active", t }) => {
   const WorkIcon = TypeIcon[work.type] || BookOpen;
 
+  // Dados Mockados de Autor/Empresa
   const authorMap = {
     Duna: "Frank Herbert",
     "Duna: Parte Dois": "Denis Villeneuve",
@@ -49,67 +50,82 @@ const ClubWorkCard = ({ work, variant = "active", t }) => {
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all group">
+      {/* Capa / Ícone Grande */}
       <div className="w-20 h-28 bg-neutral-100 dark:bg-neutral-800 rounded-lg flex items-center justify-center shrink-0 text-neutral-400 shadow-sm group-hover:text-indigo-500 transition-colors">
         <WorkIcon size={32} />
       </div>
 
       <div className="flex-1 flex flex-col">
+        {/* Header: Status (Apenas Histórico) */}
         {variant === "history" && (
           <div className="flex items-center justify-between mb-1">
+            {/* CORREÇÃO: Usando tradução */}
             <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider">
-              Ciclo Anterior
+              {t ? t("club.card.cycle_prev") : "Ciclo Anterior"}
             </span>
             <span className="text-xs text-neutral-400">
-              Encerrado em 10 Out
+              {t ? t("club.card.ended_at") : "Encerrado em"} 10 Out
             </span>
           </div>
         )}
 
+        {/* Título e Autor */}
         <h4 className="font-bold text-xl text-neutral-900 dark:text-neutral-100 leading-tight mb-0.5">
           {work.title}
         </h4>
         <p className="text-sm text-neutral-500 mb-2">{author}</p>
 
+        {/* Badge de Tipo */}
         <div className="mb-auto">
           <span className="text-[10px] font-bold bg-neutral-100 dark:bg-neutral-800 text-neutral-500 px-2 py-0.5 rounded uppercase tracking-wide border border-neutral-200 dark:border-neutral-700">
             {t ? t(`badge.${work.type}`) : work.type}
           </span>
         </div>
 
+        {/* Footer */}
         <div className="mt-3 pt-3 border-t border-neutral-100 dark:border-neutral-800 flex items-center gap-4 text-xs">
+          {/* Visão Geral */}
           {variant === "overview" && (
             <Link
               to={`/media/${work.id}`}
               className="font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-1 hover:underline"
             >
-              Ver ficha técnica
+              {t ? t("club.card.view_details") : "Ver ficha técnica"}
             </Link>
           )}
 
+          {/* Discussões */}
           {variant === "discussions" && (
             <>
               <div className="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 font-medium">
                 <MessageSquare size={14} />
-                <span>3 tópicos abertos</span>
+                <span>
+                  3 {t ? t("club.card.topics_open") : "tópicos abertos"}
+                </span>
               </div>
               <span className="text-neutral-300 dark:text-neutral-700">|</span>
               <div className="flex items-center gap-1.5 text-neutral-500">
                 <Users size={14} />
-                <span>42 participando</span>
+                <span>
+                  42 {t ? t("club.card.participating") : "participando"}
+                </span>
               </div>
             </>
           )}
 
+          {/* Histórico */}
           {variant === "history" && (
             <>
               <button className="font-medium text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5 hover:underline">
                 <MessageSquare size={14} />
-                Ver 15 tópicos arquivados
+                {t ? t("club.card.view_archived") : "Ver tópicos arquivados"}
               </button>
               <span className="text-neutral-300 dark:text-neutral-700">|</span>
               <div className="flex items-center gap-1.5 text-neutral-500">
                 <Users size={14} />
-                <span>85 participaram</span>
+                <span>
+                  85 {t ? t("club.card.participating") : "participaram"}
+                </span>
               </div>
             </>
           )}
@@ -120,7 +136,7 @@ const ClubWorkCard = ({ work, variant = "active", t }) => {
 };
 
 // Componente Auxiliar: Linha de Tópico
-const DiscussionRow = ({ topic, isExtra }) => (
+const DiscussionRow = ({ topic, isExtra, t }) => (
   <div className="flex items-start gap-4 p-4 border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer group last:border-0">
     <div className="pt-1">
       {topic.isPinned ? (
@@ -140,13 +156,15 @@ const DiscussionRow = ({ topic, isExtra }) => (
       </h4>
       <div className="flex items-center gap-2 text-xs text-neutral-500">
         <span>
-          por{" "}
+          {t ? t("club.card.by") : "por"}{" "}
           <span className="font-medium text-neutral-700 dark:text-neutral-300">
             @{topic.author}
           </span>
         </span>
         <span>•</span>
-        <span>{topic.replies} respostas</span>
+        <span>
+          {topic.replies} {t ? t("club.card.responses") : "respostas"}
+        </span>
       </div>
     </div>
     <div className="text-xs text-neutral-400 whitespace-nowrap">
@@ -156,7 +174,7 @@ const DiscussionRow = ({ topic, isExtra }) => (
 );
 
 // Componente Auxiliar: Card de Membro
-const MemberCard = ({ name, handle, role, avatar }) => (
+const MemberCard = ({ name, handle, role, avatar, t }) => (
   <Link
     to={`/profile/${handle.replace("@", "")}`}
     className="flex items-center gap-3 p-3 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors group"
@@ -172,12 +190,12 @@ const MemberCard = ({ name, handle, role, avatar }) => (
     </div>
     {role === "owner" && (
       <span className="ml-auto px-2 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-[10px] font-bold uppercase rounded-full">
-        Fundador
+        {t ? t("club.role.owner") : "Fundador"}
       </span>
     )}
     {role === "mod" && (
       <span className="ml-auto px-2 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 text-[10px] font-bold uppercase rounded-full">
-        Mod
+        {t ? t("club.role.mod") : "Mod"}
       </span>
     )}
   </Link>
@@ -190,9 +208,8 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
   const club = clubs?.find((c) => c.id === clubId);
   const [activeTab, setActiveTab] = useState("overview");
   const [membershipStatus, setMembershipStatus] = useState("not_member");
-
-  // Estados da Busca de Membros
   const [memberSearch, setMemberSearch] = useState("");
+
   const [isMemberSearchOpen, setIsMemberSearchOpen] = useState(false);
   const memberSearchInputRef = useRef(null);
 
@@ -234,7 +251,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
           disabled
           className="h-9 px-4 rounded-lg bg-neutral-200 dark:bg-neutral-800 text-neutral-500 text-sm font-medium flex items-center gap-2 cursor-not-allowed opacity-80"
         >
-          <Clock size={16} /> Aguardando Aprovação
+          <Clock size={16} /> {t("club.status.pending")}
         </button>
       );
     }
@@ -244,7 +261,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
           onClick={handleMainAction}
           className="h-9 px-4 rounded-lg border border-red-500/50 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 text-sm font-medium flex items-center gap-2 transition-colors"
         >
-          <LogOut size={16} /> Sair do Clube
+          <LogOut size={16} /> {t("club.action.leave")}
         </button>
       );
     }
@@ -265,6 +282,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
       { id: "members", label: t("club.tab.members") },
       { id: "history", label: t("club.tab.history") },
     ];
+
     return (
       <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
         {tabs.map((tab) => (
@@ -374,7 +392,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                       </div>
                     ) : (
                       <div className="p-6 rounded-xl border border-dashed text-center text-neutral-500">
-                        Nenhuma atividade ativa.
+                        {t("club.placeholder.no_activity")}
                       </div>
                     )}
                   </section>
@@ -386,7 +404,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
-                        Tópicos Gerais
+                        {t("club.section.general_topics")}
                       </h3>
                       <button className="w-8 h-8 flex items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-800 bg-transparent text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
                         <Plus size={18} strokeWidth={2.5} />
@@ -394,7 +412,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                     </div>
                     <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden">
                       {getTopicsByContext("general").map((topic) => (
-                        <DiscussionRow key={topic.id} topic={topic} />
+                        <DiscussionRow key={topic.id} topic={topic} t={t} />
                       ))}
                       <DiscussionRow
                         topic={{
@@ -404,6 +422,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                           isPinned: false,
                         }}
                         isExtra={true}
+                        t={t}
                       />
                     </div>
                   </div>
@@ -431,10 +450,9 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                 <section>
                   <div className="mb-4 flex items-center justify-between">
                     <h3 className="font-bold text-lg">
-                      Membros ({club.membersCount})
+                      {t("club.tab.members")} ({club.membersCount})
                     </h3>
 
-                    {/* BUSCA EXPANSÍVEL (MEMBROS) */}
                     <div
                       className={cx(
                         "flex items-center border rounded-full transition-all duration-300 ease-in-out overflow-hidden bg-transparent",
@@ -453,7 +471,6 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                       >
                         <Search size={18} strokeWidth={2} />
                       </button>
-
                       <input
                         ref={memberSearchInputRef}
                         type="text"
@@ -467,7 +484,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                             e.currentTarget.blur();
                           }
                         }}
-                        placeholder="Buscar membro..."
+                        placeholder={t("search.placeholder")}
                         className={cx(
                           "bg-transparent border-none outline-none text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 h-9 transition-all duration-300",
                           isMemberSearchOpen
@@ -487,12 +504,13 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                           handle={member.handle}
                           role={member.role}
                           avatar={member.avatar}
+                          t={t}
                         />
                       ))}
                     </div>
                   ) : (
                     <p className="text-center text-neutral-500 py-8 border border-dashed rounded-xl border-neutral-300 dark:border-neutral-700">
-                      Nenhum membro encontrado.
+                      {t("club.placeholder.no_member")}
                     </p>
                   )}
                 </section>
@@ -544,7 +562,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                   </span>
                 </div>
                 <button className="w-full py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-semibold text-white transition-colors backdrop-blur-sm">
-                  Adicionar ao Calendário
+                  {t("club.add_to_calendar")}
                 </button>
               </div>
             </div>

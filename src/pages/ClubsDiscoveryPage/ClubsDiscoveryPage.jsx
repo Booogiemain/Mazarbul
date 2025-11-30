@@ -1,10 +1,11 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
-import { Search, Plus } from "lucide-react"; // Removi 'X' da importação
+import { Search, Plus } from "lucide-react";
 import { cx } from "../../utils/formatters";
 import { useUserProfileData } from "../../hooks/useUserProfileData.js";
 
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
 import ClubCard from "../../components/club/ClubCard/ClubCard.jsx";
+import CreateClubModal from "../../components/club/CreateClubModal/CreateClubModal.jsx"; // IMPORTADO
 
 export default function ClubsDiscoveryPage({
   theme,
@@ -20,6 +21,9 @@ export default function ClubsDiscoveryPage({
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const searchInputRef = useRef(null);
+
+  // ESTADO PARA O MODAL
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   useEffect(() => {
     if (isSearchOpen && searchInputRef.current) {
@@ -105,27 +109,24 @@ export default function ClubsDiscoveryPage({
 
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-neutral-200/50 dark:border-neutral-800/50 pb-6">
               <div className="flex items-center gap-2">
-                {/* Botão Criar Clube (+) */}
+                {/* Botão Criar Clube (+) - Agora abre o Modal */}
                 <button
                   className={iconButtonClass}
                   title="Criar novo clube"
-                  onClick={() =>
-                    alert("Funcionalidade de criar clube virá em breve!")
-                  }
+                  onClick={() => setIsCreateModalOpen(true)}
                 >
                   <Plus size={20} strokeWidth={2} />
                 </button>
 
-                {/* Busca Expansível (Comportamento Nativo) */}
+                {/* Busca Expansível */}
                 <div
                   className={cx(
                     "flex items-center border rounded-full transition-all duration-300 ease-in-out overflow-hidden bg-transparent",
                     isSearchOpen
-                      ? "w-64 pl-3 pr-4 border-neutral-300 dark:border-neutral-700" // Padding ajustado pois não tem mais botão X
+                      ? "w-64 pl-3 pr-4 border-neutral-300 dark:border-neutral-700"
                       : "w-10 border-transparent",
                   )}
                 >
-                  {/* Botão Lupa */}
                   <button
                     onClick={() => setIsSearchOpen(true)}
                     className={cx(
@@ -143,16 +144,11 @@ export default function ClubsDiscoveryPage({
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    onBlur={() => {
-                      // Fecha ao clicar fora.
-                      // Se quiser que feche SOMENTE se estiver vazio, adicione: if(!searchQuery) setIsSearchOpen(false);
-                      // Mas como pediu "clica fora... ela se fecha", vamos fechar sempre.
-                      setIsSearchOpen(false);
-                    }}
+                    onBlur={() => setIsSearchOpen(false)}
                     onKeyDown={(e) => {
                       if (e.key === "Escape") {
                         setIsSearchOpen(false);
-                        setSearchQuery(""); // Limpa ao cancelar com Esc
+                        setSearchQuery("");
                         e.currentTarget.blur();
                       }
                     }}
@@ -192,6 +188,13 @@ export default function ClubsDiscoveryPage({
               </p>
             </div>
           )}
+
+          {/* MODAL DE CRIAÇÃO */}
+          <CreateClubModal
+            isOpen={isCreateModalOpen}
+            onClose={() => setIsCreateModalOpen(false)}
+            t={t}
+          />
         </main>
       </div>
     </div>

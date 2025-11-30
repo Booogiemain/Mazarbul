@@ -485,13 +485,21 @@ const mediaDatabase = {
       "https://image.tmdb.org/t/p/w500/1m02V5s5z03iV2lX3a1iV77F22i.jpg",
     backdropUrl:
       "https://image.tmdb.org/t/p/w1280/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg",
-    sinopse: { PT: "...", EN: "...", ES: "..." },
+    sinopse: {
+      PT: "Paul Atreides se une a Chani e aos Fremen em uma guerra de vingança contra os conspiradores que destruíram sua família. Diante de uma escolha entre o amor de sua vida e o destino do universo conhecido, ele se esforça para evitar um futuro terrível que só ele pode prever.",
+      EN: "Paul Atreides unites with Chani and the Fremen on a warpath of revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the known universe, he endeavors to prevent a terrible future only he can foresee.",
+      ES: "Paul Atreides se une a Chani y a los Fremen mientras emprende un camino de venganza contra los conspiradores que destruyeron a su familia. Al enfrentarse a una elección entre el amor de su vida y el destino del universo, se esfuerça por evitar un futuro terrible que solo él pode prever.",
+    },
     details: {
       Diretor: "Denis Villeneuve",
       Duração: "2h 46min",
       Gênero: ["tag.scifi", "tag.aventura"],
       Ano: "2024",
-      País: { PT: "EUA", EN: "USA", ES: "EEUU" },
+      País: {
+        PT: "Estados Unidos",
+        EN: "United States",
+        ES: "Estados Unidos",
+      },
     },
     communityAverage: 9.18,
     communityReviews: [
@@ -506,34 +514,58 @@ const mediaDatabase = {
   "duna-livro": {
     id: "duna-livro",
     type: "livro",
-    title: { PT: "Duna", EN: "Dune", ES: "Dune" },
+    title: {
+      PT: "Duna",
+      EN: "Dune",
+      ES: "Dune",
+    },
     posterUrl:
       "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1555447414l/44767458.jpg",
     backdropUrl: "https://images.alphacoders.com/133/1333069.jpeg",
-    sinopse: { PT: "..." },
+    sinopse: {
+      PT: "Uma mistura de aventura e misticismo, ecologia e política, este romance premiado deu origem a um dos universos mais épicos da ficção científica.",
+      EN: "A blend of adventure and mysticism, ecology and politics, this award-winning novel gave rise to one of the most epic universes in science fiction.",
+      ES: "Una mezcla de aventura y misticismo, ecología y política, esta novela galardonada dio origen a uno de los universos más épicos de la ciencia ficción.",
+    },
     details: {
       Autor: "Frank Herbert",
       Páginas: "688",
       Gênero: ["tag.scifi", "tag.fantasia", "tag.epica"],
       Ano: "1965",
-      País: { PT: "EUA", EN: "USA", ES: "EEUU" },
+      País: {
+        PT: "Estados Unidos",
+        EN: "United States",
+        ES: "Estados Unidos",
+      },
     },
   },
   "duna-1984": {
     id: "duna-1984",
     type: "filme",
-    title: { PT: "Duna", EN: "Dune", ES: "Dune" },
+    title: {
+      PT: "Duna",
+      EN: "Dune",
+      ES: "Dune",
+    },
     posterUrl:
       "https://image.tmdb.org/t/p/w500/a3nDwAnKAl0jsSmsGaen09F2s6G.jpg",
     backdropUrl:
       "https://media.wired.com/photos/5f97371a536952d793623916/master/pass/Culture_Dune_Lynch-10659730-Edit.jpg",
-    sinopse: { PT: "..." },
+    sinopse: {
+      PT: "Em um futuro distante, clãs nobres rivais lutam pelo controle do desértico planeta Arrakis, a única fonte da valiosa especiaria Melange. A família Atreides aceita a administração do planeta, mas é traída por seus inimigos, os Harkonnens.",
+      EN: "In the distant future, rival noble clans fight for control of the desert planet Arrakis, the only source of the valuable spice Melange. The Atreides family accepts stewardship of the planet, but is betrayed by their enemies, the Harkonnens.",
+      ES: "En un futuro lejano, clanes nobles rivales luchan por el control del planeta desértico Arrakis, la única fuente de la valiosa especia Melange. La familia Atreides acepta la administración del planeta, pero es traicionada por sus enemigos, los Harkonnen.",
+    },
     details: {
       Diretor: "David Lynch",
       Duração: "2h 17min",
       Gênero: ["tag.scifi", "tag.aventura", "tag.acao"],
       Ano: "1984",
-      País: { PT: "EUA", EN: "USA", ES: "EEUU" },
+      País: {
+        PT: "Estados Unidos",
+        EN: "United States",
+        ES: "Estados Unidos",
+      },
     },
   },
   "portrait-2019": {
@@ -549,13 +581,131 @@ const mediaDatabase = {
       "https://image.tmdb.org/t/p/w500/s2C0QeCcrT1BwE7cW3H1a3q3uY1.jpg",
     backdropUrl:
       "https://image.tmdb.org/t/p/w1280/g6PfZVLtYCaPiof5G3PEsIGV2cf.jpg",
-    sinopse: { PT: "..." },
+    sinopse: {
+      PT: "França, 1770. Marianne, uma pintora, é contratada para pintar o retrato de casamento de Héloïse, uma jovem que acaba de deixar o convento. Héloïse resiste ao seu destino, recusando-se a posar, então Marianne deve pintá-la em segredo.",
+      EN: "France, 1770. Marianne, a painter, is commissioned to paint the wedding portrait of Héloïse, a young woman who has just left the convent. Héloïse resists her fate by refusing to pose, so Marianne must paint her in secret.",
+      ES: "Francia, 1770. Marianne, una pintora, recibe el encargo de pintar el retrato de bodas de Héloïse, una joven que acaba de salir del convento. Héloïse se resiste a su destino negándose a posar, por lo que Marianne debe pintarla en secreto.",
+    },
     details: {
       Diretor: "Céline Sciamma",
       Duração: "2h 2min",
       Gênero: ["tag.drama", "tag.romance", "tag.historia"],
       Ano: "2019",
-      País: { PT: "França", EN: "France", ES: "Francia" },
+      País: {
+        PT: "França",
+        EN: "France",
+        ES: "Francia",
+      },
+    },
+  },
+  m2: {
+    id: "m2",
+    type: "filme",
+    title: { PT: "Parasita" },
+    posterUrl:
+      "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    backdropUrl:
+      "https://image.tmdb.org/t/p/w1280/TU9NIjwzjoKPwQHoHshkFcQUCG.jpg",
+    sinopse: {
+      PT: "A história de uma família pobre que se infiltra na vida de uma família rica.",
+    },
+    details: {
+      Ano: "2019",
+      Gênero: ["tag.drama", "tag.thriller", "tag.comedia"],
+    },
+  },
+  m4: {
+    id: "m4",
+    type: "filme",
+    title: { PT: "Blade Runner 2049" },
+    posterUrl:
+      "https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg",
+    backdropUrl:
+      "https://image.tmdb.org/t/p/w1280/sAtomqDVhNDQBc3QJl3RF6hlhGq.jpg",
+    sinopse: {
+      PT: "K, um novo Blade Runner, descobre um segredo há muito tempo enterrado.",
+    },
+    details: { Ano: "2017", Gênero: ["tag.scifi", "tag.noir", "tag.distopia"] },
+  },
+  m5: {
+    id: "m5",
+    type: "filme",
+    title: { PT: "Oppenheimer" },
+    posterUrl:
+      "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+    backdropUrl:
+      "https://image.tmdb.org/t/p/w1280/fm6KqXpk3M2HVveHwvkHIeHYDI2.jpg",
+    sinopse: {
+      PT: "A história do cientista americano J. Robert Oppenheimer e seu papel no desenvolvimento da bomba atômica.",
+    },
+    details: {
+      Ano: "2023",
+      Gênero: ["tag.biografia", "tag.drama", "tag.historia"],
+    },
+  },
+  g1: {
+    id: "g1",
+    type: "jogo",
+    title: { PT: "Hades" },
+    posterUrl:
+      "https://images.igdb.com/igdb/image/upload/t_cover_big/co2mvt.jpg",
+    sinopse: {
+      PT: "Desafie o deus dos mortos enquanto você batalha para sair do Submundo.",
+    },
+    details: {
+      Ano: "2020",
+      Gênero: ["tag.roguelike", "tag.mitologia", "tag.indie"],
+    },
+  },
+  g2: {
+    id: "g2",
+    type: "jogo",
+    title: { PT: "Baldur's Gate 3" },
+    posterUrl:
+      "https://images.igdb.com/igdb/image/upload/t_cover_big/co670h.jpg",
+    sinopse: { PT: "Reúna seu grupo e retorne aos Reinos Esquecidos." },
+    details: {
+      Ano: "2023",
+      Gênero: ["tag.rpg", "tag.fantasia", "tag.estrategia"],
+    },
+  },
+  b1: {
+    id: "b1",
+    type: "livro",
+    title: { PT: "1984" },
+    posterUrl:
+      "https://images-na.ssl-images-amazon.com/images/I/91SZSW8qSsL.jpg",
+    sinopse: {
+      PT: "Em 1984, Winston Smith vive em uma sociedade totalitária sob o olhar atento do Grande Irmão.",
+    },
+    details: {
+      Ano: "1949",
+      Gênero: ["tag.distopia", "tag.scifi", "tag.politica"],
+    },
+  },
+  b2: {
+    id: "b2",
+    type: "livro",
+    title: { PT: "O Nome do Vento" },
+    posterUrl:
+      "https://images-na.ssl-images-amazon.com/images/I/91M9xPIf10L.jpg",
+    sinopse: {
+      PT: "A história de Kvothe, um jovem dotado de magia, em sua busca por vingança.",
+    },
+    details: { Ano: "2007", Gênero: ["tag.fantasia", "tag.epica"] },
+  },
+  a2: {
+    id: "a2",
+    type: "album",
+    title: { PT: "To Pimp a Butterfly" },
+    posterUrl:
+      "https://upload.wikimedia.org/wikipedia/en/f/f6/Kendrick_Lamar_-_To_Pimp_a_Butterfly.png",
+    sinopse: {
+      PT: "O terceiro álbum de estúdio do rapper americano Kendrick Lamar.",
+    },
+    details: {
+      Ano: "2015",
+      Gênero: ["tag.hiphop", "tag.jazz", "tag.funk", "tag.criticasocial"],
     },
   },
 };
@@ -937,9 +1087,7 @@ const alexlData = {
   ],
 };
 
-export const staticUserDatabase = { maris: marisData, alexl: alexlData };
-export const staticMediaDatabase = mediaDatabase;
-export const staticClubsDatabase = clubsDatabase;
+// --- DADOS DE HOME ESTÁTICOS (Novos) ---
 export const staticHomeDatabase = {
   highlights: [
     {
@@ -1201,6 +1349,10 @@ export const staticHomeDatabase = {
   ],
 };
 
+export const staticUserDatabase = { maris: marisData, alexl: alexlData };
+export const staticMediaDatabase = mediaDatabase;
+export const staticClubsDatabase = clubsDatabase;
+
 function getUserData(handle) {
   const finalHandle = handle || "alexl";
   const userData = staticUserDatabase[finalHandle] || staticUserDatabase.alexl;
@@ -1212,7 +1364,8 @@ export function getMediaDetails(mediaId) {
 }
 
 export function useUserProfileData(handle) {
-  const { db } = useUserDatabase();
+  // LENDO DO CONTEXTO: Agora inclui clubsDb
+  const { db, clubsDb } = useUserDatabase();
   const finalHandle = handle || "alexl";
   const userData = db[finalHandle] || db.alexl;
 
@@ -1246,11 +1399,11 @@ export function useUserProfileData(handle) {
     return sortedTags;
   }, [userData]);
 
-  // Retornamos todos os bancos de dados para uso global
+  // Retorna os dados do usuário + a lista dinâmica de clubes (clubsDb) + dados da home
   return {
     ...userData,
     dynamicTags,
-    clubs: staticClubsDatabase,
-    homeData: staticHomeDatabase, // Exportando dados da Home
+    clubs: clubsDb, // Clubes agora vêm do contexto (estado dinâmico)
+    homeData: staticHomeDatabase, // Home continua estática por enquanto
   };
 }
