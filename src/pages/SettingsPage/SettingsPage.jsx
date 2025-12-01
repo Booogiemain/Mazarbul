@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
 // Ícones
@@ -13,6 +13,10 @@ import {
   Bell,
   Trash2,
 } from "lucide-react";
+
+// IMPORTAÇÕES DE CONTEXTO (NOVO)
+import { useUserDatabase } from "../../contexts/UserDatabaseContext.jsx";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 // --- COMPONENTE DE TOGGLE REUTILIZÁVEL ---
 function ToggleSwitch({ enabled, setEnabled, "aria-label": ariaLabel }) {
@@ -40,8 +44,6 @@ function ToggleSwitch({ enabled, setEnabled, "aria-label": ariaLabel }) {
 /**
  * SectionRow
  * Linha padrão para os blocos 2 e 3 de cada aba.
- * O espaçamento vertical é controlado aqui com py-5, mantendo igual ao cabeçalho.
- * Esquerda: título/descrição. Direita: ação centralizada verticalmente.
  */
 function SectionRow({ title, description, right, titleId }) {
   return (
@@ -154,19 +156,35 @@ function SettingsMenuButton({ label, icon, isActive, onClick }) {
   );
 }
 
-// --- Seção 1: Perfil ---
+// --- Seção 1: Perfil (CONECTADA) ---
 function ProfileSection({ getT }) {
   const fileInputRef = useRef(null);
-  const [avatar, setAvatar] = useState(
-    "https://placehold.co/128x128/E0E0E0/333333?text=A",
-  );
-  const [firstname, setFirstname] = useState("Alex");
-  const [lastname, setLastname] = useState("Lima");
-  const [username] = useState("@alexl");
-  const [bio, setBio] = useState(
-    "Explorando mundos de fantasia e futuros distópicos. Foco em RPGs, cinema de autor e álbuns conceituais.",
-  );
+  const { currentUser } = useAuth(); // Dados Reais
+  const { updateUserProfile } = useUserDatabase(); // Função Real
+
+  // Estados iniciais vazios (preenchidos pelo useEffect)
+  const [avatar, setAvatar] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [bio, setBio] = useState("");
   const [saveState, setSaveState] = useState("idle");
+
+  // Carrega dados reais quando a página monta ou usuário muda
+  useEffect(() => {
+    if (currentUser) {
+      setAvatar(
+        currentUser.avatarUrl ||
+          "https://placehold.co/128x128/E0E0E0/333333?text=A",
+      );
+
+      // Separa Nome e Sobrenome (supondo que no banco é "Alex Lima")
+      const names = (currentUser.name || "").split(" ");
+      setFirstname(names[0] || "");
+      setLastname(names.slice(1).join(" ") || "");
+
+      setBio(currentUser.bio || "");
+    }
+  }, [currentUser]);
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -182,10 +200,17 @@ function ProfileSection({ getT }) {
   const handleSaveProfile = (e) => {
     e.preventDefault();
     setSaveState("saving");
+
+    // Simula um pequeno delay para feedback visual, mas salva de verdade
     setTimeout(() => {
+      updateUserProfile(currentUser.handle, {
+        name: `${firstname} ${lastname}`.trim(),
+        bio: bio,
+        avatarUrl: avatar,
+      });
       setSaveState("saved");
       setTimeout(() => setSaveState("idle"), 2500);
-    }, 1500);
+    }, 600);
   };
 
   const getButtonText = (keyIdle, keySaving, keySaved) => {
@@ -303,7 +328,7 @@ function ProfileSection({ getT }) {
               <input
                 type="text"
                 id="username"
-                value={username}
+                value={currentUser?.handle || "@alexl"} // Valor real
                 readOnly
                 disabled
                 className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800/50 text-neutral-500 dark:text-neutral-400 cursor-not-allowed text-sm"
@@ -359,7 +384,7 @@ function ProfileSection({ getT }) {
   );
 }
 
-// --- Seção 2: Conta (padding e margens corrigidos) ---
+// --- Seção 2: Conta (Mantida igual, mas conectável futuramente) ---
 function AccountSection({ getT }) {
   const email = "alexl@exemplo.com";
   const [currentPassword, setCurrentPassword] = useState("");
@@ -395,7 +420,7 @@ function AccountSection({ getT }) {
           </p>
         </div>
 
-        {/* Conteúdo: sem padding-top extra; espaçamento vem das linhas (py-5) */}
+        {/* Conteúdo */}
         <div className="px-6 sm:px-8 py-0">
           {/* Email */}
           <SectionRow
@@ -423,10 +448,9 @@ function AccountSection({ getT }) {
             }
           />
 
-          {/* divisor full-bleed sem margens extras */}
           <div className="border-b border-neutral-200 dark:border-neutral-800 -mx-6 sm:-mx-8"></div>
 
-          {/* Mudar Senha (terceiro bloco com py-5) */}
+          {/* Mudar Senha */}
           <div className="py-5">
             <h3 className="text-lg font-semibold">
               {getT("settings.account.password.subtitle", "Mudar Senha")}
@@ -525,7 +549,7 @@ function AccountSection({ getT }) {
   );
 }
 
-// --- Seção 3: Preferências (padding e margens corrigidos) ---
+// --- Seção 3: Preferências (Mantida igual, sem botões extras) ---
 function PreferencesSection({ getT }) {
   const [isPrivate, setIsPrivate] = useState(false);
   const [emailNotifications, setEmailNotifications] = useState(true);
@@ -564,7 +588,7 @@ function PreferencesSection({ getT }) {
         </p>
       </div>
 
-      {/* Conteúdo: sem padding-top; cada linha tem py-5 */}
+      {/* Conteúdo */}
       <div className="px-6 sm:px-8 py-0">
         <SectionRow
           title={getT("settings.preferences.privacy", "Privacidade")}

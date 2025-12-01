@@ -196,7 +196,28 @@ export function UserDatabaseProvider({ children }) {
     });
   };
 
-  // --- LÓGICA DE CLUBES (ATUALIZADO) ---
+  // --- LÓGICA DE PERFIL (NOVO) ---
+  const updateUserProfile = (userId, updatedData) => {
+    const userHandle = userId.replace("@", "");
+
+    setDb((prevDb) => {
+      const currentUser = prevDb[userHandle];
+      if (!currentUser) return prevDb;
+
+      return {
+        ...prevDb,
+        [userHandle]: {
+          ...currentUser,
+          profile: {
+            ...currentUser.profile,
+            ...updatedData, // Mescla os novos dados (nome, bio, avatar)
+          },
+        },
+      };
+    });
+  };
+
+  // --- LÓGICA DE CLUBES ---
 
   const createClub = (ownerHandle, clubData) => {
     const newClub = {
@@ -220,7 +241,6 @@ export function UserDatabaseProvider({ children }) {
     return newClub.id;
   };
 
-  // Função para atualizar qualquer dado do clube (usada pelo Modal de Gestão)
   const updateClub = (clubId, updatedData) => {
     setClubsDb((prevClubs) =>
       prevClubs.map((club) =>
@@ -229,7 +249,6 @@ export function UserDatabaseProvider({ children }) {
     );
   };
 
-  // Função para deletar clube
   const deleteClub = (clubId) => {
     setClubsDb((prevClubs) => prevClubs.filter((c) => c.id !== clubId));
   };
@@ -246,8 +265,9 @@ export function UserDatabaseProvider({ children }) {
       removeMediaFromCollection,
       deleteCollection,
       createClub,
-      updateClub, // NOVO
-      deleteClub, // NOVO
+      updateClub,
+      deleteClub,
+      updateUserProfile, // Exportando a nova função
     }),
     [db, clubsDb],
   );
