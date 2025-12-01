@@ -9,6 +9,7 @@ import {
   Disc,
   Info,
   ChevronLeft,
+  Clock,
   LogOut,
   MessageSquare,
   Pin,
@@ -21,11 +22,10 @@ import {
 } from "lucide-react";
 import { cx } from "../../utils/formatters";
 import { useUserProfileData } from "../../hooks/useUserProfileData.js";
-import { useUserDatabase } from "../../contexts/UserDatabaseContext.jsx"; // Importado para deletar
+import { useUserDatabase } from "../../contexts/UserDatabaseContext.jsx";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 
 import HeaderBar from "../../components/layout/HeaderBar/HeaderBar.jsx";
-// IMPORTANTE: Importando o novo modal
 import ManageClubModal from "../../components/club/ManageClubModal/ManageClubModal.jsx";
 
 const TypeIcon = {
@@ -39,6 +39,8 @@ const TypeIcon = {
 // COMPONENTE UNIFICADO DE CARD DE OBRA
 // ==========================
 const ClubWorkCard = ({ work, variant = "active", t }) => {
+  if (!work) return null; // Proteção contra crash
+
   const WorkIcon = TypeIcon[work.type] || BookOpen;
   const author = work.author || "Artista Desconhecido";
 
@@ -122,8 +124,12 @@ const ClubWorkCard = ({ work, variant = "active", t }) => {
   );
 };
 
-const DiscussionRow = ({ topic, isExtra, t }) => (
-  <div className="flex items-start gap-4 p-4 border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer group last:border-0">
+// Componente Auxiliar: Linha de Tópico
+const DiscussionRow = ({ topic, isExtra, t, clubId }) => (
+  <Link
+    to={topic.id ? `/club/${clubId}/topic/${topic.id}` : "#"}
+    className="flex items-start gap-4 p-4 border-b border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer group last:border-0"
+  >
     <div className="pt-1">
       {topic.isPinned ? (
         <Pin size={18} className="text-indigo-500 fill-current" />
@@ -149,19 +155,23 @@ const DiscussionRow = ({ topic, isExtra, t }) => (
         </span>
         <span>•</span>
         <span>
-          {topic.replies} {t ? t("club.card.responses") : "respostas"}
+          {Array.isArray(topic.replies)
+            ? topic.replies.length
+            : topic.replies || 0}{" "}
+          {t ? t("club.card.responses") : "respostas"}
         </span>
       </div>
     </div>
     <div className="text-xs text-neutral-400 whitespace-nowrap">
       {isExtra ? "há 5 min" : "há 2h"}
     </div>
-  </div>
+  </Link>
 );
 
+// Componente Auxiliar: Card de Membro
 const MemberCard = ({ name, handle, role, avatar, t }) => (
   <Link
-    to={`/profile/${handle.replace("@", "")}`}
+    to={`/profile/${handle?.replace("@", "") || ""}`}
     className="flex items-center gap-3 p-3 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors group"
   >
     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neutral-200 to-neutral-400 dark:from-neutral-700 dark:to-neutral-600 flex items-center justify-center text-sm font-bold text-neutral-700 dark:text-neutral-200">
@@ -190,21 +200,20 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
   const { clubId } = useParams();
   const navigate = useNavigate();
   const { clubs } = useUserProfileData();
-  const { deleteClub } = useUserDatabase(); // Hook para deletar
+  const { deleteClub } = useUserDatabase();
   const { currentUser } = useAuth();
 
   const club = clubs?.find((c) => c.id === clubId);
 
-  // Estado para controlar o Modal de Gestão
   const [isManageModalOpen, setIsManageModalOpen] = useState(false);
-
   const [activeTab, setActiveTab] = useState("overview");
   const [memberSearch, setMemberSearch] = useState("");
   const [isMemberSearchOpen, setIsMemberSearchOpen] = useState(false);
   const memberSearchInputRef = useRef(null);
 
+  // --- PROTEÇÃO CONTRA CRASH ---
   const userMembership = useMemo(() => {
-    if (!club || !currentUser) return null;
+    if (!club || !currentUser || !club.members) return null; // Verifica club.members
     return club.members.find(
       (m) => m.handle.replace("@", "") === currentUser.handle,
     );
@@ -221,6 +230,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
     }
   }, [isMemberSearchOpen]);
 
+  // --- PROTEÇÃO CONTRA CRASH ---
   const filteredMembers = useMemo(() => {
     if (!club?.members) return [];
     if (!memberSearch) return club.members;
@@ -260,7 +270,6 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
     if (isOwner) {
       return (
         <div className="flex items-center gap-2">
-          {/* Botão de Engrenagem: Agora abre o modal */}
           <button
             onClick={() => setIsManageModalOpen(true)}
             className="w-9 h-9 flex items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-800 bg-transparent text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
@@ -268,7 +277,6 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
           >
             <Settings size={18} strokeWidth={2} />
           </button>
-          {/* Botão de Deletar: Agora funciona */}
           <button
             onClick={handleDeleteClub}
             className="w-9 h-9 flex items-center justify-center rounded-full border border-red-200 dark:border-red-900/30 bg-transparent text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
@@ -422,6 +430,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                         </button>
                       )}
                     </div>
+                    {/* PROTEÇÃO CONTRA FALTA DE DADOS */}
                     {club.activeWorks && club.activeWorks.length > 0 ? (
                       <div className="grid grid-cols-1 gap-4">
                         {club.activeWorks.map((work, idx) => (
@@ -455,7 +464,12 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                     </div>
                     <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden">
                       {getTopicsByContext("general").map((topic) => (
-                        <DiscussionRow key={topic.id} topic={topic} t={t} />
+                        <DiscussionRow
+                          key={topic.id}
+                          topic={topic}
+                          t={t}
+                          clubId={club.id}
+                        />
                       ))}
                       <DiscussionRow
                         topic={{
@@ -466,6 +480,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                         }}
                         isExtra={true}
                         t={t}
+                        clubId={club.id}
                       />
                     </div>
                   </div>
@@ -580,6 +595,7 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                 </div>
               </div>
 
+              {/* CARD PRÓXIMO ENCONTRO - RECOLOCADO COMO PEDIDO */}
               <div
                 className={cx(
                   "p-5 rounded-2xl shadow-lg text-white bg-gradient-to-br",
@@ -601,11 +617,11 @@ export default function ClubDetailsPage({ theme, setTheme, lang, setLang, t }) {
                   {t("club.add_to_calendar")}
                 </button>
               </div>
+              {/* FIM CARD PRÓXIMO ENCONTRO */}
             </div>
           </div>
         </main>
 
-        {/* RENDERIZAÇÃO DO MODAL DE GESTÃO */}
         <ManageClubModal
           isOpen={isManageModalOpen}
           onClose={() => setIsManageModalOpen(false)}

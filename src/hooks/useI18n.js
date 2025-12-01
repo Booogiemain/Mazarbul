@@ -59,7 +59,7 @@ const I18N = {
     "club.create.cancel": "Cancelar",
     "club.create.submit": "Criar Clube",
 
-    // --- GESTÃO DE CLUBE (NOVO) ---
+    // --- GESTÃO DE CLUBE ---
     "club.manage.title": "Gerir Clube",
     "club.manage.tab_info": "Informações",
     "club.manage.tab_members": "Membros",
@@ -103,6 +103,16 @@ const I18N = {
     "club.card.view_details": "Ver ficha técnica",
     "club.placeholder.no_activity": "Nenhuma atividade ativa no momento.",
     "club.placeholder.no_member": "Nenhum membro encontrado.",
+
+    // --- PÁGINA DE TÓPICO (NOVO) ---
+    "topic.back_to": "Voltar para",
+    "topic.pinned": "Fixado",
+    "topic.started_on": "Iniciado em",
+    "topic.replies_count": "Respostas",
+    "topic.no_replies": "Nenhuma resposta ainda. Seja o primeiro!",
+    "topic.reply_placeholder": "Escreva sua resposta...",
+    "topic.reply_button": "Responder",
+    "topic.content_unavailable": "Conteúdo não disponível.",
 
     // Textos dinâmicos de atividade
     "club.activity.livro": "Lendo Agora",
@@ -195,7 +205,7 @@ const I18N = {
       "Selecione uma lista na coluna da direita para apagar.",
     "list.or_create_prompt": "ou crie uma nova.",
     "list.form_name": "Nome",
-    "list.form_name_placeholder": "Ex: Clássicos de Fantasia",
+    "list.form_name_placeholder": "Ex: Clássicos da Fantasia",
     "list.form_desc": "Descrição",
     "list.form_desc_placeholder": "Uma breve descrição da sua lista...",
     "list.form_create_button": "Criar Lista",
@@ -216,7 +226,7 @@ const I18N = {
     "filter.movies": "Filmes",
     "filter.books": "Livros",
     "filter.games": "Jogos",
-    "filter.albums": "Álbuns",
+    "filter.albums": "Álbums",
     "badge.filme": "Filme",
     "badge.livro": "Livro",
     "badge.jogo": "Jogo",
@@ -313,10 +323,8 @@ const I18N = {
     "settings.preferences.notifications.email.desc":
       "Receber emails quando alguém seguir você ou comentar em suas reviews.",
     "settings.preferences.save_button": "Salvar Preferências",
-
-    // --- FORM ---
     "form.firstname": "Nome",
-    "form.lastname": "Sobrenome",
+    "form.lastname": "Apellido",
     "form.email": "Email",
     "form.username": "Nome de usuário (@)",
     "form.username_rules":
@@ -326,8 +334,6 @@ const I18N = {
     "form.placeholder.review": "Escreva sua review...",
     "alert.username_invalid_format": "Formato do @username inválido.",
     "alert.password_mismatch": "As senhas não conferem!",
-
-    // --- AUTENTICAÇÃO ---
     "login.title": "Login",
     "login.subtitle": "Acesse sua conta Mazarbul.",
     "login.forgot_password": "Esqueceu a senha?",
@@ -342,19 +348,17 @@ const I18N = {
     "forgot.title": "Recuperar Senha",
     "forgot.subtitle":
       "Insira seu e-mail e enviaremos um link para criar uma nova senha.",
-    "forgot.button": "Enviar enlace de recuperação",
-    "forgot.back_to_login":
-      "¿Recordaste tu contraseña? Volver a Iniciar Sesión",
-    "forgot.success_title": "¡Enlace enviado!",
+    "forgot.button": "Enviar link de recuperação",
+    "forgot.back_to_login": "Lembrou a senha? Voltar para o Login",
+    "forgot.success_title": "Link enviado!",
     "forgot.success_text":
-      "Revisa tu bandeja de entrada (y la carpeta de spam) en los próximos minutos.",
-    "reset.title": "Crea tu nueva contraseña",
-    "reset.subtitle":
-      "¡Casi listo! Ingresa tu nueva contraseña a continuación.",
-    "reset.button": "Guardar Nueva Contraseña",
-    "reset.success.title": "¡Contraseña Restablecida!",
-    "reset.success.subtitle": "Tu contraseña ha sido cambiada exitosamente.",
-    "reset.success.button": "Ir a Iniciar Sesión",
+      "Verifique sua caixa de entrada (e pasta de spam) nos próximos minutos.",
+    "reset.title": "Crie sua nova senha",
+    "reset.subtitle": "Quase lá! Insira sua nova senha abaixo.",
+    "reset.button": "Salvar Nova Senha",
+    "reset.success.title": "Senha Redefinida!",
+    "reset.success.subtitle": "Sua senha foi alterada com sucesso.",
+    "reset.success.button": "Ir para o Login",
   },
   EN: {
     // --- GENERAL ---
@@ -382,7 +386,7 @@ const I18N = {
     "section.communityAverage": "Community Average",
     "section.communityReviews": "Community Voices",
 
-    // --- CLUBES ---
+    // --- CLUBS (GENERAL) ---
     "clubs.title": "Explore Clubs",
     "clubs.subtitle":
       "Find your tribe, join group readings, and discuss your favorite works.",
@@ -395,7 +399,7 @@ const I18N = {
     "clubs.filter_gaming": "Games",
     "clubs.filter_music": "Music",
 
-    // --- CLUB CREATION (NEW) ---
+    // --- CLUB CREATION ---
     "club.create.title": "Create New Club",
     "club.create.name_label": "Club Name",
     "club.create.name_placeholder": "Ex: Fellowship of the Ring",
@@ -413,7 +417,7 @@ const I18N = {
     "club.create.cancel": "Cancel",
     "club.create.submit": "Create Club",
 
-    // --- CLUB MANAGEMENT (NEW) ---
+    // --- CLUB MANAGEMENT ---
     "club.manage.title": "Manage Club",
     "club.manage.tab_info": "Information",
     "club.manage.tab_members": "Members",
@@ -428,7 +432,7 @@ const I18N = {
     "club.manage.active_members": "Active Members",
     "club.manage.remove_work": "End Activity",
 
-    // --- DETALHES DO CLUBE (NOVO) ---
+    // --- CLUB DETAILS ---
     "club.tab.overview": "Overview",
     "club.tab.discussions": "Discussions",
     "club.tab.members": "Members",
@@ -446,7 +450,6 @@ const I18N = {
     "club.next_meeting": "Next Meeting",
     "club.add_to_calendar": "Add to Calendar",
     "club.status.pending": "Pending Approval",
-
     "club.card.topics_open": "open topics",
     "club.card.participating": "participating",
     "club.card.cycle_prev": "Previous Cycle",
@@ -458,13 +461,23 @@ const I18N = {
     "club.placeholder.no_activity": "No active work at the moment.",
     "club.placeholder.no_member": "No members found.",
 
-    // Textos dinâmicos de atividade
+    // --- TOPIC PAGE (NOVO) ---
+    "topic.back_to": "Back to",
+    "topic.pinned": "Pinned",
+    "topic.started_on": "Started on",
+    "topic.replies_count": "Replies",
+    "topic.no_replies": "No replies yet. Be the first!",
+    "topic.reply_placeholder": "Write your reply...",
+    "topic.reply_button": "Reply",
+    "topic.content_unavailable": "Content unavailable.",
+
+    // Dynamic Activity Texts
     "club.activity.livro": "Reading Now",
     "club.activity.filme": "Watching Now",
     "club.activity.jogo": "Playing Now",
     "club.activity.album": "Listening Now",
 
-    // --- CONQUISTAS ---
+    // --- ACHIEVEMENTS ---
     "section.achievements": "Achievements",
     "achievements.title": "Achievements",
     "achievements.subtitle":
@@ -511,7 +524,7 @@ const I18N = {
     "achievement.desc.dagor-dagorath":
       "Reach the end of a book, film, or game saga.",
 
-    // --- AÇÕES E LABELS ---
+    // --- ACTIONS & LABELS ---
     "action.explore": "Explore",
     "action.see_more": "See more",
     "action.see_all": "See all",
@@ -519,7 +532,7 @@ const I18N = {
     "action.saveReview": "Save Review",
     "label.next": "Next",
 
-    // --- DETALHES DE MÍDIA ---
+    // --- DETAILS ---
     "details.author": "Author",
     "details.pages": "Pages",
     "details.director": "Director",
@@ -559,7 +572,7 @@ const I18N = {
     "list.item_singular": "item",
     "list.item_plural": "items",
 
-    // --- FILTROS E TAGS ---
+    // --- FILTERS & TAGS ---
     "filter.all": "All",
     "filter.movies": "Movies",
     "filter.books": "Books",
@@ -610,7 +623,7 @@ const I18N = {
     "tag.futurismo": "Futurism",
     "tag.tecnologia": "Technology",
 
-    // --- PERFIL E SETTINGS ---
+    // --- PROFILE & SETTINGS ---
     "favorites.title_prefix": "Favorites of",
     "favorites.my_title": "My favorites",
     "reviews.title_prefix": "Reviews by",
@@ -660,8 +673,6 @@ const I18N = {
     "settings.preferences.notifications.email.desc":
       "Receive emails when someone follows you or comments on your reviews.",
     "settings.preferences.save_button": "Save Preferences",
-
-    // --- FORM ---
     "form.firstname": "First Name",
     "form.lastname": "Last Name",
     "form.email": "Email",
@@ -673,8 +684,6 @@ const I18N = {
     "form.placeholder.review": "Write your review...",
     "alert.username_invalid_format": "@username format is invalid.",
     "alert.password_mismatch": "Passwords do not match!",
-
-    // --- AUTH ---
     "login.title": "Login",
     "login.subtitle": "Access your Mazarbul account.",
     "login.forgot_password": "Forgot password?",
@@ -740,7 +749,7 @@ const I18N = {
     "clubs.filter_gaming": "Juegos",
     "clubs.filter_music": "Música",
 
-    // --- CLUB CREATION (NEW) ---
+    // --- CLUB CREATION ---
     "club.create.title": "Crear Nuevo Club",
     "club.create.name_label": "Nombre del Club",
     "club.create.name_placeholder": "Ej: La Comunidad del Anillo",
@@ -758,7 +767,7 @@ const I18N = {
     "club.create.cancel": "Cancelar",
     "club.create.submit": "Crear Club",
 
-    // --- CLUB MANAGEMENT (NEW) ---
+    // --- CLUB MANAGEMENT (NOVO) ---
     "club.manage.title": "Gestionar Club",
     "club.manage.tab_info": "Información",
     "club.manage.tab_members": "Miembros",
@@ -773,7 +782,7 @@ const I18N = {
     "club.manage.active_members": "Miembros Activos",
     "club.manage.remove_work": "Finalizar Actividad",
 
-    // --- CLUB DETAILS (NEW) ---
+    // --- CLUB DETAILS ---
     "club.tab.overview": "Visión General",
     "club.tab.discussions": "Discusiones",
     "club.tab.members": "Miembros",
@@ -791,6 +800,7 @@ const I18N = {
     "club.next_meeting": "Próxima Reunión",
     "club.add_to_calendar": "Añadir al Calendario",
     "club.status.pending": "Esperando Aprobación",
+
     "club.card.topics_open": "temas abiertos",
     "club.card.participating": "participando",
     "club.card.cycle_prev": "Ciclo Anterior",
@@ -801,6 +811,16 @@ const I18N = {
     "club.card.view_details": "Ver detalles",
     "club.placeholder.no_activity": "No hay actividad activa en este momento.",
     "club.placeholder.no_member": "No se encontraron miembros.",
+
+    // --- TOPIC PAGE (NOVO) ---
+    "topic.back_to": "Volver a",
+    "topic.pinned": "Fijado",
+    "topic.started_on": "Iniciado en",
+    "topic.replies_count": "Respuestas",
+    "topic.no_replies": "Aún no hay respuestas. ¡Sé el primero!",
+    "topic.reply_placeholder": "Escribe tu respuesta...",
+    "topic.reply_button": "Responder",
+    "topic.content_unavailable": "Contenido no disponible.",
 
     // Dynamic Activity Texts
     "club.activity.livro": "Leyendo Ahora",
@@ -925,9 +945,9 @@ const I18N = {
     "tag.distopia": "Distopía",
     "tag.politica": "Política",
     "tag.roguelike": "Roguelike",
-    "tag.mitologia": "Mitologia",
+    "tag.mitologia": "Mitología",
     "tag.indie": "Indie",
-    "tag.eletronica": "Eletrónica",
+    "tag.eletronica": "Electrónica",
     "tag.disco": "Disco",
     "tag.funk": "Funk",
     "tag.rpg": "RPG",

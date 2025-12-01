@@ -19,7 +19,8 @@ import ReviewsPage from "./pages/ReviewsPage/ReviewsPage.jsx";
 import AchievementsPage from "./pages/AchievementsPage/AchievementsPage.jsx";
 import ListManagementPage from "./pages/ListManagementPage/ListManagementPage.jsx";
 import ClubsDiscoveryPage from "./pages/ClubsDiscoveryPage/ClubsDiscoveryPage.jsx";
-import ClubDetailsPage from "./pages/ClubDetailsPage/ClubDetailsPage.jsx"; // NOVA IMPORTAÇÃO
+import ClubDetailsPage from "./pages/ClubDetailsPage/ClubDetailsPage.jsx";
+import ClubTopicPage from "./pages/ClubTopicPage/ClubTopicPage.jsx"; // NOVA IMPORTAÇÃO
 
 // Importar os hooks
 import { useTheme } from "./hooks/useTheme";
@@ -81,6 +82,12 @@ function App() {
           <Route
             path="/club/:clubId"
             element={<ClubDetailsPage {...pageProps} />}
+          />
+
+          {/* NOVA ROTA DE TÓPICO DE CLUBE */}
+          <Route
+            path="/club/:clubId/topic/:topicId"
+            element={<ClubTopicPage {...pageProps} />}
           />
 
           <Route path="/login" element={<LoginPage {...pageProps} />} />

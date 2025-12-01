@@ -296,7 +296,7 @@ const homeDatabase = {
 };
 
 // ==========================
-// BANCO DE DADOS DE CLUBES
+// BANCO DE DADOS DE CLUBES (ATUALIZADO COM CONTEÚDO DE TÓPICOS)
 // ==========================
 const clubsDatabase = [
   {
@@ -321,25 +321,64 @@ const clubsDatabase = [
         id: "t1",
         title: "Boas-vindas e Apresentações",
         author: "alexl",
-        replies: 45,
         isPinned: true,
         context: "general",
+        date: "20 Out 2025",
+        body: "Olá a todos! Sejam bem-vindos ao Clube Sci-Fi. Use este espaço para se apresentar, dizer qual sua obra de ficção científica favorita e o que espera das nossas leituras.\n\nEu começo: Sou o Alex, adoro Philip K. Dick e espero que a gente consiga ler algo de Ursula K. Le Guin esse ano.",
+        replies: [
+          {
+            id: "r1",
+            author: "maris",
+            text: "Oi gente! Sou a Marina. Minha obra favorita é Duna (óbvio).",
+            date: "20 Out 2025",
+          },
+          {
+            id: "r2",
+            author: "joao",
+            text: "E aí pessoal. Sou o João. Gosto muito de Cyberpunk.",
+            date: "21 Out 2025",
+          },
+        ],
       },
       {
         id: "t2",
         title: "Discussão: Capítulos 1-5",
         author: "alexl",
-        replies: 12,
         isPinned: false,
         context: "duna-livro",
+        date: "22 Out 2025",
+        body: "Vamos começar a discussão oficial de Duna! O que vocês acharam da introdução do Paul e do teste do Gom Jabbar?\n\nAchei a tensão da cena incrível, mesmo já tendo visto o filme.",
+        replies: [
+          {
+            id: "r3",
+            author: "maris",
+            text: "A descrição da dor na mão dele é muito vívida. Herbert escreve muito bem.",
+            date: "22 Out 2025",
+          },
+          {
+            id: "r4",
+            author: "bia",
+            text: "Eu fiquei com pena dele, mas entendo a necessidade do teste para as Bene Gesserit.",
+            date: "23 Out 2025",
+          },
+        ],
       },
       {
         id: "t3",
         title: "O filme fez justiça ao livro?",
         author: "maris",
-        replies: 28,
         isPinned: false,
         context: "m1",
+        date: "25 Out 2025",
+        body: "Acabei de rever a Parte Dois. Visualmente é impecável, mas senti falta de alguns diálogos internos do livro. O que vocês acham? A mudança na Chani foi boa ou ruim?",
+        replies: [
+          {
+            id: "r5",
+            author: "lucas",
+            text: "Acho que a mudança na Chani deu mais agência pra ela. No livro ela é meio passiva no final.",
+            date: "25 Out 2025",
+          },
+        ],
       },
     ],
     members: [
@@ -351,6 +390,7 @@ const clubsDatabase = [
       { name: "Beatriz", handle: "@bia", role: "member", avatar: "B" },
     ],
   },
+  // ... MANTENHA OS OUTROS CLUBES (c2 a c8) IGUAIS, APENAS ADICIONANDO CAMPOS VAZIOS SE NECESSÁRIO
   {
     id: "c2",
     name: "Terror à Meia-Noite",
